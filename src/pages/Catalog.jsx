@@ -64,20 +64,20 @@ const Catalog = () => {
   });
 
   if (loading) {
-    return <div className="p-20 text-center font-nunito font-semibold text-brand-azul">Cargando catálogo...</div>;
+    return <div className="p-20 text-center font-amsi font-semibold text-brand-verde-claro-oscuro">Cargando catálogo...</div>;
   }
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] pb-20">
       {/* Top Banner Area */}
-      <div className="w-full bg-gradient-to-r from-brand-azul to-[#2A254A] py-12 mb-8 relative md:rounded-b-[3rem] shadow-lg overflow-hidden">
-        <div className="absolute inset-0 bg-white/5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
+      <div className="w-full bg-brand-verde-oscuro py-12 mb-8 relative md:rounded-b-[3rem] shadow-sm border-b border-brand-verde-oscuro/50 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center justify-between">
           <div className="mb-6 md:mb-0 text-center md:text-left">
-            <h1 className="text-4xl md:text-5xl font-comfortaa font-bold text-white mb-2 tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-collier font-bold text-white mb-2 tracking-tight">
               {segment === 'b2b' ? 'El Parián Mayoristas' : 'Catálogo San Marcos'}
             </h1>
-            <p className="font-nunito text-brand-turquesa font-semibold text-lg">
+            <p className="font-amsi text-brand-verde-claro font-semibold text-lg">
               {segment === 'b2b' ? 'Inventario y precios exclusivos de mayoreo' : 'Nutrición selecta para tu mejor amigo'}
             </p>
           </div>
@@ -88,9 +88,9 @@ const Catalog = () => {
               <button
                 key={cat}
                 onClick={() => setActiveAnimal(cat)}
-                className={`flex-shrink-0 px-6 py-2.5 rounded-full text-sm font-bold font-comfortaa transition-all duration-300 transform hover:scale-105 ${
+                className={`flex-shrink-0 px-6 py-2.5 rounded-full text-sm font-bold font-collier transition-all duration-300 transform hover:scale-105 ${
                   activeAnimal === cat 
-                    ? 'bg-brand-terracota text-white shadow-[0_10px_20px_-10px_rgba(204,106,75,0.5)]' 
+                    ? 'bg-brand-naranja text-white shadow-[0_10px_20px_-10px_rgba(242,109,37,0.5)]' 
                     : 'bg-white/10 text-white hover:bg-white/20 border border-white/10'
                 }`}
               >
@@ -106,7 +106,7 @@ const Catalog = () => {
         {/* Sidebar Filter Menu */}
         <aside className="w-full xl:w-60 flex-shrink-0">
           <div className="bg-white rounded-[2rem] p-5 shadow-sm border border-gray-100 sticky top-24">
-            <h2 className="text-lg font-comfortaa font-bold text-gray-900 mb-5 flex items-center gap-2">
+            <h2 className="text-lg font-collier font-bold text-gray-900 mb-5 flex items-center gap-2">
               Categorías
             </h2>
             <div className="space-y-1">
@@ -116,10 +116,10 @@ const Catalog = () => {
                   <div key={catName} className="border-b border-gray-100 last:border-0 pb-2">
                     <button 
                       onClick={() => toggleCategoryInfo(catName)}
-                      className="w-full flex items-center justify-between py-2.5 text-left font-comfortaa font-bold text-[15px] text-gray-700 hover:text-brand-terracota transition-colors group"
+                      className="w-full flex items-center justify-between py-2.5 text-left font-collier font-bold text-[15px] text-gray-700 hover:text-brand-naranja transition-colors group"
                     >
                       <span className="group-hover:translate-x-1 transition-transform">{catName}</span>
-                      <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} className="text-gray-400 group-hover:text-brand-terracota">
+                      <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} className="text-gray-400 group-hover:text-brand-naranja">
                         <ChevronDown className="w-4 h-4" />
                       </motion.div>
                     </button>
@@ -135,13 +135,13 @@ const Catalog = () => {
                             <li key={sub}>
                               <button
                                 onClick={() => handleSubSelect(sub)}
-                                className={`w-full text-left py-1.5 pl-3 text-sm font-nunito hover:text-brand-terracota transition-all relative ${
+                                className={`w-full text-left py-1.5 pl-3 text-sm font-amsi hover:text-brand-naranja transition-all relative ${
                                   selectedSubCategory === sub 
-                                    ? 'text-brand-terracota font-bold translate-x-1' 
+                                    ? 'text-brand-naranja font-bold translate-x-1' 
                                     : 'text-gray-500 hover:translate-x-1'
                                 }`}
                               >
-                                {selectedSubCategory === sub && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1 rounded-full bg-brand-terracota" />}
+                                {selectedSubCategory === sub && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1 rounded-full bg-brand-naranja" />}
                                 {sub}
                               </button>
                             </li>
@@ -161,12 +161,12 @@ const Catalog = () => {
           
           {selectedSubCategory && (
             <div className="mb-6 flex flex-wrap items-center gap-3 bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100">
-              <span className="text-[13px] text-gray-400 font-nunito uppercase tracking-widest font-bold">Filtro:</span>
-              <span className="inline-flex items-center px-4 py-1.5 bg-brand-turquesa/10 text-brand-azul text-sm font-bold rounded-full font-comfortaa">
+              <span className="text-[13px] text-gray-400 font-amsi uppercase tracking-widest font-bold">Filtro:</span>
+              <span className="inline-flex items-center px-4 py-1.5 bg-brand-verde-claro/10 text-brand-verde-claro-oscuro text-sm font-bold rounded-full font-collier">
                 {selectedSubCategory}
                 <button 
                   onClick={() => setSelectedSubCategory(null)} 
-                  className="ml-3 text-brand-terracota hover:text-brand-crimson transition-colors w-5 h-5 flex items-center justify-center rounded-full bg-white shadow-sm"
+                  className="ml-3 text-brand-naranja hover:text-brand-naranja transition-colors w-5 h-5 flex items-center justify-center rounded-full bg-white shadow-sm"
                 >
                   &times;
                 </button>
@@ -182,8 +182,8 @@ const Catalog = () => {
               <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
                 <ShoppingCart className="w-8 h-8 text-gray-300" />
               </div>
-              <p className="text-gray-500 font-nunito text-lg">No hay productos que coincidan con los filtros.</p>
-              <button onClick={() => { setActiveAnimal('Todos'); setSelectedSubCategory(null); }} className="mt-4 text-brand-terracota font-bold hover:underline">
+              <p className="text-gray-500 font-amsi text-lg">No hay productos que coincidan con los filtros.</p>
+              <button onClick={() => { setActiveAnimal('Todos'); setSelectedSubCategory(null); }} className="mt-4 text-brand-naranja font-bold hover:underline">
                 Limpiar filtros
               </button>
             </motion.div>
@@ -206,7 +206,7 @@ const Catalog = () => {
                     />
                     <div className="absolute top-3 left-3 pr-3 flex flex-col gap-1.5 w-full items-start">
                       {product.stock < 50 && (
-                        <span className="bg-brand-terracota/95 backdrop-blur text-white text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-md border border-brand-terracota/40 shadow-sm">
+                        <span className="bg-brand-naranja/95 backdrop-blur text-white text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-md border border-brand-naranja/40 shadow-sm">
                           Pocas piezas
                         </span>
                       )}
@@ -215,27 +215,27 @@ const Catalog = () => {
 
                   <div className="p-4 flex-1 flex flex-col">
                     {/* Title (No aggressive line clamp, let it breathe) */}
-                    <h3 className="font-comfortaa font-bold leading-tight mb-2.5 text-gray-900 group-hover:text-brand-terracota transition-colors text-[15px] pr-1">
+                    <h3 className="font-collier font-bold leading-tight mb-2.5 text-gray-900 group-hover:text-brand-naranja transition-colors text-[15px] pr-1">
                       {product.name}
                     </h3>
                     
                     {/* Description */}
-                    <p className="text-[13px] text-gray-600 font-nunito mb-5 line-clamp-3 font-normal leading-relaxed">
+                    <p className="text-[13px] text-gray-600 font-amsi mb-5 line-clamp-3 font-normal leading-relaxed">
                       {product.description}
                     </p>
                     
                     {/* Bottom row (Pricing / Button) */}
                     <div className="mt-auto flex items-end justify-between pt-3 border-t border-gray-50">
                       <div className="flex flex-col">
-                        <span className="text-[11px] font-bold text-gray-400 font-nunito mb-0.5 uppercase tracking-wide">Precio</span>
-                        <span className="text-[22px] font-black text-brand-azul font-comfortaa tracking-tighter leading-none">
+                        <span className="text-[11px] font-bold text-gray-400 font-amsi mb-0.5 uppercase tracking-wide">Precio</span>
+                        <span className="text-[22px] font-black text-brand-verde-claro-oscuro font-collier tracking-tighter leading-none">
                           ${product.price.toLocaleString()}
                         </span>
                       </div>
                       
                       <button 
                         onClick={() => addToCart(product)}
-                        className="w-10 h-10 rounded-full bg-gray-50 text-brand-azul flex items-center justify-center hover:bg-brand-terracota hover:text-white hover:scale-110 transition-all duration-300 shadow-sm border border-gray-100 hover:border-transparent flex-shrink-0"
+                        className="w-10 h-10 rounded-full bg-gray-50 text-brand-verde-claro-oscuro flex items-center justify-center hover:bg-brand-naranja hover:text-white hover:scale-110 transition-all duration-300 shadow-sm border border-gray-100 hover:border-transparent flex-shrink-0"
                         title="Agregar al carrito"
                       >
                         <ShoppingCart className="w-4.5 h-4.5" />

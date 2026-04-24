@@ -48,14 +48,14 @@ const Promotions = () => {
     setTimeout(() => setCopiedCode(null), 3000);
   };
 
-  if (loading) return <div className="p-32 text-center font-nunito font-semibold text-brand-azul max-w-[1440px] mx-auto min-h-screen flex items-center justify-center">Cargando ofertas exclusivas...</div>;
+  if (loading) return <div className="p-32 text-center font-amsi font-semibold text-brand-verde-claro-oscuro max-w-[1440px] mx-auto min-h-screen flex items-center justify-center">Cargando ofertas exclusivas...</div>;
 
   if (promotions.length === 0) {
     return (
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-20 min-h-[70vh] flex flex-col items-center justify-center">
         <Gift className="w-20 h-20 text-gray-200 mb-6" />
-        <h2 className="text-2xl font-comfortaa font-bold text-gray-500 mb-2">Sin Promociones Activas</h2>
-        <p className="text-gray-400 font-nunito text-lg">Nuestros asesores están preparando la siguiente gran oferta.</p>
+        <h2 className="text-2xl font-collier font-bold text-gray-500 mb-2">Sin Promociones Activas</h2>
+        <p className="text-gray-400 font-amsi text-lg">Nuestros asesores están preparando la siguiente gran oferta.</p>
       </div>
     );
   }
@@ -72,7 +72,7 @@ const Promotions = () => {
         ========================================
       */}
       <div className={`relative pt-24 pb-32 overflow-hidden shadow-[0_30px_60px_-15px_rgba(45,30,82,0.15)] ${
-        isB2B ? 'bg-gradient-to-r from-[#1b1231] to-[#2d1e52]' : 'bg-gradient-to-r from-brand-crimson to-brand-terracota'
+        isB2B ? 'bg-gradient-to-r from-[#1b1231] to-[#2d1e52]' : 'bg-gradient-to-r from-brand-naranja to-brand-naranja'
       }`}>
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay" />
         
@@ -89,11 +89,11 @@ const Promotions = () => {
             <span className="font-bold text-xs uppercase tracking-[0.2em]">Oferta Estrella del Mes</span>
           </motion.div>
 
-          <motion.h1 initial={{ x: -30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }} className="text-6xl sm:text-7xl lg:text-8xl font-comfortaa font-black text-white mb-6 tracking-tighter leading-none max-w-4xl drop-shadow-md">
+          <motion.h1 initial={{ x: -30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }} className="text-6xl sm:text-7xl lg:text-8xl font-collier font-black text-white mb-6 tracking-tighter leading-none max-w-4xl drop-shadow-md">
             {heroPromo.title}
           </motion.h1>
 
-          <motion.p initial={{ x: -30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="text-xl sm:text-2xl text-white/90 font-nunito mb-12 max-w-2xl leading-relaxed font-semibold">
+          <motion.p initial={{ x: -30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="text-xl sm:text-2xl text-white/90 font-amsi mb-12 max-w-2xl leading-relaxed font-semibold">
             {heroPromo.description}
           </motion.p>
 
@@ -104,11 +104,11 @@ const Promotions = () => {
                 <Timer className="w-4 h-4" /> Termina En
               </div>
               <div className="flex items-center justify-center gap-3 text-white font-mono text-3xl sm:text-4xl font-black">
-                <div>{String(timeLeft.hours).padStart(2, '0')}<span className="text-sm block mt-1 font-nunito uppercase tracking-widest text-white/50">HRS</span></div>
+                <div>{String(timeLeft.hours).padStart(2, '0')}<span className="text-sm block mt-1 font-amsi uppercase tracking-widest text-white/50">HRS</span></div>
                 <div className="text-white/30 -mt-6">:</div>
-                <div>{String(timeLeft.minutes).padStart(2, '0')}<span className="text-sm block mt-1 font-nunito uppercase tracking-widest text-white/50">MIN</span></div>
+                <div>{String(timeLeft.minutes).padStart(2, '0')}<span className="text-sm block mt-1 font-amsi uppercase tracking-widest text-white/50">MIN</span></div>
                 <div className="text-white/30 -mt-6">:</div>
-                <div className="text-[#FFD700]">{String(timeLeft.seconds).padStart(2, '0')}<span className="text-sm block mt-1 font-nunito uppercase tracking-widest text-white/50">SEG</span></div>
+                <div className="text-[#FFD700]">{String(timeLeft.seconds).padStart(2, '0')}<span className="text-sm block mt-1 font-amsi uppercase tracking-widest text-white/50">SEG</span></div>
               </div>
             </motion.div>
 
@@ -123,7 +123,7 @@ const Promotions = () => {
                 <div className="absolute -right-4 w-8 h-8 rounded-full bg-black/20" />
                 <div className="border-t-2 border-b-2 border-dashed border-yellow-600/30 px-6 py-2 flex flex-col items-center">
                   <span className="text-yellow-800 text-[10px] font-black uppercase tracking-[0.2em] mb-1">CÓDIGO DE CUPÓN</span>
-                  <span className="text-2xl sm:text-3xl font-black text-brand-crimson font-comfortaa tracking-wider">
+                  <span className="text-2xl sm:text-3xl font-black text-brand-naranja font-collier tracking-wider">
                     {copiedCode === heroPromo.couponCode ? '¡COPIADO!' : heroPromo.couponCode}
                   </span>
                 </div>
@@ -141,15 +141,15 @@ const Promotions = () => {
       <div className="bg-white border-b border-gray-100 shadow-sm relative z-20 -mt-6 lg:-mt-10 mx-4 sm:mx-6 lg:mx-auto max-w-[1440px] w-[calc(100%-2rem)] rounded-2xl p-6 sm:px-12 flex flex-wrap gap-8 justify-between items-center text-gray-600">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center"><ShieldCheck className="w-6 h-6" /></div>
-          <div><h4 className="font-bold font-comfortaa text-gray-900 leading-tight">Pagos Seguros</h4><p className="text-sm font-nunito">Cifrado de grado bancario</p></div>
+          <div><h4 className="font-bold font-collier text-gray-900 leading-tight">Pagos Seguros</h4><p className="text-sm font-amsi">Cifrado de grado bancario</p></div>
         </div>
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center"><Truck className="w-6 h-6" /></div>
-          <div><h4 className="font-bold font-comfortaa text-gray-900 leading-tight">Envíos Rápidos</h4><p className="text-sm font-nunito">A todo el territorio</p></div>
+          <div><h4 className="font-bold font-collier text-gray-900 leading-tight">Envíos Rápidos</h4><p className="text-sm font-amsi">A todo el territorio</p></div>
         </div>
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-full bg-green-50 text-green-600 flex items-center justify-center"><Award className="w-6 h-6" /></div>
-          <div><h4 className="font-bold font-comfortaa text-gray-900 leading-tight">Calidad Elite</h4><p className="text-sm font-nunito">Aprobado por criadores</p></div>
+          <div><h4 className="font-bold font-collier text-gray-900 leading-tight">Calidad Elite</h4><p className="text-sm font-amsi">Aprobado por criadores</p></div>
         </div>
       </div>
 
@@ -161,9 +161,9 @@ const Promotions = () => {
       {secondaryPromos.length > 0 && (
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 mt-24">
           <div className="flex items-center gap-4 mb-10">
-            <h2 className="text-3xl font-comfortaa font-black text-gray-900">Más Ofertas Especiales</h2>
+            <h2 className="text-3xl font-collier font-black text-gray-900">Más Ofertas Especiales</h2>
             <div className="flex-1 h-px bg-gray-200" />
-            <span className="text-sm font-bold text-gray-400 uppercase tracking-widest font-nunito">{secondaryPromos.length} Activas</span>
+            <span className="text-sm font-bold text-gray-400 uppercase tracking-widest font-amsi">{secondaryPromos.length} Activas</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
@@ -182,7 +182,7 @@ const Promotions = () => {
                   
                   {/* Floating Tag */}
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur shadow-sm rounded-full px-3 py-1 flex items-center gap-1.5">
-                    <Tag className={`w-3.5 h-3.5 ${promo.segment === 'b2b' ? 'text-brand-azul' : 'text-brand-terracota'}`} />
+                    <Tag className={`w-3.5 h-3.5 ${promo.segment === 'b2b' ? 'text-brand-verde-claro-oscuro' : 'text-brand-naranja'}`} />
                     <span className="text-[10px] font-black uppercase tracking-widest text-gray-800">
                       {promo.segment === 'b2b' ? 'MAYOREO' : 'REGULAR'}
                     </span>
@@ -191,10 +191,10 @@ const Promotions = () => {
 
                 {/* Content Box */}
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-comfortaa font-bold text-gray-900 mb-2 leading-tight group-hover:text-brand-terracota transition-colors">
+                  <h3 className="text-xl font-collier font-bold text-gray-900 mb-2 leading-tight group-hover:text-brand-naranja transition-colors">
                     {promo.title}
                   </h3>
-                  <p className="text-gray-500 font-nunito text-sm leading-relaxed mb-6">
+                  <p className="text-gray-500 font-amsi text-sm leading-relaxed mb-6">
                     {promo.description}
                   </p>
 
@@ -205,14 +205,14 @@ const Promotions = () => {
                         className={`flex-1 flex items-center justify-center gap-2 border-2 border-dashed rounded-xl py-3 text-sm font-bold uppercase tracking-wider transition-colors ${
                           copiedCode === promo.couponCode 
                             ? 'bg-green-50 border-green-200 text-green-700' 
-                            : 'border-gray-200 text-gray-600 hover:border-brand-terracota hover:text-brand-terracota hover:bg-orange-50/50'
+                            : 'border-gray-200 text-gray-600 hover:border-brand-naranja hover:text-brand-naranja hover:bg-orange-50/50'
                         }`}
                       >
                         {copiedCode === promo.couponCode ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         {copiedCode === promo.couponCode ? 'Copiado' : promo.couponCode}
                       </button>
                     ) : (
-                       <a href="/catalog" className="flex-1 text-center bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold font-nunito py-3 rounded-xl transition-colors">
+                       <a href="/catalog" className="flex-1 text-center bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold font-amsi py-3 rounded-xl transition-colors">
                          Ir al Catálogo
                        </a>
                     )}

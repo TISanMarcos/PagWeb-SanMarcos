@@ -13,7 +13,7 @@ const WhatsAppCheckout = () => {
   const handleCheckout = () => {
     if (cart.length === 0) return;
 
-    let message = `¡Hola Zona.Pet! Quiero hacer el siguiente pedido:\n\n`;
+    let message = `¡Hola San Marcos! Quiero hacer el siguiente pedido:\n\n`;
     cart.forEach(item => {
       message += `- ${item.quantity}x ${item.name} ($${item.price.toLocaleString()} c/u)\n`;
     });
@@ -30,19 +30,19 @@ const WhatsAppCheckout = () => {
   return (
     <div className="bg-white rounded-[1.5rem] shadow-[0_15px_40px_-20px_rgba(45,30,82,0.15)] border border-gray-100 overflow-hidden flex flex-col">
       {/* Header */}
-      <div className="bg-[#242040] px-5 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2.5 text-white">
+      <div className="bg-brand-verde-oscuro px-5 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-2.5 text-brand-beige">
           <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-            <ShoppingBag className="w-4 h-4 text-brand-turquesa" />
+            <ShoppingBag className="w-4 h-4 text-brand-verde-claro" />
           </div>
           <div>
-            <h2 className="font-comfortaa font-bold tracking-tight text-base leading-none">Mi Pedido</h2>
+            <h2 className="font-collier font-bold tracking-tight text-base leading-none">Mi Pedido</h2>
           </div>
         </div>
         {cart.length > 0 && (
           <button 
             onClick={clearCart}
-            className="w-7 h-7 rounded-full bg-white/5 hover:bg-brand-crimson/80 flex items-center justify-center text-white/70 hover:text-white transition-colors"
+            className="w-7 h-7 rounded-full bg-white/5 hover:bg-brand-naranja/80 flex items-center justify-center text-white/70 hover:text-white transition-colors"
             title="Vaciar carrito"
           >
             <Trash2 className="w-3.5 h-3.5" />
@@ -59,7 +59,7 @@ const WhatsAppCheckout = () => {
               className="py-8 text-center flex flex-col items-center"
             >
               <ShoppingBag className="w-10 h-10 text-gray-200 mb-3" />
-              <p className="text-gray-400 font-nunito text-sm">Tu carrito está esperando.</p>
+              <p className="text-gray-400 font-amsi text-sm">Tu carrito está esperando.</p>
             </motion.div>
           ) : (
             <motion.div 
@@ -78,12 +78,12 @@ const WhatsAppCheckout = () => {
                          <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
                       </div>
                       <div className="flex-1 min-w-0 flex flex-col justify-center">
-                        <span className="text-gray-900 font-bold font-comfortaa text-[11px] leading-tight line-clamp-2">
+                        <span className="text-gray-900 font-bold font-collier text-[11px] leading-tight line-clamp-2">
                           {item.name}
                         </span>
                         <div className="flex items-center justify-between mt-1">
-                          <span className="text-[10px] text-gray-500 font-nunito">{item.quantity} pz</span>
-                          <span className="font-black text-brand-azul font-comfortaa text-[11px]">
+                          <span className="text-[10px] text-gray-500 font-amsi">{item.quantity} pz</span>
+                          <span className="font-black text-brand-verde-claro-oscuro font-collier text-[11px]">
                             ${(item.price * item.quantity).toLocaleString()}
                           </span>
                         </div>
@@ -95,8 +95,8 @@ const WhatsAppCheckout = () => {
               
               <div className="border-t border-gray-100 pt-4">
                 <div className="flex justify-between items-end mb-4">
-                  <span className="font-comfortaa font-bold text-gray-400 text-xs">Total</span>
-                  <span className="text-2xl font-black text-brand-terracota font-comfortaa tracking-tighter">
+                  <span className="font-collier font-bold text-gray-400 text-xs">Total</span>
+                  <span className="text-2xl font-black text-brand-naranja font-collier tracking-tighter">
                     ${total.toLocaleString()}
                   </span>
                 </div>
@@ -106,7 +106,7 @@ const WhatsAppCheckout = () => {
                   className="w-full bg-[#128C7E] hover:bg-[#075E54] text-white rounded-xl flex items-center justify-center gap-2 py-3 shadow-md shadow-[#128C7E]/20 transition-all hover:-translate-y-0.5"
                 >
                   <MessageCircle className="w-4 h-4 fill-white/20" />
-                  <span className="font-bold font-comfortaa text-sm">Pedir por WhatsApp</span>
+                  <span className="font-bold font-collier text-sm">Pedir por WhatsApp</span>
                 </button>
               </div>
             </motion.div>

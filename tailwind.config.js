@@ -8,15 +8,15 @@ export default {
     extend: {
       colors: {
         brand: {
-          terracota: '#C9563B',
-          azul: '#2D1E52',
-          turquesa: '#3DC4A8',
-          crimson: '#CC1344',
+          'verde-oscuro': '#003022',
+          'verde-claro': '#84c561',
+          naranja: '#f26d25',
+          beige: '#f2e6da',
         }
       },
       fontFamily: {
-        comfortaa: ['Comfortaa', 'cursive'],
-        nunito: ['Nunito', 'sans-serif'],
+        collier: ['"Playfair Display"', 'serif'],
+        amsi: ['Outfit', 'sans-serif'],
       },
       boxShadow: {
         'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',

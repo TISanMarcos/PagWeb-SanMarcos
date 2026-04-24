@@ -62,19 +62,19 @@ const Home = () => {
     <div className="flex flex-col min-h-screen relative overflow-hidden bg-gray-50">
       {/* Hero Banner Section (Natural Width Fit) */}
       <section 
-        className="relative w-full bg-brand-azul cursor-default overflow-hidden"
+        className="relative w-full bg-brand-verde-oscuro cursor-default overflow-hidden border-b border-white/10"
         onMouseMove={handleMouseMove}
         onMouseLeave={() => { x.set(0); y.set(0); }}
       >
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-6 bg-brand-azul min-h-[400px]" id="hero-fallback">
-          <p className="font-comfortaa text-xl mb-4">Reemplaza tu imagen actual por la del perrito como: <b>public/hero-banner.png</b></p>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-6 bg-brand-verde-oscuro min-h-[400px]" id="hero-fallback">
+          <p className="font-collier text-xl mb-4">Reemplaza tu imagen actual por la del perrito como: <b>public/hero-banner.png</b></p>
           <p className="text-sm opacity-70">He quitado los SVG que cortaban tu imagen para que tu diseño de Photoshop fluya perfecto.</p>
         </div>
 
         <motion.img 
           style={{ x: shiftX, y: shiftY }}
           src="/hero-banner.png" 
-          alt="Zona.Pet Hero" 
+          alt="San Marcos Hero" 
           className="w-full h-auto block relative z-10 scale-[1.05]"
           onError={(e) => { e.target.style.display = 'none'; }}
           onLoad={(e) => {
@@ -102,20 +102,20 @@ const Home = () => {
                   style={{ backgroundImage: `url(${promotions[currentPromoIdx].imageUrl})` }} 
                 />
                 {/* Gradient to make text readable */}
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-azul via-brand-azul/40 to-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-verde-oscuro via-brand-verde-oscuro/60 to-black/20" />
                 
                 {/* Content Overlay */}
                 <div className="absolute inset-0 flex flex-col justify-end p-4 lg:p-6 text-white">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="bg-brand-terracota text-[9px] lg:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded shadow-sm">
+                    <span className="bg-brand-naranja text-[9px] lg:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded shadow-sm">
                       {promotions[currentPromoIdx].segment === 'b2b' ? 'Exclusivo Pymes' : 'Oferta Web'}
                     </span>
                     <Tag className="w-3 h-3 text-white/80" />
                   </div>
-                  <h3 className="font-comfortaa font-bold text-base lg:text-xl leading-tight mb-1 drop-shadow-md">
+                  <h3 className="font-collier font-bold text-base lg:text-xl leading-tight mb-1 drop-shadow-md">
                     {promotions[currentPromoIdx].title}
                   </h3>
-                  <p className="font-nunito text-[11px] lg:text-xs text-white/90 line-clamp-2 drop-shadow-sm">
+                  <p className="font-amsi text-[11px] lg:text-xs text-white/90 line-clamp-2 drop-shadow-sm">
                     {promotions[currentPromoIdx].description}
                   </p>
                 </div>
@@ -139,15 +139,15 @@ const Home = () => {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             className="w-full flex flex-col items-center text-center md:items-start md:text-left pointer-events-auto"
           >
-            <h1 className="text-lg md:text-xl lg:text-2xl font-comfortaa font-bold text-white leading-snug mb-2">
-              Todo para <span className="text-brand-turquesa drop-shadow-sm">consentir</span> a tu <span className="text-brand-terracota drop-shadow-sm">Mascota</span>
+            <h1 className="text-lg md:text-xl lg:text-2xl font-collier font-bold text-white leading-snug mb-2">
+              Todo para <span className="text-brand-verde-claro drop-shadow-sm">consentir</span> a tu <span className="text-brand-naranja drop-shadow-sm">Mascota</span>
             </h1>
-            <p className="text-[11px] md:text-xs lg:text-sm font-nunito text-white/80 mb-4 max-w-[260px] md:max-w-xs mx-auto md:mx-0">
+            <p className="text-[11px] md:text-xs lg:text-sm font-amsi text-white/80 mb-4 max-w-[260px] md:max-w-xs mx-auto md:mx-0">
               Alimento premium, premios, juguetes y envíos directos hasta tu puerta o negocio.
             </p>
             <Link 
               to="/catalog" 
-              className="group inline-flex items-center justify-center gap-2 bg-brand-terracota hover:bg-brand-crimson text-white px-4 py-2 md:px-5 md:py-2 rounded-full font-bold font-comfortaa text-[11px] md:text-xs shadow-md hover:shadow-xl hover:shadow-brand-terracota/30 transition-all duration-300 hover:scale-105"
+              className="group inline-flex items-center justify-center gap-2 bg-brand-naranja hover:bg-brand-naranja text-white px-4 py-2 md:px-5 md:py-2 rounded-full font-bold font-collier text-[11px] md:text-xs shadow-md hover:shadow-xl hover:shadow-brand-naranja/30 transition-all duration-300 hover:scale-105"
             >
               Ver Catálogo
               <ArrowRight className="w-3 h-3 md:w-3.5 md:h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -162,10 +162,10 @@ const Home = () => {
           
           <div className="flex flex-col md:flex-row items-center justify-between mb-16 gap-6">
             <div className="text-center md:text-left">
-              <h2 className="text-3xl md:text-4xl font-comfortaa font-bold text-brand-azul mb-4">
-                La Comunidad <span className="text-brand-terracota">Zona.Pet</span>
+              <h2 className="text-3xl md:text-4xl font-collier font-bold text-brand-verde-claro-oscuro mb-4">
+                La Comunidad <span className="text-brand-naranja">San Marcos</span>
               </h2>
-              <p className="text-gray-600 font-nunito max-w-xl text-lg">
+              <p className="text-gray-600 font-amsi max-w-xl text-lg">
                 Miles de clientes confían en nosotros todos los días. 
                 Únete y comparte los mejores momentos de tus mascotas.
               </p>
@@ -174,11 +174,11 @@ const Home = () => {
               href="#" 
               className="group flex flex-col items-center justify-center w-full md:w-auto"
             >
-              <button className="flex items-center gap-3 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white px-8 py-4 rounded-full font-bold font-comfortaa hover:shadow-lg hover:scale-105 transition-all duration-300">
+              <button className="flex items-center gap-3 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white px-8 py-4 rounded-full font-bold font-collier hover:shadow-lg hover:scale-105 transition-all duration-300">
                 <Camera className="w-6 h-6" />
                 Síguenos en Instagram
               </button>
-              <span className="text-sm text-gray-400 mt-2 font-nunito opacity-0 group-hover:opacity-100 transition-opacity">@zonapet_oficial</span>
+              <span className="text-sm text-gray-400 mt-2 font-amsi opacity-0 group-hover:opacity-100 transition-opacity">@sanmarcos_oficial</span>
             </a>
           </div>
           
@@ -207,9 +207,9 @@ const Home = () => {
                     className="flex flex-col items-center text-white"
                   >
                     <Heart className="w-12 h-12 fill-white text-white mb-2" />
-                    <span className="font-bold font-comfortaa text-lg">{post.likes}</span>
+                    <span className="font-bold font-collier text-lg">{post.likes}</span>
                   </motion.div>
-                  <p className="absolute bottom-4 left-4 text-white/90 font-nunito font-semibold text-sm">
+                  <p className="absolute bottom-4 left-4 text-white/90 font-amsi font-semibold text-sm">
                     {post.author}
                   </p>
                 </div>

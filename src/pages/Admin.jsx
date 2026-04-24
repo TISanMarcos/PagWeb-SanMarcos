@@ -38,24 +38,24 @@ const Admin = () => {
     }
   };
 
-  if (loading) return <div className="p-12 text-center text-gray-500 font-nunito">Cargando panel...</div>;
+  if (loading) return <div className="p-12 text-center text-gray-500 font-amsi">Cargando panel...</div>;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-3xl font-comfortaa font-bold text-gray-900 mb-8 border-b pb-4">
+      <h1 className="text-3xl font-collier font-bold text-gray-900 mb-8 border-b pb-4">
         Panel de Administración Global (Conectado a Backend)
       </h1>
 
       <div className="flex gap-4 mb-8 border-b border-gray-200">
         <button 
           onClick={() => setActiveTab('clients')}
-          className={`py-2 px-4 font-bold ${activeTab === 'clients' ? 'text-brand-terracota border-b-2 border-brand-terracota' : 'text-gray-500'}`}
+          className={`py-2 px-4 font-bold ${activeTab === 'clients' ? 'text-brand-naranja border-b-2 border-brand-naranja' : 'text-gray-500'}`}
         >
           Gestión de Clientes y Créditos
         </button>
         <button 
           onClick={() => setActiveTab('products')}
-          className={`py-2 px-4 font-bold ${activeTab === 'products' ? 'text-brand-terracota border-b-2 border-brand-terracota' : 'text-gray-500'}`}
+          className={`py-2 px-4 font-bold ${activeTab === 'products' ? 'text-brand-naranja border-b-2 border-brand-naranja' : 'text-gray-500'}`}
         >
           Gestión de Productos
         </button>
@@ -72,7 +72,7 @@ const Admin = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estatus</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200 font-nunito text-sm">
+            <tbody className="bg-white divide-y divide-gray-200 font-amsi text-sm">
               {users.map(user => (
                 <tr key={user.uid}>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -114,7 +114,7 @@ const Admin = () => {
       )}
 
       {activeTab === 'products' && (
-        <div className="bg-white rounded-xl shadow overflow-hidden p-6 text-center text-gray-500 font-nunito">
+        <div className="bg-white rounded-xl shadow overflow-hidden p-6 text-center text-gray-500 font-amsi">
            <p>Módulo de altas/bajas de productos apuntando a AWS API Fase 2.</p>
            <p>En construcción pendiente equipo de infraestructura.</p>
         </div>
