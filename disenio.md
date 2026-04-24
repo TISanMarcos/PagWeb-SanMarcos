@@ -1,0 +1,1 @@
+Siempre revisa que se cumplan los diseños del libro de marca, brand-boo_zona_pet.pdf y e manua de marca zonapet_manualdemarca.pdf

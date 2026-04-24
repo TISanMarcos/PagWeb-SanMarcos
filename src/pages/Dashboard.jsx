@@ -1,0 +1,72 @@
+import { useAppStore } from '../store/useAppStore';
+import { CreditCard, History, AlertCircle } from 'lucide-react';
+
+const Dashboard = () => {
+  const { user, role } = useAppStore();
+
+  const isB2b = role === 'b2b';
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="mb-8">
+        <h1 className="text-3xl font-comfortaa font-bold text-gray-900 border-b pb-4">
+          Un gusto verte de nuevo, {user.name}
+        </h1>
+        <p className="text-gray-500 font-nunito mt-2">
+          {isB2b ? 'Panel de Distribuidor El Parián' : 'Panel de Cliente San Marcos Mascotas'}
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        {isB2b ? (
+          <>
+            <div className="card-premium p-6 bg-white border-l-4 border-brand-turquesa">
+              <div className="flex items-center gap-3 mb-2 text-brand-azul">
+                <CreditCard className="w-6 h-6" />
+                <h3 className="font-comfortaa font-bold text-lg">Crédito Disponible</h3>
+              </div>
+              <p className="text-3xl font-bold font-nunito text-gray-800">
+                ${user.credit?.available?.toLocaleString() || '0'}
+              </p>
+              <p className="text-sm text-gray-500 mt-2 font-nunito">
+                Deuda actual: ${user.credit?.currentDebt?.toLocaleString() || '0'}
+              </p>
+            </div>
+
+            <div className="card-premium p-6 bg-white border-l-4 border-brand-terracota">
+              <div className="flex items-center gap-3 mb-2 text-brand-azul">
+                <History className="w-6 h-6" />
+                <h3 className="font-comfortaa font-bold text-lg">Vigencia</h3>
+              </div>
+              <p className="text-xl font-bold font-nunito text-gray-800">
+                {user.credit?.validUntil || 'Sin Asignar'}
+              </p>
+            </div>
+
+            <div className="card-premium p-6 bg-white border-l-4 border-brand-crimson">
+              <div className="flex items-center gap-3 mb-2 text-brand-azul">
+                <AlertCircle className="w-6 h-6" />
+                <h3 className="font-comfortaa font-bold text-lg">Estatus de Línea</h3>
+              </div>
+              <span className={`inline-flex items-center px-3 py-1 mt-1 rounded-full text-sm font-bold ${
+                user.credit?.status === 'Activo' ? 'bg-green-100 text-green-800' : 
+                user.credit?.status === 'Suspendido' ? 'bg-red-100 text-red-800' :
+                'bg-yellow-100 text-yellow-800'
+              }`}>
+                {user.credit?.status || 'Pendiente'}
+              </span>
+            </div>
+          </>
+        ) : (
+          <div className="col-span-1 md:col-span-3 card-premium p-6 bg-brand-terracota text-white">
+             <h3 className="font-comfortaa font-bold text-xl mb-2">¡Gracias por ser parte de Zona.Pet!</h3>
+             <p className="font-nunito opacity-90">El historial de tus pedidos estará disponible en una próxima actualización.</p>
+          </div>
+        )}
+      </div>
+{/* Future Phase 2 area */}
+    </div>
+  );
+};
+
+export default Dashboard;
