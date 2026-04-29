@@ -73,7 +73,7 @@ const Home = () => {
 
         <motion.img 
           style={{ x: shiftX, y: shiftY }}
-          src="/hero-banner.png" 
+          src={`${import.meta.env.BASE_URL}hero-banner.png`}
           alt="San Marcos Hero" 
           className="w-full h-auto block relative z-10 scale-[1.05]"
           onError={(e) => { e.target.style.display = 'none'; }}

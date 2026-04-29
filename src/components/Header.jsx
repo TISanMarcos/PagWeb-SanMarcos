@@ -24,7 +24,7 @@ const Header = () => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-2 group">
               <img 
-                src="/logo_sanmarcos.png" 
+                src={`${import.meta.env.BASE_URL}logo_sanmarcos.png`} 
                 alt="San Marcos Logo" 
                 className="h-10 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform" 
               />
