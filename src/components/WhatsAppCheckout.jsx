@@ -8,7 +8,7 @@ const WhatsAppCheckout = () => {
   const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   
   // Real number can be changed via VITE_WHATSAPP_NUMBER in .env
-  const waNumber = import.meta.env.VITE_WHATSAPP_NUMBER || '525518117462';
+  const waNumber = import.meta.env.VITE_WHATSAPP_NUMBER || '525556943312';
 
   const handleCheckout = () => {
     if (cart.length === 0) return;
@@ -28,7 +28,7 @@ const WhatsAppCheckout = () => {
   };
 
   return (
-    <div className="bg-white rounded-[1.5rem] shadow-[0_15px_40px_-20px_rgba(45,30,82,0.15)] border border-gray-100 overflow-hidden flex flex-col">
+    <div className="bg-white rounded-[1.5rem] shadow-[0_15px_40px_-20px_rgba(45,30,82,0.15)] border border-brand-beige/80 overflow-hidden flex flex-col">
       {/* Header */}
       <div className="bg-brand-verde-oscuro px-5 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2.5 text-brand-beige">
@@ -58,8 +58,8 @@ const WhatsAppCheckout = () => {
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               className="py-8 text-center flex flex-col items-center"
             >
-              <ShoppingBag className="w-10 h-10 text-gray-200 mb-3" />
-              <p className="text-gray-400 font-amsi text-sm">Tu carrito está esperando.</p>
+              <ShoppingBag className="w-10 h-10 text-brand-beige mb-3" />
+              <p className="text-brand-verde-oscuro/50 font-amsi text-sm">Tu carrito está esperando.</p>
             </motion.div>
           ) : (
             <motion.div 
@@ -73,16 +73,16 @@ const WhatsAppCheckout = () => {
                     key={item.id} 
                     className="flex justify-between items-center text-sm group"
                   >
-                    <div className="flex bg-gray-50 rounded-xl p-2 w-full border border-transparent group-hover:border-gray-200 transition-colors">
+                    <div className="flex bg-brand-crema rounded-xl p-2 w-full border border-transparent group-hover:border-brand-beige transition-colors">
                       <div className="w-9 h-9 rounded-lg overflow-hidden bg-white mr-2.5 flex-shrink-0 shadow-sm">
                          <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
                       </div>
                       <div className="flex-1 min-w-0 flex flex-col justify-center">
-                        <span className="text-gray-900 font-bold font-collier text-[11px] leading-tight line-clamp-2">
+                        <span className="text-brand-verde-oscuro font-bold font-collier text-[11px] leading-tight line-clamp-2">
                           {item.name}
                         </span>
                         <div className="flex items-center justify-between mt-1">
-                          <span className="text-[10px] text-gray-500 font-amsi">{item.quantity} pz</span>
+                          <span className="text-[10px] text-brand-verde-oscuro/60 font-amsi">{item.quantity} pz</span>
                           <span className="font-black text-brand-verde-claro-oscuro font-collier text-[11px]">
                             ${(item.price * item.quantity).toLocaleString()}
                           </span>
@@ -93,9 +93,9 @@ const WhatsAppCheckout = () => {
                 ))}
               </ul>
               
-              <div className="border-t border-gray-100 pt-4">
+              <div className="border-t border-brand-beige/80 pt-4">
                 <div className="flex justify-between items-end mb-4">
-                  <span className="font-collier font-bold text-gray-400 text-xs">Total</span>
+                  <span className="font-collier font-bold text-brand-verde-oscuro/50 text-xs">Total</span>
                   <span className="text-2xl font-black text-brand-naranja font-collier tracking-tighter">
                     ${total.toLocaleString()}
                   </span>
@@ -103,7 +103,7 @@ const WhatsAppCheckout = () => {
 
                 <button 
                   onClick={handleCheckout}
-                  className="w-full bg-[#128C7E] hover:bg-[#075E54] text-white rounded-xl flex items-center justify-center gap-2 py-3 shadow-md shadow-[#128C7E]/20 transition-all hover:-translate-y-0.5"
+                  className="w-full btn-whatsapp py-3 shadow-md shadow-brand-verde-oscuro/20 hover:-translate-y-0.5"
                 >
                   <MessageCircle className="w-4 h-4 fill-white/20" />
                   <span className="font-bold font-collier text-sm">Pedir por WhatsApp</span>

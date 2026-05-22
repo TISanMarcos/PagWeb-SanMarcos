@@ -1,37 +1,179 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@100..900&display=swap');
-
+/*
+  San Marcos — Brand Book
+  Tipografías: Collier + Amsi Pro (public/fonts/)
+*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  html, body {
-    @apply font-amsi text-gray-800 bg-gray-50;
+  :root {
+    --brand-verde-oscuro: #003020;
+    --brand-verde-claro: #80c060;
+    --brand-naranja: #f06020;
+    --brand-naranja-hover: #d9541a;
+    --brand-beige: #f0e0d0;
+    --brand-neutral: #f7f2ec;
+    --brand-crema: #faf6f1;
+    --brand-verde-oscuro-hover: #004d32;
+    --brand-verde-claro-oscuro: #4a8f38;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-collier;
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 100%;
+  }
+
+  html,
+  body {
+    font-family: 'Amsi Pro', system-ui, sans-serif;
+    color: var(--brand-verde-oscuro);
+    background-color: var(--brand-crema);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  [id] {
+    scroll-margin-top: 72px;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: Collier, Georgia, serif;
+    color: var(--brand-verde-oscuro);
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--brand-verde-claro) 40%, transparent);
+    color: var(--brand-verde-oscuro);
   }
 }
 
 @layer components {
-  .btn-pill {
-    @apply px-6 py-2 rounded-full font-bold transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2;
+  .section-pad {
+    @apply py-14 md:py-20;
   }
-  
+
+  .section-title {
+    @apply text-2xl sm:text-3xl md:text-4xl font-collier font-bold leading-tight text-brand-verde-oscuro;
+  }
+
+  .section-title--light {
+    @apply section-title text-white;
+  }
+
+  .section-lead {
+    @apply text-base md:text-lg font-amsi leading-relaxed;
+  }
+
+  .section-alt {
+    background-color: var(--brand-neutral);
+  }
+
+  .section-surface {
+    @apply bg-white;
+  }
+
+  .btn-pill {
+    @apply px-6 py-2.5 rounded-full font-bold transition-all duration-300 ease-in-out;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    font-family: Collier, Georgia, serif;
+    --tw-ring-offset-color: var(--brand-crema);
+  }
+
   .btn-primary {
-    @apply btn-pill bg-brand-naranja text-white hover:bg-brand-naranja focus:ring-brand-naranja;
+    @apply btn-pill text-white hover:-translate-y-0.5;
+    background-color: var(--brand-naranja);
+    box-shadow: 0 12px 32px -8px rgba(240, 96, 32, 0.25);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--brand-naranja-hover);
+  }
+
+  .btn-primary:focus {
+    --tw-ring-color: var(--brand-naranja);
   }
 
   .btn-secondary {
-    @apply btn-pill bg-brand-verde-claro text-white hover:opacity-90 focus:ring-brand-verde-claro;
+    @apply btn-pill text-white;
+    background-color: var(--brand-verde-oscuro);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--brand-verde-oscuro-hover);
+  }
+
+  .btn-secondary:focus {
+    --tw-ring-color: var(--brand-verde-oscuro);
   }
 
   .btn-outline {
-    @apply btn-pill border-2 border-brand-verde-claro-oscuro text-brand-verde-claro-oscuro hover:bg-brand-verde-claro-oscuro hover:text-white focus:ring-brand-verde-claro-oscuro;
+    @apply btn-pill border-2 hover:text-white;
+    border-color: var(--brand-verde-oscuro);
+    color: var(--brand-verde-oscuro);
   }
-  
+
+  .btn-outline:hover {
+    background-color: var(--brand-verde-oscuro);
+  }
+
+  .btn-outline:focus {
+    --tw-ring-color: var(--brand-verde-oscuro);
+  }
+
+  .btn-whatsapp {
+    @apply inline-flex items-center justify-center gap-2 text-white rounded-xl font-bold transition-all;
+    font-family: Collier, Georgia, serif;
+    background-color: var(--brand-verde-oscuro);
+  }
+
+  .btn-whatsapp:hover {
+    background-color: var(--brand-verde-oscuro-hover);
+  }
+
   .card-premium {
-    @apply bg-white rounded-2xl shadow-soft hover:shadow-premium transition-shadow duration-300 overflow-hidden border border-gray-100;
+    @apply bg-white rounded-2xl transition-shadow duration-300 overflow-hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 48, 32, 0.06), 0 2px 4px -1px rgba(0, 48, 32, 0.04);
+    border: 1px solid color-mix(in srgb, var(--brand-beige) 60%, transparent);
+  }
+
+  .card-premium:hover {
+    box-shadow: 0 10px 25px -5px rgba(0, 48, 32, 0.1), 0 8px 10px -6px rgba(0, 48, 32, 0.04);
+  }
+
+  .input-brand {
+    @apply w-full px-4 py-2.5 rounded-xl bg-white text-sm focus:outline-none focus:ring-2;
+    font-family: 'Amsi Pro', system-ui, sans-serif;
+    border: 1px solid var(--brand-beige);
+    color: var(--brand-verde-oscuro);
+  }
+
+  .input-brand::placeholder {
+    color: color-mix(in srgb, var(--brand-verde-oscuro) 40%, transparent);
+  }
+
+  .input-brand:focus {
+    --tw-ring-color: var(--brand-naranja);
+    border-color: var(--brand-naranja);
+  }
+
+  .badge-brand {
+    @apply inline-flex items-center gap-1.5 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md;
+    font-family: 'Amsi Pro', system-ui, sans-serif;
+    background-color: var(--brand-naranja);
   }
 }

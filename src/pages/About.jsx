@@ -3,7 +3,7 @@ import { PawPrint, Users, Star, Target, ShieldCheck, ChevronDown } from 'lucide-
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-[#F0F2F5] overflow-x-hidden selection:bg-brand-naranja selection:text-white">
+    <div className="min-h-screen bg-brand-neutral overflow-x-hidden selection:bg-brand-naranja selection:text-white">
       
       {/* Dynamic Hero Section */}
       <section className="relative min-h-[85vh] w-full flex items-center justify-center overflow-hidden">
@@ -82,7 +82,7 @@ const About = () => {
             <h2 className="text-3xl md:text-5xl font-collier font-bold mb-6 tracking-tight">
               Un Ecosistema <br/> de <span className="text-brand-verde-claro border-b-2 border-brand-verde-claro/30 pb-1">Calidad Integral</span>
             </h2>
-            <p className="text-gray-300 font-amsi md:text-lg leading-relaxed font-light">
+            <p className="text-white/70 font-amsi md:text-lg leading-relaxed font-light">
               Respaldamos la nutrición y logística con décadas de experiencia. Diseñamos modelos operativos exactos para dueños de mascotas y para líderes comerciales.
             </p>
           </div>
@@ -90,39 +90,39 @@ const About = () => {
           <div className="grid md:grid-cols-3 gap-8 md:gap-6 lg:gap-10">
             <motion.div 
               initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.7 }}
-              className="group relative bg-[#093A2B] border border-white/5 p-8 lg:p-10 rounded-[2rem] hover:bg-[#0E4535] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(132,197,97,0.15)]"
+              className="group relative bg-brand-verde-oscuro border border-white/5 p-8 lg:p-10 rounded-[2rem] hover:bg-brand-verde-oscuro-hover transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(132,197,97,0.15)]"
             >
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-naranja to-orange-400 flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform duration-500">
                 <PawPrint className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl lg:text-2xl font-collier font-bold mb-4 group-hover:text-brand-naranja transition-colors duration-300">San Marcos Mascotas</h3>
-              <p className="font-amsi text-gray-300 leading-relaxed text-sm lg:text-base">
+              <p className="font-amsi text-white/75 leading-relaxed text-sm lg:text-base">
                 Dedicados al consumidor final (B2C). Garantizamos fórmulas selectas avaladas por expertos para que tu fiel compañero obtenga longevidad y energía en cada bocado.
               </p>
             </motion.div>
 
             <motion.div 
               initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.7, delay: 0.15 }}
-              className="group relative bg-[#093A2B] border border-white/5 p-8 lg:p-10 rounded-[2rem] hover:bg-[#0E4535] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(132,197,97,0.15)]"
+              className="group relative bg-brand-verde-oscuro border border-white/5 p-8 lg:p-10 rounded-[2rem] hover:bg-brand-verde-oscuro-hover transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(132,197,97,0.15)]"
             >
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-verde-claro to-teal-500 flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform duration-500">
                 <Users className="w-8 h-8 text-brand-verde-oscuro" />
               </div>
               <h3 className="text-xl lg:text-2xl font-collier font-bold mb-4 group-hover:text-brand-verde-claro transition-colors duration-300">El Parián Mayoristas</h3>
-              <p className="font-amsi text-gray-300 leading-relaxed text-sm lg:text-base">
+              <p className="font-amsi text-white/75 leading-relaxed text-sm lg:text-base">
                 Nuestro poderoso ecosistema B2B. Surtimos inventarios masivos en tiempo récord y autorizamos líneas de crédito flexibles diseñadas para acelerar el crecimiento de tu tienda.
               </p>
             </motion.div>
 
             <motion.div 
               initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.7, delay: 0.3 }}
-              className="group relative bg-[#093A2B] border border-white/5 p-8 lg:p-10 rounded-[2rem] hover:bg-[#0E4535] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(255,255,255,0.1)]"
+              className="group relative bg-brand-verde-oscuro border border-white/5 p-8 lg:p-10 rounded-[2rem] hover:bg-brand-verde-oscuro-hover transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(255,255,255,0.1)]"
             >
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gray-700 to-gray-500 flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform duration-500">
+              <motion.div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-verde-oscuro to-brand-verde-oscuro-hover flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform duration-500">
                 <ShieldCheck className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl lg:text-2xl font-collier font-bold mb-4">Calidad Verificada</h3>
-              <p className="font-amsi text-gray-300 leading-relaxed text-sm lg:text-base">
+              <p className="font-amsi text-white/75 leading-relaxed text-sm lg:text-base">
                 La excelencia no es promesa, es proceso. Nuestras bodegas y la operación logística corren bajo lineamientos de primer nivel asegurando que cada envío llegue intacto.
               </p>
             </motion.div>
@@ -145,8 +145,8 @@ const About = () => {
           <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-brand-verde-claro/5 rounded-full blur-3xl" />
 
           <Target className="w-16 h-16 md:w-20 md:h-20 text-brand-verde-claro-oscuro mx-auto mb-8 opacity-90" />
-          <h2 className="text-3xl md:text-5xl font-collier font-bold text-gray-900 mb-6 tracking-tight">Eleva tu Experiencia</h2>
-          <p className="text-gray-500 font-amsi md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
+          <h2 className="text-3xl md:text-5xl font-collier font-bold text-brand-verde-oscuro mb-6 tracking-tight">Eleva tu Experiencia</h2>
+          <p className="text-brand-verde-oscuro/60 font-amsi md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
             Pertenecer a la familia San Marcos significa hacer negocios con pioneros de la nutrición y distribución en México. Da el siguiente paso.
           </p>
           <button className="bg-brand-verde-oscuro text-white px-10 py-5 rounded-full font-bold font-collier shadow-xl hover:shadow-brand-verde-oscuro/30 hover:bg-opacity-90 transition-all duration-300 hover:scale-105 hover:-translate-y-1">

@@ -38,24 +38,24 @@ const Admin = () => {
     }
   };
 
-  if (loading) return <div className="p-12 text-center text-gray-500 font-amsi">Cargando panel...</div>;
+  if (loading) return <div className="p-12 text-center text-brand-verde-oscuro/60 font-amsi">Cargando panel...</div>;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-3xl font-collier font-bold text-gray-900 mb-8 border-b pb-4">
+      <h1 className="text-3xl font-collier font-bold text-brand-verde-oscuro mb-8 border-b pb-4">
         Panel de Administración Global (Conectado a Backend)
       </h1>
 
-      <div className="flex gap-4 mb-8 border-b border-gray-200">
+      <div className="flex gap-4 mb-8 border-b border-brand-beige">
         <button 
           onClick={() => setActiveTab('clients')}
-          className={`py-2 px-4 font-bold ${activeTab === 'clients' ? 'text-brand-naranja border-b-2 border-brand-naranja' : 'text-gray-500'}`}
+          className={`py-2 px-4 font-bold ${activeTab === 'clients' ? 'text-brand-naranja border-b-2 border-brand-naranja' : 'text-brand-verde-oscuro/60'}`}
         >
           Gestión de Clientes y Créditos
         </button>
         <button 
           onClick={() => setActiveTab('products')}
-          className={`py-2 px-4 font-bold ${activeTab === 'products' ? 'text-brand-naranja border-b-2 border-brand-naranja' : 'text-gray-500'}`}
+          className={`py-2 px-4 font-bold ${activeTab === 'products' ? 'text-brand-naranja border-b-2 border-brand-naranja' : 'text-brand-verde-oscuro/60'}`}
         >
           Gestión de Productos
         </button>
@@ -63,21 +63,21 @@ const Admin = () => {
 
       {activeTab === 'clients' && (
         <div className="bg-white rounded-xl shadow overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-brand-beige">
+            <thead className="bg-brand-crema">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente/Rol</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asignado</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Disponible</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estatus</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-brand-verde-oscuro/60 uppercase tracking-wider">Cliente/Rol</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-brand-verde-oscuro/60 uppercase tracking-wider">Asignado</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-brand-verde-oscuro/60 uppercase tracking-wider">Disponible</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-brand-verde-oscuro/60 uppercase tracking-wider">Estatus</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200 font-amsi text-sm">
+            <tbody className="bg-white divide-y divide-brand-beige font-amsi text-sm">
               {users.map(user => (
                 <tr key={user.uid}>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="font-bold text-gray-900">{user.name}</div>
-                    <div className="text-gray-500 text-xs">{user.email} - ({user.role.toUpperCase()})</div>
+                    <div className="font-bold text-brand-verde-oscuro">{user.name}</div>
+                    <div className="text-brand-verde-oscuro/60 text-xs">{user.email} - ({user.role.toUpperCase()})</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {user.role === 'b2b' ? (
@@ -85,11 +85,11 @@ const Admin = () => {
                          type="number" 
                          value={user.credit?.allocated || 0}
                          onChange={(e) => handleUpdateCredit(user.uid, 'allocated', Number(e.target.value))}
-                         className="border px-2 py-1 rounded w-24 text-gray-800"
+                         className="border px-2 py-1 rounded w-24 text-brand-verde-oscuro"
                        />
                     ) : 'N/A'}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800 font-bold">
+                  <td className="px-6 py-4 whitespace-nowrap text-brand-verde-oscuro font-bold">
                     {user.role === 'b2b' ? `$${user.credit?.available?.toLocaleString()}` : 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -97,7 +97,7 @@ const Admin = () => {
                        <select 
                          value={user.credit?.status || 'Pendiente'}
                          onChange={(e) => handleUpdateCredit(user.uid, 'status', e.target.value)}
-                         className="border px-2 py-1 rounded text-gray-800"
+                         className="border px-2 py-1 rounded text-brand-verde-oscuro"
                        >
                          <option value="Activo">Activo</option>
                          <option value="Vencido">Vencido</option>
@@ -114,7 +114,7 @@ const Admin = () => {
       )}
 
       {activeTab === 'products' && (
-        <div className="bg-white rounded-xl shadow overflow-hidden p-6 text-center text-gray-500 font-amsi">
+        <div className="bg-white rounded-xl shadow overflow-hidden p-6 text-center text-brand-verde-oscuro/60 font-amsi">
            <p>Módulo de altas/bajas de productos apuntando a AWS API Fase 2.</p>
            <p>En construcción pendiente equipo de infraestructura.</p>
         </div>

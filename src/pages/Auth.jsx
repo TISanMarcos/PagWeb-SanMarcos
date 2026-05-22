@@ -36,8 +36,8 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full card-premium p-8 bg-white">
+    <div className="min-h-[80vh] flex items-center justify-center bg-brand-neutral py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full card-premium p-8 bg-brand-crema border-brand-beige">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-brand-verde-claro-oscuro font-collier">
             {isB2bRegistration 
@@ -46,7 +46,7 @@ const Auth = () => {
                 ? 'Regístrate en San Marcos' 
                 : 'ZONA.PET - Iniciar Sesión'}
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600 font-amsi">
+          <p className="mt-2 text-center text-sm text-brand-verde-oscuro/70 font-amsi">
             Simulador de Login - Ingresa cualquier email
           </p>
         </div>
@@ -60,7 +60,7 @@ const Auth = () => {
                 name="email"
                 type="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-brand-naranja focus:border-brand-naranja focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-brand-beige placeholder-brand-verde-oscuro/40 text-brand-verde-oscuro rounded-md focus:outline-none focus:ring-brand-naranja focus:border-brand-naranja focus:z-10 sm:text-sm"
                 placeholder="tu@correo.com (escribe admin@sanmarcos.com para admin)"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -81,7 +81,7 @@ const Auth = () => {
 
         {!type && (
           <div className="mt-6 flex flex-col gap-2 text-sm text-center font-amsi">
-            <p className="text-gray-500">¿No tienes cuenta?</p>
+            <p className="text-brand-verde-oscuro/60">¿No tienes cuenta?</p>
             <a href="/auth/b2c" className="text-brand-naranja hover:underline font-bold">Registro Clientes (San Marcos)</a>
             <a href="/auth/b2b" className="text-brand-verde-claro hover:underline font-bold">Registro Distribuidores (El Parián)</a>
           </div>

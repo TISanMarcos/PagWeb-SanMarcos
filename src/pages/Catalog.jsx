@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useAppStore } from '../store/useAppStore';
+import { getCatalogSegmentForProfile } from '../constants/userTypes';
 import { fetchProductsBySegment } from '../services/authService';
+import { useContactFlow } from '../hooks/useContactFlow';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, ChevronDown, ChevronRight } from 'lucide-react';
 import WhatsAppCheckout from '../components/WhatsAppCheckout';
@@ -15,7 +17,8 @@ const megaCategories = {
 };
 
 const Catalog = () => {
-  const { role, addToCart } = useAppStore();
+  const { role, userProfile, addToCart } = useAppStore();
+  const { startContactFlow } = useContactFlow();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   
@@ -24,7 +27,7 @@ const Catalog = () => {
   const [expandedCategories, setExpandedCategories] = useState(['Alimento']); // which sidebar cats are open
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
 
-  const segment = role || 'b2c';
+  const segment = userProfile ? getCatalogSegmentForProfile(userProfile) : role || 'b2c';
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -68,7 +71,23 @@ const Catalog = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] pb-20">
+    <div className="min-h-screen bg-brand-neutral pb-20">
+      {!userProfile && (
+        <div className="max-w-[1440px] mx-auto px-4 pt-6">
+          <div className="bg-brand-beige border border-brand-naranja/30 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="font-amsi text-sm text-brand-verde-oscuro">
+              Elige tu tipo de cliente para ver precios retail o mayoreo.
+            </p>
+            <button
+              type="button"
+              onClick={() => startContactFlow('catalogo', { source: 'catalogo-sin-perfil' })}
+              className="btn-primary text-sm py-2 px-5"
+            >
+              Identificarme
+            </button>
+          </div>
+        </div>
+      )}
       {/* Top Banner Area */}
       <div className="w-full bg-brand-verde-oscuro py-12 mb-8 relative md:rounded-b-[3rem] shadow-sm border-b border-brand-verde-oscuro/50 overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
@@ -105,21 +124,21 @@ const Catalog = () => {
         
         {/* Sidebar Filter Menu */}
         <aside className="w-full xl:w-60 flex-shrink-0">
-          <div className="bg-white rounded-[2rem] p-5 shadow-sm border border-gray-100 sticky top-24">
-            <h2 className="text-lg font-collier font-bold text-gray-900 mb-5 flex items-center gap-2">
+          <div className="bg-white rounded-[2rem] p-5 shadow-sm border border-brand-beige/80 sticky top-24">
+            <h2 className="text-lg font-collier font-bold text-brand-verde-oscuro mb-5 flex items-center gap-2">
               Categorías
             </h2>
             <div className="space-y-1">
               {Object.entries(megaCategories).map(([catName, subcats]) => {
                 const isExpanded = expandedCategories.includes(catName);
                 return (
-                  <div key={catName} className="border-b border-gray-100 last:border-0 pb-2">
+                  <div key={catName} className="border-b border-brand-beige/80 last:border-0 pb-2">
                     <button 
                       onClick={() => toggleCategoryInfo(catName)}
-                      className="w-full flex items-center justify-between py-2.5 text-left font-collier font-bold text-[15px] text-gray-700 hover:text-brand-naranja transition-colors group"
+                      className="w-full flex items-center justify-between py-2.5 text-left font-collier font-bold text-[15px] text-brand-verde-oscuro/80 hover:text-brand-naranja transition-colors group"
                     >
                       <span className="group-hover:translate-x-1 transition-transform">{catName}</span>
-                      <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} className="text-gray-400 group-hover:text-brand-naranja">
+                      <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} className="text-brand-verde-oscuro/50 group-hover:text-brand-naranja">
                         <ChevronDown className="w-4 h-4" />
                       </motion.div>
                     </button>
@@ -138,7 +157,7 @@ const Catalog = () => {
                                 className={`w-full text-left py-1.5 pl-3 text-sm font-amsi hover:text-brand-naranja transition-all relative ${
                                   selectedSubCategory === sub 
                                     ? 'text-brand-naranja font-bold translate-x-1' 
-                                    : 'text-gray-500 hover:translate-x-1'
+                                    : 'text-brand-verde-oscuro/60 hover:translate-x-1'
                                 }`}
                               >
                                 {selectedSubCategory === sub && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1 rounded-full bg-brand-naranja" />}
@@ -160,8 +179,8 @@ const Catalog = () => {
         <div className="flex-1 min-w-0">
           
           {selectedSubCategory && (
-            <div className="mb-6 flex flex-wrap items-center gap-3 bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100">
-              <span className="text-[13px] text-gray-400 font-amsi uppercase tracking-widest font-bold">Filtro:</span>
+            <div className="mb-6 flex flex-wrap items-center gap-3 bg-white p-3.5 rounded-2xl shadow-sm border border-brand-beige/80">
+              <span className="text-[13px] text-brand-verde-oscuro/50 font-amsi uppercase tracking-widest font-bold">Filtro:</span>
               <span className="inline-flex items-center px-4 py-1.5 bg-brand-verde-claro/10 text-brand-verde-claro-oscuro text-sm font-bold rounded-full font-collier">
                 {selectedSubCategory}
                 <button 
@@ -177,12 +196,12 @@ const Catalog = () => {
           {filteredProducts.length === 0 ? (
             <motion.div 
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              className="text-center py-20 bg-white rounded-3xl border border-gray-100 shadow-sm"
+              className="text-center py-20 bg-white rounded-3xl border border-brand-beige/80 shadow-sm"
             >
-              <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ShoppingCart className="w-8 h-8 text-gray-300" />
+              <div className="w-20 h-20 bg-brand-crema rounded-full flex items-center justify-center mx-auto mb-4">
+                <ShoppingCart className="w-8 h-8 text-brand-beige" />
               </div>
-              <p className="text-gray-500 font-amsi text-lg">No hay productos que coincidan con los filtros.</p>
+              <p className="text-brand-verde-oscuro/60 font-amsi text-lg">No hay productos que coincidan con los filtros.</p>
               <button onClick={() => { setActiveAnimal('Todos'); setSelectedSubCategory(null); }} className="mt-4 text-brand-naranja font-bold hover:underline">
                 Limpiar filtros
               </button>
@@ -196,9 +215,9 @@ const Catalog = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
                   whileHover={{ y: -6 }}
-                  className="group flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_15px_30px_-10px_rgba(45,30,82,0.1)] transition-all duration-300 border border-transparent hover:border-gray-100"
+                  className="group flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_15px_30px_-10px_rgba(45,30,82,0.1)] transition-all duration-300 border border-transparent hover:border-brand-beige/80"
                 >
-                  <div className="h-44 overflow-hidden bg-[#F0F2F5] relative">
+                  <div className="h-44 overflow-hidden bg-brand-neutral relative">
                     <img 
                       src={product.imageUrl} 
                       alt={product.name} 
@@ -215,19 +234,19 @@ const Catalog = () => {
 
                   <div className="p-4 flex-1 flex flex-col">
                     {/* Title (No aggressive line clamp, let it breathe) */}
-                    <h3 className="font-collier font-bold leading-tight mb-2.5 text-gray-900 group-hover:text-brand-naranja transition-colors text-[15px] pr-1">
+                    <h3 className="font-collier font-bold leading-tight mb-2.5 text-brand-verde-oscuro group-hover:text-brand-naranja transition-colors text-[15px] pr-1">
                       {product.name}
                     </h3>
                     
                     {/* Description */}
-                    <p className="text-[13px] text-gray-600 font-amsi mb-5 line-clamp-3 font-normal leading-relaxed">
+                    <p className="text-[13px] text-brand-verde-oscuro/70 font-amsi mb-5 line-clamp-3 font-normal leading-relaxed">
                       {product.description}
                     </p>
                     
                     {/* Bottom row (Pricing / Button) */}
-                    <div className="mt-auto flex items-end justify-between pt-3 border-t border-gray-50">
+                    <div className="mt-auto flex items-end justify-between pt-3 border-t border-brand-beige/50">
                       <div className="flex flex-col">
-                        <span className="text-[11px] font-bold text-gray-400 font-amsi mb-0.5 uppercase tracking-wide">Precio</span>
+                        <span className="text-[11px] font-bold text-brand-verde-oscuro/50 font-amsi mb-0.5 uppercase tracking-wide">Precio</span>
                         <span className="text-[22px] font-black text-brand-verde-claro-oscuro font-collier tracking-tighter leading-none">
                           ${product.price.toLocaleString()}
                         </span>
@@ -235,7 +254,7 @@ const Catalog = () => {
                       
                       <button 
                         onClick={() => addToCart(product)}
-                        className="w-10 h-10 rounded-full bg-gray-50 text-brand-verde-claro-oscuro flex items-center justify-center hover:bg-brand-naranja hover:text-white hover:scale-110 transition-all duration-300 shadow-sm border border-gray-100 hover:border-transparent flex-shrink-0"
+                        className="w-10 h-10 rounded-full bg-brand-crema text-brand-verde-claro-oscuro flex items-center justify-center hover:bg-brand-naranja hover:text-white hover:scale-110 transition-all duration-300 shadow-sm border border-brand-beige/80 hover:border-transparent flex-shrink-0"
                         title="Agregar al carrito"
                       >
                         <ShoppingCart className="w-4.5 h-4.5" />

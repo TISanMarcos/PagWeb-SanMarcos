@@ -9,10 +9,10 @@ const Dashboard = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-8">
-        <h1 className="text-3xl font-collier font-bold text-gray-900 border-b pb-4">
+        <h1 className="text-3xl font-collier font-bold text-brand-verde-oscuro border-b pb-4">
           Un gusto verte de nuevo, {user.name}
         </h1>
-        <p className="text-gray-500 font-amsi mt-2">
+        <p className="text-brand-verde-oscuro/60 font-amsi mt-2">
           {isB2b ? 'Panel de Distribuidor El Parián' : 'Panel de Cliente San Marcos Mascotas'}
         </p>
       </div>
@@ -25,10 +25,10 @@ const Dashboard = () => {
                 <CreditCard className="w-6 h-6" />
                 <h3 className="font-collier font-bold text-lg">Crédito Disponible</h3>
               </div>
-              <p className="text-3xl font-bold font-amsi text-gray-800">
+              <p className="text-3xl font-bold font-amsi text-brand-verde-oscuro">
                 ${user.credit?.available?.toLocaleString() || '0'}
               </p>
-              <p className="text-sm text-gray-500 mt-2 font-amsi">
+              <p className="text-sm text-brand-verde-oscuro/60 mt-2 font-amsi">
                 Deuda actual: ${user.credit?.currentDebt?.toLocaleString() || '0'}
               </p>
             </div>
@@ -38,7 +38,7 @@ const Dashboard = () => {
                 <History className="w-6 h-6" />
                 <h3 className="font-collier font-bold text-lg">Vigencia</h3>
               </div>
-              <p className="text-xl font-bold font-amsi text-gray-800">
+              <p className="text-xl font-bold font-amsi text-brand-verde-oscuro">
                 {user.credit?.validUntil || 'Sin Asignar'}
               </p>
             </div>
@@ -49,9 +49,9 @@ const Dashboard = () => {
                 <h3 className="font-collier font-bold text-lg">Estatus de Línea</h3>
               </div>
               <span className={`inline-flex items-center px-3 py-1 mt-1 rounded-full text-sm font-bold ${
-                user.credit?.status === 'Activo' ? 'bg-green-100 text-green-800' : 
-                user.credit?.status === 'Suspendido' ? 'bg-red-100 text-red-800' :
-                'bg-yellow-100 text-yellow-800'
+                user.credit?.status === 'Activo' ? 'bg-brand-verde-claro/20 text-brand-verde-oscuro' : 
+                user.credit?.status === 'Suspendido' ? 'bg-brand-rojo/10 text-brand-rojo' :
+                'bg-yellow-100 text-brand-verde-oscuro'
               }`}>
                 {user.credit?.status || 'Pendiente'}
               </span>

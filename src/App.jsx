@@ -2,8 +2,9 @@ import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAppStore } from './store/useAppStore';
 
 import Header from './components/Header';
+import WhatsAppFab from './components/WhatsAppFab';
+import ContactFlowManager from './components/contact/ContactFlowManager';
 import Home from './pages/Home';
-import About from './pages/About';
 import Promotions from './pages/Promotions';
 import Catalog from './pages/Catalog';
 import Auth from './pages/Auth';
@@ -20,12 +21,12 @@ const ProtectedRoute = ({ children, roles }) => {
 function App() {
   return (
     <HashRouter>
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-brand-crema">
         <Header />
         <main className="flex-grow pt-16">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/about" element={<Navigate to="/" replace state={{ scrollTo: 'nosotros' }} />} />
             <Route path="/promotions" element={<Promotions />} />
             <Route path="/auth/:type?" element={<Auth />} />
             <Route path="/catalog" element={<Catalog />} />
@@ -43,6 +44,8 @@ function App() {
             } />
           </Routes>
         </main>
+        <WhatsAppFab />
+        <ContactFlowManager />
       </div>
     </HashRouter>
   );

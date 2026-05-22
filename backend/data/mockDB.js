@@ -19,7 +19,7 @@ export const mockProducts = [
     description: 'Alimento seco completo para perros adultos con extra proteína.',
     price: 850,
     segment: 'b2c',
-    imageUrl: makeSvgUri('🐕', '#cc6a4b', '#a55238'),
+    imageUrl: makeSvgUri('🐕', '#f06020', '#d9541a'),
     stock: 50,
     category: 'Alimento',
     subCategory: 'Alimento seco',
@@ -32,7 +32,7 @@ export const mockProducts = [
     description: 'Bolsa de premios suaves para entrenamiento.',
     price: 120,
     segment: 'both',
-    imageUrl: makeSvgUri('🍖', '#8fd6c1', '#6bb39f'),
+    imageUrl: makeSvgUri('🍖', '#80c060', '#4a8f38'),
     stock: 200,
     category: 'Premios, Carnazas y Toppings',
     subCategory: 'Premios',
@@ -45,7 +45,7 @@ export const mockProducts = [
     description: 'Cargamento de distribución para negocios (Alimento Perro).',
     price: 35000,
     segment: 'b2b',
-    imageUrl: makeSvgUri('📦', '#2d1e52', '#1b1231'),
+    imageUrl: makeSvgUri('📦', '#003020', '#004d32'),
     stock: 15,
     category: 'Alimento',
     subCategory: 'Alimento seco',
@@ -58,7 +58,7 @@ export const mockProducts = [
     description: 'Caja con juguetes surtidos con catnip para gatos.',
     price: 2500,
     segment: 'b2b',
-    imageUrl: makeSvgUri('🐁', '#cc1344', '#9e0f35'),
+    imageUrl: makeSvgUri('🐁', '#e5243a', '#c41e32'),
     stock: 30,
     category: 'Moda y Diversión',
     subCategory: 'Juguetes',
@@ -71,7 +71,7 @@ export const mockProducts = [
     description: 'Arena premium con control de olores superior.',
     price: 220,
     segment: 'b2c',
-    imageUrl: makeSvgUri('🐈', '#cc6a4b', '#a55238'),
+    imageUrl: makeSvgUri('🐈', '#f06020', '#d9541a'),
     stock: 100,
     category: 'Salud y Bienestar',
     subCategory: 'Limpieza',
@@ -84,7 +84,7 @@ export const mockProducts = [
     description: 'Semillas seleccionadas y fortificadas para pericos y canarios.',
     price: 150,
     segment: 'both',
-    imageUrl: makeSvgUri('🦜', '#8fd6c1', '#6bb39f'),
+    imageUrl: makeSvgUri('🦜', '#80c060', '#4a8f38'),
     stock: 80,
     category: 'Alimento',
     subCategory: 'Alimento natural',
@@ -97,7 +97,7 @@ export const mockProducts = [
     description: 'Heno fresco y natural para mantener la digestión sana.',
     price: 180,
     segment: 'b2c',
-    imageUrl: makeSvgUri('🐇', '#2d1e52', '#1b1231'),
+    imageUrl: makeSvgUri('🐇', '#003020', '#004d32'),
     stock: 60,
     category: 'Alimento',
     subCategory: 'Alimento natural',
@@ -110,7 +110,7 @@ export const mockProducts = [
     description: 'Correa tejida de alta durabilidad para paseos nocturnos.',
     price: 350,
     segment: 'both',
-    imageUrl: makeSvgUri('🦮', '#cc1344', '#9e0f35'),
+    imageUrl: makeSvgUri('🦮', '#e5243a', '#c41e32'),
     stock: 45,
     category: 'Moda y Diversión',
     subCategory: 'Correas, collares y arneses',
@@ -123,7 +123,7 @@ export const mockProducts = [
     description: 'Limpia profundamente y alivia la irritación en la piel.',
     price: 190,
     segment: 'b2c',
-    imageUrl: makeSvgUri('🛁', '#cc6a4b', '#a55238'),
+    imageUrl: makeSvgUri('🛁', '#f06020', '#d9541a'),
     stock: 30,
     category: 'Salud y Bienestar',
     subCategory: 'Grooming',
@@ -140,7 +140,7 @@ export const mockPromotions = [
     segment: 'b2c',
     active: true,
     couponCode: 'ENVIO-ZERO',
-    imageUrl: makeSvgUri('🚚', '#cc6a4b', '#a55238')
+    imageUrl: makeSvgUri('🚚', '#f06020', '#d9541a')
   },
   {
     id: 'promo2',
@@ -149,7 +149,7 @@ export const mockPromotions = [
     segment: 'b2b',
     active: true,
     couponCode: 'B2B-BONUS',
-    imageUrl: makeSvgUri('🤝', '#2d1e52', '#1b1231') 
+    imageUrl: makeSvgUri('🤝', '#003020', '#004d32') 
   },
   {
     id: 'promo3',
@@ -158,7 +158,7 @@ export const mockPromotions = [
     segment: 'b2c',
     active: true,
     couponCode: 'DOBLE-PREMIO',
-    imageUrl: makeSvgUri('🎁', '#cc1344', '#9e0f35')
+    imageUrl: makeSvgUri('🎁', '#e5243a', '#c41e32')
   },
   {
     id: 'promo4',
@@ -167,7 +167,7 @@ export const mockPromotions = [
     segment: 'b2b',
     active: true,
     couponCode: 'TARIMA-10',
-    imageUrl: makeSvgUri('📦', '#8fd6c1', '#6bb39f')
+    imageUrl: makeSvgUri('📦', '#80c060', '#4a8f38')
   },
   {
     id: 'promo5',
@@ -176,7 +176,7 @@ export const mockPromotions = [
     segment: 'b2c',
     active: true,
     couponCode: 'ADOPTA-MASCOTA',
-    imageUrl: makeSvgUri('🐕', '#cc6a4b', '#a55238')
+    imageUrl: makeSvgUri('🐕', '#f06020', '#d9541a')
   },
   {
     id: 'promo6',
@@ -185,7 +185,7 @@ export const mockPromotions = [
     segment: 'b2b',
     active: true,
     couponCode: 'LIQUIDA-50',
-    imageUrl: makeSvgUri('🎯', '#cc1344', '#9e0f35')
+    imageUrl: makeSvgUri('🎯', '#e5243a', '#c41e32')
   }
 ];
 
