@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { fetchPromotions } from '../services/authService';
+import PromoImage from '../components/PromoImage';
+import { isPromotionPhoto } from '../utils/promotionImage';
 import { Gift, Timer, Copy, CheckCircle, ShieldCheck, Truck, Star, Tag, Check, Award } from 'lucide-react';
 
 const Promotions = () => {
@@ -114,8 +116,12 @@ const Promotions = () => {
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay" />
         
         {/* Decorative Background Image / Graphic */}
-        <div className="absolute right-[-10%] sm:right-[5%] top-1/2 -translate-y-1/2 opacity-30 lg:opacity-50 pointer-events-none w-[500px] h-[500px]">
-          <img src={heroPromo.imageUrl} alt="" className="w-full h-full object-contain filter drop-shadow-2xl" />
+        <div
+          className={`absolute right-[-10%] sm:right-[5%] top-1/2 -translate-y-1/2 pointer-events-none w-[500px] h-[500px] overflow-hidden rounded-2xl ${
+            isPromotionPhoto(heroPromo.imageUrl) ? 'opacity-40 lg:opacity-60' : 'opacity-30 lg:opacity-50'
+          }`}
+        >
+          <PromoImage src={heroPromo.imageUrl} alt={heroPromo.title} variant="hero" />
         </div>
 
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
@@ -216,8 +222,8 @@ const Promotions = () => {
                 className="group flex flex-col bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(45,30,82,0.1)] transition-all duration-300 border border-transparent hover:border-brand-beige"
               >
                 {/* Image Space */}
-                <div className={`relative h-48 flex items-center justify-center overflow-hidden flex-shrink-0 bg-brand-crema`}>
-                  <img src={promo.imageUrl} alt={promo.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="relative h-48 flex items-center justify-center overflow-hidden flex-shrink-0 bg-brand-crema">
+                  <PromoImage src={promo.imageUrl} alt={promo.title} variant="card" />
                   
                   {/* Floating Tag */}
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur shadow-sm rounded-full px-3 py-1 flex items-center gap-1.5">

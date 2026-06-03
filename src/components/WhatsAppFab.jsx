@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
-import { MessageCircle } from 'lucide-react';
+import WhatsAppIcon from './icons/WhatsAppIcon';
 import { useContactFlow } from '../hooks/useContactFlow';
 
 const WhatsAppFab = () => {
@@ -22,7 +22,7 @@ const WhatsAppFab = () => {
       className="fixed bottom-6 right-6 z-[60] flex items-center gap-2 bg-brand-naranja hover:bg-brand-naranja-hover text-white pl-4 pr-5 py-3.5 rounded-full shadow-brand font-collier font-bold text-sm md:text-base"
       aria-label="Cotizar por WhatsApp"
     >
-      <MessageCircle className="w-5 h-5 md:w-6 md:h-6 fill-white/20" />
+      <WhatsAppIcon className="w-5 h-5 md:w-6 md:h-6" />
       <span className="hidden sm:inline">Cotizar</span>
     </motion.button>
   );

@@ -42,6 +42,7 @@ export const useContactFlow = () => {
           productName,
         });
         window.open(whatsAppUrl(message), '_blank', 'noopener,noreferrer');
+        useAppStore.getState().showThankYouModal('retail');
         return;
       }
 
@@ -128,6 +129,22 @@ export const useContactFlow = () => {
     setContactModal('change-confirm');
   }, [setContactModal]);
 
+  const openBusinessLeadForm = useCallback(
+    (options = {}) => {
+      const profile = useAppStore.getState().userProfile;
+      if (!profile || isRetailUser(profile.typeId)) return;
+
+      setPendingContact({
+        action: 'registro',
+        intent: profile.intent ?? '',
+        source: options.source ?? 'seccion-catalogo',
+        productName: options.productName,
+      });
+      setContactModal('business-form');
+    },
+    [setContactModal, setPendingContact],
+  );
+
   return {
     userProfile,
     startContactFlow,
@@ -135,6 +152,7 @@ export const useContactFlow = () => {
     completeRetailIntent,
     closeBusinessForm,
     requestProfileChange,
+    openBusinessLeadForm,
     runAction,
   };
 };

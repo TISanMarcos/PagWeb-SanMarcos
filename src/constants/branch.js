@@ -3,15 +3,15 @@ export const BRANCH = {
   addressLine1: 'Central de Abasto C9 y C11, 09040',
   addressLine2: 'Iztapalapa, Ciudad de México',
   phoneDisplay: '55 5694 3312',
-  googleMapsUrl: 'https://maps.app.goo.gl/LKFSnsHDkkwMrAzC9',
+  googleMapsUrl: 'https://maps.app.goo.gl/KYWBPm1zXKuAhuWB8',
   wazeUrl:
-    'https://www.waze.com/es/live-map/directions/san-marcos-mascotas-iztapalapa?to=place.w.170983618.1709901714.26224152',
-  /** Coordenadas aprox. — Central de Abasto, Iztapalapa */
-  lat: 19.3794,
-  lng: -99.0882,
+    'https://www.waze.com/ul?ll=19.3779373,-99.0938304&navigate=yes',
+  /** Coordenadas — San Marcos (Central de Abasto) */
+  lat: 19.3779373,
+  lng: -99.0938304,
   /** Mapa embebido centrado en la sucursal (sin API key) */
   mapEmbedUrl:
-    'https://maps.google.com/maps?q=19.3794,-99.0882&hl=es&z=17&ll=19.3794,-99.0882&output=embed',
+    'https://maps.google.com/maps?q=19.3779373,-99.0938304&hl=es&z=17&ll=19.3779373,-99.0938304&output=embed',
 };
 
 const icon = (file) => `${import.meta.env.BASE_URL}icons/${file}`;

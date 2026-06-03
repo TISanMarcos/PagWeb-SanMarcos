@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, MessageCircle, Trash2, ShieldCheck } from 'lucide-react';
+import { ShoppingBag, Trash2 } from 'lucide-react';
+import WhatsAppIcon from './icons/WhatsAppIcon';
 import { useAppStore } from '../store/useAppStore';
 
 const WhatsAppCheckout = () => {
@@ -105,7 +106,7 @@ const WhatsAppCheckout = () => {
                   onClick={handleCheckout}
                   className="w-full btn-whatsapp py-3 shadow-md shadow-brand-verde-oscuro/20 hover:-translate-y-0.5"
                 >
-                  <MessageCircle className="w-4 h-4 fill-white/20" />
+                  <WhatsAppIcon className="w-4 h-4" />
                   <span className="font-bold font-collier text-sm">Pedir por WhatsApp</span>
                 </button>
               </div>

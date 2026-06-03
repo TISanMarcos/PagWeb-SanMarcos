@@ -11,7 +11,6 @@ const navItems = [
   { label: 'Marcas', sectionId: 'marcas', type: 'scroll' },
   { label: 'Productos', sectionId: 'productos', type: 'scroll' },
   { label: 'Nosotros', sectionId: 'nosotros', type: 'scroll' },
-  { label: 'Comunidad', sectionId: 'comunidad', type: 'scroll' },
   { label: 'Catálogo', to: '/catalog', type: 'route' },
   { label: 'Promociones', to: '/promotions', type: 'route' },
 ];
@@ -44,9 +43,9 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center gap-2 group shrink-0" onClick={closeMobile}>
             <img
-              src={`${import.meta.env.BASE_URL}logo_sanmarcos.png`}
-              alt="San Marcos Logo"
-              className="h-10 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
+              src={`${import.meta.env.BASE_URL}logo_sm_horizontal.png`}
+              alt="San Marcos"
+              className="h-9 md:h-11 w-auto max-w-[200px] md:max-w-[240px] object-contain object-left group-hover:scale-[1.02] transition-transform"
             />
           </Link>
 

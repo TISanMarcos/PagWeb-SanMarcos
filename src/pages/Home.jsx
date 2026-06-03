@@ -5,8 +5,8 @@ import { scrollToSection } from '../utils/scrollToSection';
 import HeroSection from '../components/home/HeroSection';
 import QuickActionsSection from '../components/home/QuickActionsSection';
 import BenefitsSection from '../components/home/BenefitsSection';
+import PromotionsSection from '../components/home/PromotionsSection';
 import BrandsMarqueeSection from '../components/home/BrandsMarqueeSection';
-import WhySection from '../components/home/WhySection';
 import AdditionalServicesSection from '../components/home/AdditionalServicesSection';
 import CategoriesSection from '../components/home/CategoriesSection';
 import FeaturedProductsSection from '../components/home/FeaturedProductsSection';
@@ -14,7 +14,6 @@ import CatalogFormSection from '../components/home/CatalogFormSection';
 import CtaBanner from '../components/home/CtaBanner';
 import BranchSection from '../components/home/BranchSection';
 import TestimonialsSection from '../components/home/TestimonialsSection';
-import CommunitySection from '../components/home/CommunitySection';
 import Footer from '../components/Footer';
 
 const Home = () => {
@@ -36,16 +35,15 @@ const Home = () => {
       <HeroSection />
       <QuickActionsSection />
       <BenefitsSection />
+      <CatalogFormSection />
+      <PromotionsSection />
       <BrandsMarqueeSection />
-      <TestimonialsSection />
-      <WhySection />
+      <FeaturedProductsSection />
       <AdditionalServicesSection />
       <CategoriesSection />
-      <FeaturedProductsSection />
-      <CatalogFormSection />
       <CtaBanner />
+      <TestimonialsSection />
       <BranchSection />
-      <CommunitySection />
       <CtaBanner />
       <Footer />
     </div>

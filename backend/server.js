@@ -149,7 +149,14 @@ app.post('/api/leads', async (req, res) => {
       source: (source || 'web').trim(),
     };
 
-    saveLeadLocally(lead);
+    try {
+      saveLeadLocally(lead);
+    } catch (saveErr) {
+      console.error('[leads] saveLeadLocally', saveErr);
+      return res.status(500).json({
+        error: `No se pudo guardar el lead localmente: ${saveErr.message}`,
+      });
+    }
 
     const bodyText =
       emailBody ||
@@ -205,8 +212,12 @@ app.patch('/api/clients/:uid/credit', (req, res) => {
   }
 });
 
+app.get('/api/health', (_req, res) => {
+  res.json({ ok: true, service: 'san-marcos-backend' });
+});
+
 const PORT = 3001;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   const configured = Boolean(process.env.GOOGLE_SHEETS_PROMOTIONS_URL?.trim());
   console.log(`Zona.Pet Backend API → http://localhost:${PORT}`);
   console.log(
@@ -214,4 +225,13 @@ app.listen(PORT, () => {
       ? 'Promociones: Google Sheets (CSV publicado)'
       : 'Promociones: seed local (configura GOOGLE_SHEETS_PROMOTIONS_URL en backend/.env)',
   );
+});
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Puerto ${PORT} en uso. Cierra el otro proceso o usa: lsof -i :${PORT}`);
+  } else {
+    console.error('[server]', err);
+  }
+  process.exit(1);
 });

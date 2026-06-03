@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { MapPin, Clock, MessageCircle } from 'lucide-react';
+import { MapPin, Clock } from 'lucide-react';
+import WhatsAppIcon from '../icons/WhatsAppIcon';
 import { whatsAppUrl, COTIZA_MESSAGE } from '../../constants/whatsapp';
 import { BRANCH, BRANCH_HOURS, BRANCH_MAP_ICONS } from '../../constants/branch';
 
@@ -74,7 +75,7 @@ const BranchSection = () => (
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 mt-6 bg-brand-naranja hover:bg-brand-naranja-hover text-white px-6 py-3 rounded-full font-bold font-collier transition-colors"
           >
-            <MessageCircle className="w-5 h-5" />
+            <WhatsAppIcon className="w-5 h-5" />
             WhatsApp sucursal
           </a>
         </motion.div>

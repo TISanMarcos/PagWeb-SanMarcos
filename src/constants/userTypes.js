@@ -10,8 +10,8 @@ export const USER_TYPES = [
   },
   {
     id: 'tiendero_abarrotes',
-    label: 'Tendero',
-    shortLabel: 'Tendero',
+    label: 'Tendero / Abarrotero',
+    shortLabel: 'Tendero / Abarrotero',
     channel: 'business',
     catalogSegment: 'b2b',
     description: 'Abarrotes o tienda de conveniencia',
@@ -46,7 +46,7 @@ export const USER_TYPES = [
   },
   {
     id: 'mayorista',
-    label: 'Cliente mayorista',
+    label: 'Mayorista',
     shortLabel: 'Mayorista',
     channel: 'business',
     catalogSegment: 'b2b',

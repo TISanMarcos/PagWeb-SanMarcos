@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { MessageCircle, LayoutGrid, UserPlus } from 'lucide-react';
+import { LayoutGrid, UserPlus } from 'lucide-react';
+import WhatsAppIcon from '../icons/WhatsAppIcon';
 import { useContactFlow } from '../../hooks/useContactFlow';
 
 const QuickActionsSection = () => {
@@ -8,7 +9,7 @@ const QuickActionsSection = () => {
   const actions = [
     {
       label: 'Cotizar',
-      icon: MessageCircle,
+      icon: WhatsAppIcon,
       action: 'cotizar',
       sub: '1 clic · WhatsApp',
       accent: 'bg-brand-naranja',

@@ -38,7 +38,7 @@ const BusinessLeadModal = ({ onClose }) => {
           Enviaremos tu solicitud por correo y abriremos WhatsApp con tu información.
         </p>
 
-        <BusinessLeadForm source={source} onClose={onClose} onSuccess={onClose} />
+        <BusinessLeadForm source={source} onSuccess={onClose} />
       </motion.div>
     </div>
   );

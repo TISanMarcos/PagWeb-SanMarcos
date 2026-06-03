@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { X, MessageCircle } from 'lucide-react';
+import { X } from 'lucide-react';
+import WhatsAppIcon from '../icons/WhatsAppIcon';
 
 const RetailIntentModal = ({ onClose, onContinue, defaultIntent = '' }) => {
   const [intent, setIntent] = useState(defaultIntent);
@@ -46,7 +47,7 @@ const RetailIntentModal = ({ onClose, onContinue, defaultIntent = '' }) => {
           onClick={() => onContinue(intent)}
           className="w-full bg-brand-naranja hover:bg-brand-naranja-hover text-white py-3.5 rounded-xl font-collier font-bold flex items-center justify-center gap-2"
         >
-          <MessageCircle className="w-5 h-5" />
+          <WhatsAppIcon className="w-5 h-5" />
           Continuar a WhatsApp
         </button>
       </motion.div>

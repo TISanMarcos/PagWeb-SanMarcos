@@ -1,22 +1,6 @@
 import { motion } from 'framer-motion';
 import { Quote, Star } from 'lucide-react';
-
-const testimonials = [
-  {
-    quote: 'Gran experiencia de compra: surtido rápido, buenos precios y me atendieron al instante por WhatsApp.',
-    author: 'María González',
-    business: 'Pet Shop Centro · CDMX',
-    image:
-      'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=faces',
-  },
-  {
-    quote: 'Muy contento con el servicio. Pedí mayoreo un martes y todo llegó completo. Sin duda vuelvo a comprar.',
-    author: 'Carlos Ramírez',
-    business: 'Veterinaria del Norte',
-    image:
-      'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=faces',
-  },
-];
+import { googleReviews, GOOGLE_REVIEWS_SOURCE } from '../../data/googleReviews';
 
 const TestimonialsSection = () => (
   <section id="testimonios" className="section-pad section-alt">
@@ -26,14 +10,23 @@ const TestimonialsSection = () => (
       viewport={{ once: true }}
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
     >
-      <h2 className="section-title text-center mb-8 md:mb-10">
-        Lo que dicen nuestros clientes
-      </h2>
+      <h2 className="section-title text-center mb-2">Lo que dicen nuestros clientes</h2>
+      <p className="text-center font-amsi text-sm text-brand-verde-oscuro/60 mb-8 md:mb-10">
+        Reseñas reales de 5 estrellas en{' '}
+        <a
+          href={GOOGLE_REVIEWS_SOURCE}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-brand-naranja hover:underline font-semibold"
+        >
+          Google Maps
+        </a>
+      </p>
 
-      <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        {testimonials.map(({ quote, author, business, image }, idx) => (
+      <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        {googleReviews.map(({ quote, author, date, image, source }, idx) => (
           <motion.blockquote
-            key={author}
+            key={`${author}-${idx}`}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -49,7 +42,7 @@ const TestimonialsSection = () => (
               ))}
             </div>
 
-            <p className="font-amsi text-brand-verde-oscuro/80 text-sm leading-relaxed mb-6 flex-1">
+            <p className="font-amsi text-brand-verde-oscuro/80 text-sm leading-relaxed mb-6 flex-1 whitespace-pre-line">
               &ldquo;{quote}&rdquo;
             </p>
 
@@ -59,12 +52,15 @@ const TestimonialsSection = () => (
                 alt=""
                 className="w-14 h-14 rounded-full object-cover ring-2 ring-brand-beige shadow-sm"
                 loading="lazy"
+                referrerPolicy="no-referrer"
               />
               <div>
                 <cite className="not-italic font-collier font-bold text-brand-verde-oscuro block text-sm">
                   {author}
                 </cite>
-                <span className="text-xs text-brand-verde-oscuro/60 font-amsi">{business}</span>
+                <span className="text-xs text-brand-verde-oscuro/60 font-amsi">
+                  {date} · {source}
+                </span>
               </div>
             </footer>
           </motion.blockquote>

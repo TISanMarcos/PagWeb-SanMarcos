@@ -9,7 +9,7 @@ Marketing edita una hoja de cálculo; la web lee los cambios automáticamente (s
 3. En la primera fila (encabezados), pega **exactamente** estas columnas:
 
 ```
-id | title | description | segment | active | couponCode | imageEmoji | colorStart | colorEnd | startDate | endDate
+id | title | description | segment | active | couponCode | imageUrl | imageEmoji | colorStart | colorEnd | startDate | endDate
 ```
 
 ## Paso 2 — Importar los datos de ejemplo
@@ -29,13 +29,14 @@ id | title | description | segment | active | couponCode | imageEmoji | colorSta
 | `segment` | Sí | `b2c`, `b2b` o `both` | Quién la ve |
 | `active` | Sí | `TRUE` o `FALSE` | `FALSE` = oculta sin borrar |
 | `couponCode` | No | `ENVIO-ZERO` | Código para copiar |
-| `imageEmoji` | No | `🚚` | Ícono de la tarjeta |
-| `colorStart` | No | `#f06020` | Color fondo (gradiente) |
-| `colorEnd` | No | `#d9541a` | Color fondo (gradiente) |
+| `imageUrl` | No | `https://...` | **Foto de la promo** (prioridad). URL https, ruta `/public/...` o enlace de Drive |
+| `imageEmoji` | No | `🚚` | Solo si `imageUrl` está vacío: ícono con fondo de colores |
+| `colorStart` | No | `#f06020` | Con emoji: color fondo (gradiente) |
+| `colorEnd` | No | `#d9541a` | Con emoji: color fondo (gradiente) |
 | `startDate` | No | `2026-05-01` | Vacío = desde ya |
 | `endDate` | No | `2026-05-31` | Vacío = sin fecha fin |
 
-Para usar una **foto real** en lugar de emoji, deja `imageEmoji` vacío y agrega una columna extra `imageUrl` con el enlace (https://... o ruta en `/public`).
+**Imagen:** si `imageUrl` tiene un enlace válido, la web muestra esa foto. Si está vacío, se usa `imageEmoji` + `colorStart` / `colorEnd` como antes.
 
 ## Paso 3 — Publicar la hoja para la web
 

@@ -2,44 +2,94 @@ import { motion } from 'framer-motion';
 import { Clock, Package, Headphones, Truck } from 'lucide-react';
 
 const pillars = [
-  { icon: Clock, label: 'Rápido', color: 'bg-brand-naranja' },
-  { icon: Package, label: 'Surtido', color: 'bg-brand-verde-oscuro' },
-  { icon: Headphones, label: '1 a 1', color: 'bg-brand-verde-claro text-brand-verde-oscuro' },
-  { icon: Truck, label: 'Entrega', color: 'bg-brand-verde-oscuro' },
+  {
+    icon: Clock,
+    title: 'Compra en minutos',
+    highlight: true,
+    description: 'Cotiza por WhatsApp y confirma tu pedido el mismo día.',
+    color: 'bg-brand-naranja',
+    text: 'text-white',
+    titleText: '!text-white',
+    muted: 'text-white/85',
+  },
+  {
+    icon: Package,
+    title: 'Respaldo de Marcas',
+    description: 'Marcas reconocidas y categorías completas para surtir tu negocio.',
+    color: 'bg-brand-verde-oscuro',
+    text: 'text-white',
+    titleText: '!text-white',
+    muted: 'text-white/80',
+  },
+  {
+    icon: Headphones,
+    title: 'Atención personalizada',
+    description: 'Un asesor conoce tu negocio y te ayuda a elegir lo que más vende.',
+    color: 'bg-brand-verde-claro',
+    text: 'text-brand-verde-oscuro',
+    titleText: '!text-brand-verde-oscuro',
+    muted: 'text-brand-verde-oscuro/75',
+  },
+  {
+    icon: Truck,
+    title: 'Entregas Rápidas',
+    highlight: true,
+    description: 'Recibe tu mercancía en tu negocio, con entregas programadas.',
+    color: 'bg-brand-verde-oscuro',
+    text: 'text-white',
+    titleText: '!text-white',
+    muted: 'text-white/80',
+  },
 ];
 
 const BenefitsSection = () => (
   <section id="beneficios" className="section-pad section-surface pt-10 md:pt-12">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <motion.h2
+      <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="section-title text-center max-w-3xl mx-auto"
+        className="text-center max-w-3xl mx-auto"
       >
-        Si comprar te cuesta tiempo,
-        <span className="text-brand-naranja block">te cuesta negocio.</span>
-      </motion.h2>
+        <h2 className="section-title">
+          Si comprar te cuesta tiempo,
+          <span className="text-brand-naranja block">te cuesta negocio.</span>
+        </h2>
+        <p className="section-lead text-brand-verde-oscuro/70 mt-4 md:mt-5">
+          Compra rápido, surtido completo, trato directo y entrega a domicilio.
+        </p>
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 mt-10 md:mt-12"
+        className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mt-10 md:mt-12"
       >
-        {pillars.map(({ icon: Icon, label, color }, i) => (
-          <motion.div
-            key={label}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+        {pillars.map(({ icon: Icon, title, highlight, description, color, text, titleText, muted }, i) => (
+          <motion.article
+            key={title}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.06 }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className={`${color} rounded-2xl md:rounded-3xl p-5 md:p-7 flex flex-col items-center justify-center aspect-square text-white shadow-premium max-h-[180px] md:max-h-none`}
+            transition={{ delay: i * 0.08 }}
+            whileHover={{ y: -6 }}
+            className={`${color} ${text} rounded-2xl md:rounded-3xl p-5 md:p-6 shadow-premium flex flex-col items-center text-center h-full transition-shadow hover:shadow-lg`}
           >
-            <Icon className="w-8 h-8 md:w-10 md:h-10 mb-2 md:mb-3 opacity-95" strokeWidth={1.5} />
-            <span className="font-collier font-bold text-lg md:text-xl">{label}</span>
-          </motion.div>
+            <div className="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-white/15 flex items-center justify-center mb-4">
+              <Icon className="w-5 h-5 md:w-6 md:h-6 opacity-95" strokeWidth={1.75} />
+            </div>
+            <h3
+              className={`font-collier font-bold text-xl md:text-2xl leading-snug mb-2 w-full ${titleText} ${
+                highlight
+                  ? 'underline decoration-2 underline-offset-4 decoration-current font-black'
+                  : ''
+              }`}
+            >
+              {title}
+            </h3>
+            <p className={`font-amsi text-sm md:text-[0.9375rem] leading-relaxed ${muted}`}>{description}</p>
+          </motion.article>
         ))}
       </motion.div>
     </div>

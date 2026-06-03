@@ -1,4 +1,4 @@
-/** Genera imagen SVG con emoji (misma lógica que mockDB) */
+/** Genera imagen SVG con emoji (respaldo si no hay imageUrl) */
 export const makeSvgUri = (emoji, colorStart, colorEnd) => {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
     <defs>
@@ -15,11 +15,58 @@ export const makeSvgUri = (emoji, colorStart, colorEnd) => {
 
 const DEFAULT_COLORS = { start: '#003020', end: '#004d32' };
 
-export const resolveImageUrl = (row) => {
-  const url = (row.imageUrl || row.imageurl || '').trim();
-  if (url.startsWith('http') || url.startsWith('data:') || url.startsWith('/')) {
+const IMAGE_URL_KEYS = [
+  'imageUrl',
+  'imageurl',
+  'imagen',
+  'imagenUrl',
+  'urlImagen',
+  'foto',
+  'photo',
+  'image',
+];
+
+const pickRawImageUrl = (row) => {
+  for (const key of IMAGE_URL_KEYS) {
+    const value = (row[key] ?? '').trim();
+    if (value) return value;
+  }
+  return '';
+};
+
+const normalizeExternalImageUrl = (raw) => {
+  let url = raw.trim();
+  if (!url) return '';
+
+  const driveMatch = url.match(/drive\.google\.com\/file\/d\/([^/]+)/i);
+  if (driveMatch) {
+    return `https://drive.google.com/uc?export=view&id=${driveMatch[1]}`;
+  }
+
+  if (/^https?:\/\//i.test(url) || url.startsWith('/') || url.startsWith('data:')) {
     return url;
   }
+
+  if (!url.includes(' ') && /\.(jpg|jpeg|png|webp|gif|svg|avif)(\?|$)/i.test(url)) {
+    return `https://${url}`;
+  }
+
+  if (!url.includes(' ') && url.includes('.')) {
+    return `https://${url}`;
+  }
+
+  return '';
+};
+
+export const isPhotoImageUrl = (url) =>
+  Boolean(url) && (url.startsWith('http') || url.startsWith('/')) && !url.startsWith('data:image/svg');
+
+/**
+ * Prioridad: columna imageUrl (URL) → si no hay, emoji + colores en SVG.
+ */
+export const resolveImageUrl = (row) => {
+  const external = normalizeExternalImageUrl(pickRawImageUrl(row));
+  if (external) return external;
 
   const emoji = (row.imageEmoji || row.imageemoji || '🎁').trim() || '🎁';
   const start = (row.colorStart || row.colorstart || DEFAULT_COLORS.start).trim();

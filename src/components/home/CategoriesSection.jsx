@@ -2,12 +2,15 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
+const base = import.meta.env.BASE_URL;
+
+/** Fotos reales vía Unsplash (licencia Unsplash) */
 const categories = [
-  { label: 'Perros', emoji: '🐕', bg: 'from-brand-naranja/90 to-brand-naranja' },
-  { label: 'Gatos', emoji: '🐈', bg: 'from-brand-verde-claro/80 to-brand-verde-claro' },
-  { label: 'Aves', emoji: '🦜', bg: 'from-brand-verde-oscuro/90 to-brand-verde-oscuro' },
-  { label: 'Pecuarios', emoji: '🐷', bg: 'from-brand-beige to-brand-neutral' },
-  { label: 'Otros', emoji: '🐹', bg: 'from-brand-verde-claro-oscuro/80 to-brand-verde-oscuro/70' },
+  { label: 'Perros', image: `${base}categories/perros.jpg`, tilt: '-rotate-2' },
+  { label: 'Gatos', image: `${base}categories/gatos.jpg`, tilt: 'rotate-1' },
+  { label: 'Aves', image: `${base}categories/aves.jpg`, tilt: '-rotate-1' },
+  { label: 'Pecuarios', image: `${base}categories/pecuarios.jpg`, tilt: 'rotate-2' },
+  { label: 'Otros', image: `${base}categories/otros.jpg`, tilt: '-rotate-1.5' },
 ];
 
 const CategoriesSection = () => (
@@ -19,9 +22,7 @@ const CategoriesSection = () => (
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
     >
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
-        <h2 className="section-title">
-          ¿Qué surtes hoy?
-        </h2>
+        <h2 className="section-title">¿Qué surtes hoy?</h2>
         <Link
           to="/catalog"
           className="inline-flex items-center gap-2 btn-primary text-sm py-2.5"
@@ -31,36 +32,35 @@ const CategoriesSection = () => (
         </Link>
       </div>
 
-      <motion.div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
-        {categories.map(({ label, emoji, bg }, idx) => (
+      <motion.div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-6 lg:gap-8">
+        {categories.map(({ label, image, tilt }, idx) => (
           <motion.div
             key={label}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: idx * 0.05 }}
-            whileHover={{ y: -6, scale: 1.02 }}
+            className="flex justify-center"
           >
             <Link
               to="/catalog"
-              className={`group flex flex-col items-center justify-center aspect-square rounded-2xl md:rounded-3xl bg-gradient-to-br ${bg} shadow-soft border border-brand-beige/50 transition-shadow hover:shadow-premium`}
+              className={`group block w-full max-w-[200px] ${tilt} hover:rotate-0 transition-transform duration-300`}
             >
-              <span
-                className="text-4xl md:text-5xl mb-2 md:mb-3 transition-transform duration-300 group-hover:scale-110 select-none"
-                role="img"
-                aria-label={label}
+              <article
+                className="bg-white p-2.5 pb-9 md:p-3 md:pb-10 shadow-[0_4px_20px_rgba(0,48,32,0.12),0_1px_3px_rgba(0,0,0,0.08)] border border-white/80 group-hover:shadow-[0_12px_32px_rgba(0,48,32,0.18)] transition-shadow"
               >
-                {emoji}
-              </span>
-              <span
-                className={`font-collier font-bold text-base md:text-lg ${
-                  bg.includes('beige') || bg.includes('verde-claro/80')
-                    ? 'text-brand-verde-oscuro'
-                    : 'text-white'
-                }`}
-              >
-                {label}
-              </span>
+                <div className="aspect-[4/5] overflow-hidden bg-brand-neutral/40 ring-1 ring-black/[0.04]">
+                  <img
+                    src={image}
+                    alt={label}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <p className="mt-3 md:mt-4 text-center font-collier font-bold text-sm md:text-base text-brand-verde-oscuro tracking-tight">
+                  {label}
+                </p>
+              </article>
             </Link>
           </motion.div>
         ))}

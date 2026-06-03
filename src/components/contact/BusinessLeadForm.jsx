@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Mail, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
+import WhatsAppIcon from '../icons/WhatsAppIcon';
 import { useAppStore } from '../../store/useAppStore';
 import { getUserTypeById } from '../../constants/userTypes';
 import { submitLead } from '../../services/leadService';
@@ -20,10 +21,10 @@ const emptyForm = {
   privacidad: false,
 };
 
-const BusinessLeadForm = ({ source = 'formulario-negocio', onSuccess, onClose }) => {
+const BusinessLeadForm = ({ source = 'formulario-negocio', onSuccess }) => {
   const userProfile = useAppStore((s) => s.userProfile);
   const [form, setForm] = useState(emptyForm);
-  const [submitted, setSubmitted] = useState(false);
+  const showThankYouModal = useAppStore((s) => s.showThankYouModal);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -81,7 +82,7 @@ const BusinessLeadForm = ({ source = 'formulario-negocio', onSuccess, onClose })
         source,
       });
       window.open(whatsAppUrl(waMessage), '_blank', 'noopener,noreferrer');
-      setSubmitted(true);
+      showThankYouModal('business');
       onSuccess?.();
     } catch (err) {
       setError(err.message || 'Error al enviar. Intenta de nuevo.');
@@ -91,22 +92,6 @@ const BusinessLeadForm = ({ source = 'formulario-negocio', onSuccess, onClose })
   };
 
   if (!userProfile || !businessType) return null;
-
-  if (submitted) {
-    return (
-      <div className="text-center py-8 space-y-3">
-        <Mail className="w-12 h-12 text-brand-verde-claro mx-auto" />
-        <p className="font-amsi text-brand-verde-oscuro/80">
-          Solicitud enviada. También abrimos WhatsApp con tus datos.
-        </p>
-        {onClose && (
-          <button type="button" onClick={onClose} className="text-brand-naranja font-collier font-bold text-sm">
-            Cerrar
-          </button>
-        )}
-      </div>
-    );
-  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -169,7 +154,7 @@ const BusinessLeadForm = ({ source = 'formulario-negocio', onSuccess, onClose })
         disabled={loading}
         className="w-full bg-brand-naranja text-white py-3.5 rounded-xl font-bold font-collier flex items-center justify-center gap-2 hover:bg-brand-naranja-hover disabled:opacity-60"
       >
-        {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Mail className="w-5 h-5" />}
+        {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <WhatsAppIcon className="w-5 h-5" />}
         Enviar y abrir WhatsApp
       </button>
     </form>

@@ -27,11 +27,16 @@ export const submitLead = async (payload) => {
     if (data.error) throw new Error(data.error);
     if (response.status === 404) {
       throw new Error(
-        'No se encontró el API de leads. ¿Tienes el backend corriendo en el puerto 3001?',
+        'No se encontró el API de leads. ¿Tienes el backend corriendo? (cd backend && npm run dev)',
       );
     }
     if (response.status >= 500) {
-      throw new Error('Error en el servidor al guardar el lead. Revisa la terminal del backend.');
+      const hint = raw?.trim().slice(0, 200);
+      throw new Error(
+        hint && !hint.startsWith('<')
+          ? hint
+          : 'Error en el servidor al guardar el lead. Reinicia el backend (cd backend && npm run dev) y revisa la terminal.',
+      );
     }
     throw new Error(
       raw?.slice(0, 120) || `No se pudo enviar la solicitud (código ${response.status})`,

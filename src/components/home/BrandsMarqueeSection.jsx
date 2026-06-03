@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { partnerBrands } from '../../data/partnerBrands';
 import { useContactFlow } from '../../hooks/useContactFlow';
+import WhatsAppIcon from '../icons/WhatsAppIcon';
 
 const BrandLogo = ({ brand }) => (
   <div
@@ -42,21 +43,13 @@ const BrandsMarqueeSection = () => {
   return (
   <section id="marcas" className="section-pad section-alt overflow-hidden">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center">
-      <motion.p
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-brand-naranja font-amsi font-bold uppercase tracking-[0.25em] text-xs mb-3"
-      >
-        Portafolio premium
-      </motion.p>
       <motion.h2
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="section-title"
       >
-        Las marcas que ya confían en nosotros
+        Las marcas que tenemos para ti
       </motion.h2>
     </div>
 
@@ -77,8 +70,9 @@ const BrandsMarqueeSection = () => {
       <button
         type="button"
         onClick={() => startContactFlow('cotizar', { source: 'seccion-marcas' })}
-        className="btn-primary text-sm md:text-base px-8"
+        className="btn-primary inline-flex items-center gap-2 text-sm md:text-base px-8"
       >
+        <WhatsAppIcon className="w-5 h-5" />
         Cotizar surtido por WhatsApp
       </button>
     </motion.div>

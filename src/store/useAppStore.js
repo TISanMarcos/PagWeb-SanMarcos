@@ -11,6 +11,8 @@ export const useAppStore = create((set, get) => ({
 
   pendingContact: null,
   contactModal: null,
+  /** 'business' | 'retail' cuando se muestra el popup de gracias */
+  thankYouModal: null,
 
   login: (userData) => set({ user: userData, role: userData.role }),
 
@@ -44,6 +46,10 @@ export const useAppStore = create((set, get) => ({
   setPendingContact: (payload) => set({ pendingContact: payload }),
 
   setContactModal: (modal) => set({ contactModal: modal }),
+
+  showThankYouModal: (variant) => set({ thankYouModal: variant }),
+
+  closeThankYouModal: () => set({ thankYouModal: null }),
 
   addToCart: (product) =>
     set((state) => {

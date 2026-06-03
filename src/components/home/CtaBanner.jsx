@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { MessageCircle } from 'lucide-react';
+import WhatsAppIcon from '../icons/WhatsAppIcon';
 import { useContactFlow } from '../../hooks/useContactFlow';
 
 const CtaBanner = () => {
@@ -24,7 +24,7 @@ const CtaBanner = () => {
           onClick={() => startContactFlow('cotizar', { source: 'cta-banner' })}
           className="inline-flex items-center gap-2 bg-white text-brand-naranja px-6 py-3 rounded-full font-bold font-collier text-sm md:text-base hover:scale-105 transition-transform shadow-lg"
         >
-          <MessageCircle className="w-5 h-5" />
+          <WhatsAppIcon className="w-5 h-5" />
           Cotiza por WhatsApp
         </button>
       </motion.div>
