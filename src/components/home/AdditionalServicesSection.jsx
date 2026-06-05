@@ -1,4 +1,3 @@
-import { useId } from 'react';
 import { motion } from 'framer-motion';
 import {
   UserCheck,
@@ -9,8 +8,7 @@ import {
   SmilePlus,
   CreditCard,
 } from 'lucide-react';
-
-const LOGO = `${import.meta.env.BASE_URL}logo_sanmarcos.png`;
+import SealMark from '../SealMark';
 
 const services = [
   { icon: UserCheck, title: 'Atención personalizada' },
@@ -21,51 +19,6 @@ const services = [
   { icon: SmilePlus, title: 'Satisfacción al cliente' },
   { icon: CreditCard, title: 'Facilidad de pago' },
 ];
-
-const SealMark = ({ className = '' }) => {
-  const uid = useId().replace(/:/g, '');
-  const topArc = `seal-top-${uid}`;
-  const bottomArc = `seal-bottom-${uid}`;
-
-  const box = 'w-28 h-28 sm:w-32 sm:h-32';
-  const logo = 'w-16 sm:w-[4.25rem]';
-
-  return (
-    <div className={`relative shrink-0 ${box} ${className}`} aria-hidden>
-      <svg
-        viewBox="0 0 200 200"
-        className={`absolute inset-0 w-full h-full text-brand-verde-oscuro/35`}
-      >
-        <defs>
-          <path id={topArc} d="M 36 100 A 64 64 0 0 1 164 100" fill="none" />
-          <path id={bottomArc} d="M 164 100 A 64 64 0 0 1 36 100" fill="none" />
-        </defs>
-        <circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="5 4" />
-        <circle cx="100" cy="100" r="84" fill="none" stroke="currentColor" strokeWidth="0.75" opacity="0.6" />
-        <text fill="currentColor" fontSize="9.5" letterSpacing="0.22em" fontWeight="600">
-          <textPath href={`#${topArc}`} startOffset="50%" textAnchor="middle">
-            EL SELLO SAN MARCOS
-          </textPath>
-        </text>
-        <text fill="currentColor" fontSize="8" letterSpacing="0.18em" opacity="0.85">
-          <textPath href={`#${bottomArc}`} startOffset="50%" textAnchor="middle">
-            CALIDAD · CONFIANZA · DESDE 1984
-          </textPath>
-        </text>
-      </svg>
-
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div
-          className="relative -rotate-6 rounded-full bg-brand-verde-oscuro p-2 shadow-[0_6px_20px_-6px_rgba(26,77,46,0.35)] ring-[3px] ring-brand-naranja/25 ring-offset-2 ring-offset-white"
-        >
-          <div className="rounded-full bg-black flex items-center justify-center p-1.5 sm:p-2">
-            <img src={LOGO} alt="" className={`${logo} h-auto object-contain`} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const AdditionalServicesSection = () => (
   <section id="el-sello-san-marcos" className="section-alt pb-10 md:pb-12 pt-0">

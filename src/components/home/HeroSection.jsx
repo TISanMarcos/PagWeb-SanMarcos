@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { PawPrint } from 'lucide-react';
+import SealMark from '../SealMark';
 
 const base = import.meta.env.BASE_URL;
 
@@ -116,28 +117,34 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-brand-verde-oscuro/90 via-brand-verde-oscuro/75 to-brand-verde-oscuro/85" aria-hidden />
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
-          <div className="max-w-xl md:max-w-2xl text-left drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)]">
-          <div className="mb-3 sm:mb-4 w-fit max-w-full">
-            <p
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-collier font-bold text-white leading-[1.1] tracking-tight"
-              aria-label="Venta a Mayoreo"
-            >
-              Venta a <span className="text-brand-verde-claro">Mayoreo</span>
-            </p>
-            <span
-              className="mt-2 block h-1 w-full max-w-[200px] sm:max-w-[280px] rounded-full bg-gradient-to-r from-brand-naranja via-brand-verde-claro to-brand-naranja/80"
-              aria-hidden
-            />
-          </div>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-8">
+            <div className="max-w-xl md:max-w-2xl text-left drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)]">
+              <div className="mb-3 sm:mb-4 w-fit max-w-full">
+                <p
+                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-collier font-bold text-white leading-[1.1] tracking-tight"
+                  aria-label="Venta a Mayoreo"
+                >
+                  Venta a <span className="text-brand-verde-claro">Mayoreo</span>
+                </p>
+                <span
+                  className="mt-2 block h-1 w-full max-w-[200px] sm:max-w-[280px] rounded-full bg-gradient-to-r from-brand-naranja via-brand-verde-claro to-brand-naranja/80"
+                  aria-hidden
+                />
+              </div>
 
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-collier font-bold text-white leading-[1.12] mb-2 sm:mb-3">
-            Tenemos el producto que tu{' '}
-            <span className="text-brand-verde-claro">negocio y mascota</span> necesitan
-          </h1>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-collier font-bold text-white leading-[1.12] mb-2 sm:mb-3">
+                Tenemos el producto que tu{' '}
+                <span className="text-brand-verde-claro">negocio y mascota</span> necesitan
+              </h1>
 
-          <p className="text-sm sm:text-base md:text-lg text-white/90 font-amsi font-semibold max-w-md">
-            Surte tu negocio en minutos
-          </p>
+              <p className="text-sm sm:text-base md:text-lg text-white/90 font-amsi font-semibold max-w-md">
+                Surte tu negocio en minutos
+              </p>
+            </div>
+
+            <div className="flex justify-center md:justify-end shrink-0">
+              <SealMark whiteBackdrop enlarged />
+            </div>
           </div>
         </div>
       </motion.div>
