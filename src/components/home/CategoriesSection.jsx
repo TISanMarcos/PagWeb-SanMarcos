@@ -32,7 +32,7 @@ const CategoriesSection = () => (
         </Link>
       </div>
 
-      <motion.div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-6 lg:gap-8">
+      <motion.div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
         {categories.map(({ label, image, tilt }, idx) => (
           <motion.div
             key={label}
@@ -44,7 +44,7 @@ const CategoriesSection = () => (
           >
             <Link
               to="/catalog"
-              className={`group block w-full max-w-[200px] ${tilt} hover:rotate-0 transition-transform duration-300`}
+              className={`group block w-full max-w-[168px] sm:max-w-[200px] ${tilt} hover:rotate-0 transition-transform duration-300`}
             >
               <article
                 className="bg-white p-2.5 pb-9 md:p-3 md:pb-10 shadow-[0_4px_20px_rgba(0,48,32,0.12),0_1px_3px_rgba(0,0,0,0.08)] border border-white/80 group-hover:shadow-[0_12px_32px_rgba(0,48,32,0.18)] transition-shadow"

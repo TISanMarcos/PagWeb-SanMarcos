@@ -31,6 +31,13 @@
     background-color: var(--brand-crema);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
   }
 
   [id] {
@@ -64,7 +71,11 @@
 
 @layer components {
   .section-pad {
-    @apply py-14 md:py-20;
+    @apply py-10 sm:py-14 md:py-20;
+  }
+
+  .page-container {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
   .section-title {

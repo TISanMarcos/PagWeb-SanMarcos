@@ -43,7 +43,7 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center gap-2 group shrink-0" onClick={closeMobile}>
             <img
-              src={`${import.meta.env.BASE_URL}logo_sm_horizontal.png`}
+              src={`${import.meta.env.BASE_URL}logo_sm_horizontal_bicolor.png`}
               alt="San Marcos"
               className="h-9 md:h-11 w-auto max-w-[200px] md:max-w-[240px] object-contain object-left group-hover:scale-[1.02] transition-transform"
             />

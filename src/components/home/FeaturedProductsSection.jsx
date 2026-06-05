@@ -24,7 +24,7 @@ const FeaturedProductsSection = () => {
   }, [segment]);
 
   return (
-    <section id="productos" className="section-pad section-alt">
+    <section id="productos" className="section-alt pt-14 md:pt-20 pb-0">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -49,7 +49,7 @@ const FeaturedProductsSection = () => {
           </Link>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 pb-3 sm:pb-4">
           {products.map((product, idx) => (
             <motion.article
               key={product.id}

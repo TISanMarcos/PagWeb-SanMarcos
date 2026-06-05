@@ -9,40 +9,42 @@ const formatMarcas = (form, intent) => {
   return '—';
 };
 
-export const buildRetailWhatsAppMessage = ({ profile, intent, source, productName }) => {
-  const type = getUserTypeById(profile?.typeId);
-  const lines = [
-    '¡Hola San Marcos! Quiero hacer un pedido.',
-    '',
-    `Tipo de cliente: ${type?.label ?? 'Consumidor final'}`,
-  ];
+export const buildRetailWhatsAppMessage = ({ profile, intent, productName }) => {
+  const petName = profile?.petName?.trim();
+  const searchParts = [intent?.trim(), productName?.trim()].filter(Boolean);
+  const search = searchParts.join(', ') || profile?.intent?.trim();
 
-  if (intent?.trim()) lines.push(`Busco: ${intent.trim()}`);
-  if (productName?.trim()) lines.push(`Producto: ${productName.trim()}`);
-  if (source?.trim()) lines.push(`Vengo desde: ${source.trim()}`);
+  if (petName && search) {
+    return `¡Hola San Marcos! Tengo un amig@ llamado ${petName}, estoy buscando: ${search}.`;
+  }
 
-  return lines.join('\n');
+  if (petName) {
+    return `¡Hola San Marcos! Tengo un amig@ llamado ${petName} y me gustaría hacer un pedido.`;
+  }
+
+  if (search) {
+    return `¡Hola San Marcos! Estoy buscando: ${search}.`;
+  }
+
+  return '¡Hola San Marcos! Me gustaría hacer un pedido.';
 };
 
-export const buildBusinessWhatsAppMessage = ({ profile, form, intent, source }) => {
+export const buildBusinessWhatsAppMessage = ({ profile, form, intent }) => {
   const type = getUserTypeById(profile?.typeId);
-  const lines = [
-    '¡Hola San Marcos! Solicito información y acceso como cliente de negocio:',
-    '',
-    `Tipo de cliente: ${type?.label ?? form?.tipoNegocio ?? 'Negocio'}`,
-    `Nombre: ${form.nombre}`,
-    `WhatsApp: ${form.whatsapp}`,
-    `Correo: ${form.email}`,
-    `Nombre del negocio: ${form.nombreNegocio || '—'}`,
-    `Zona / área: ${form.zona}`,
-    `Marcas que busca: ${formatMarcas(form, intent)}`,
-  ];
+  const negocio = form.nombreNegocio?.trim();
+  const zona = form.zona?.trim();
+  const marcas = formatMarcas(form, intent);
+  const tipo = type?.label ?? 'negocio';
 
-  if (form.volumen?.trim()) lines.push(`Volumen estimado: ${form.volumen}`);
-  if (form.notas?.trim()) lines.push(`Notas: ${form.notas}`);
-  if (source?.trim()) lines.push(`Origen: ${source}`);
+  if (negocio && zona && marcas !== '—') {
+    return `¡Hola San Marcos! Tengo un ${tipo.toLowerCase()} llamado ${negocio}, en ${zona}, y busco surtir marcas como ${marcas}.`;
+  }
 
-  return lines.join('\n');
+  if (negocio && marcas !== '—') {
+    return `¡Hola San Marcos! Tengo un ${tipo.toLowerCase()} llamado ${negocio} y busco surtir marcas como ${marcas}.`;
+  }
+
+  return `¡Hola San Marcos! Soy ${tipo.toLowerCase()} y me gustaría información para surtir con ustedes.`;
 };
 
 export const buildLeadEmailBody = ({ profile, form, intent, source }) => {

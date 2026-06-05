@@ -21,7 +21,7 @@ const ProtectedRoute = ({ children, roles }) => {
 function App() {
   return (
     <HashRouter>
-      <div className="min-h-screen flex flex-col bg-brand-crema">
+      <div className="min-h-screen flex flex-col bg-brand-crema overflow-x-hidden">
         <Header />
         <main className="flex-grow pt-16">
           <Routes>

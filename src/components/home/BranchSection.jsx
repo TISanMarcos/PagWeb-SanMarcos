@@ -11,14 +11,14 @@ const stats = [
 ];
 
 const BranchSection = () => (
-  <section id="nosotros" className="section-pad bg-brand-verde-oscuro text-white">
+  <section id="sucursal" className="section-pad bg-brand-verde-oscuro text-white">
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
     >
-      <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+      <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -132,7 +132,7 @@ const BranchSection = () => (
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="grid grid-cols-3 gap-6 mt-16 pt-12 border-t border-white/10"
+        className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12 sm:mt-16 pt-10 sm:pt-12 border-t border-white/10"
       >
         {stats.map(({ value, label }) => (
           <div key={label} className="text-center">

@@ -18,6 +18,7 @@ export const useContactFlow = () => {
     setPendingContact,
     setContactModal,
     updateProfileIntent,
+    updatePetName,
   } = useAppStore();
 
   const runAction = useCallback(
@@ -38,7 +39,6 @@ export const useContactFlow = () => {
         const message = buildRetailWhatsAppMessage({
           profile,
           intent,
-          source,
           productName,
         });
         window.open(whatsAppUrl(message), '_blank', 'noopener,noreferrer');
@@ -63,10 +63,35 @@ export const useContactFlow = () => {
       };
 
       setPendingContact(payload);
-      setContactModal('select-type');
+      setContactModal('select-audience');
     },
     [location.pathname, setPendingContact, setContactModal],
   );
+
+  const completeAudienceSelection = useCallback(
+    (audience) => {
+      const pending = pendingContact ?? useAppStore.getState().pendingContact;
+      if (!pending) return;
+
+      if (audience === 'retail') {
+        useAppStore.getState().setUserProfile('consumidor_final');
+        setContactModal('retail-intent');
+        return;
+      }
+
+      if (pending.action === 'catalogo') {
+        setContactModal('select-business-type');
+        return;
+      }
+
+      setContactModal('business-form');
+    },
+    [pendingContact, setContactModal, setPendingContact, runAction],
+  );
+
+  const backToAudience = useCallback(() => {
+    setContactModal('select-audience');
+  }, [setContactModal]);
 
   const completeTypeSelection = useCallback(
     (typeId, intent = '') => {
@@ -75,17 +100,7 @@ export const useContactFlow = () => {
       if (!pending) return;
 
       if (isRetailUser(typeId)) {
-        if (pending.action === 'cotizar' && !intent && !pending.intent) {
-          setContactModal('retail-intent');
-          return;
-        }
-        setContactModal(null);
-        setPendingContact(null);
-        runAction(pending.action, {
-          intent: intent || pending.intent,
-          source: pending.source,
-          productName: pending.productName,
-        });
+        setContactModal('retail-intent');
         return;
       }
 
@@ -108,16 +123,28 @@ export const useContactFlow = () => {
   );
 
   const completeRetailIntent = useCallback(
-    (intent) => {
-      updateProfileIntent(intent);
+    ({ petName, intent }) => {
+      updatePetName(petName);
+      if (intent) updateProfileIntent(intent);
+
       const pending = pendingContact ?? useAppStore.getState().pendingContact;
       setContactModal(null);
       setPendingContact(null);
-      if (pending) {
-        runAction(pending.action, { ...pending, intent });
+
+      if (!pending) return;
+
+      if (pending.action === 'catalogo') {
+        navigate('/catalog');
+        return;
       }
+
+      runAction(pending.action, {
+        intent: intent || pending.intent,
+        source: pending.source,
+        productName: pending.productName,
+      });
     },
-    [pendingContact, updateProfileIntent, setContactModal, setPendingContact, runAction],
+    [pendingContact, updateProfileIntent, updatePetName, setContactModal, setPendingContact, runAction, navigate],
   );
 
   const closeBusinessForm = useCallback(() => {
@@ -148,11 +175,13 @@ export const useContactFlow = () => {
   return {
     userProfile,
     startContactFlow,
+    completeAudienceSelection,
     completeTypeSelection,
     completeRetailIntent,
     closeBusinessForm,
     requestProfileChange,
     openBusinessLeadForm,
+    backToAudience,
     runAction,
   };
 };

@@ -24,7 +24,7 @@ const CatalogFormSection = () => {
         </h2>
         <p className="font-amsi text-brand-verde-oscuro/70 text-lg mb-8 leading-relaxed">
           {isBusiness
-            ? `Estás registrado como ${businessType?.label}. Completa el formulario en la ventana emergente para enviar tu solicitud por correo y WhatsApp.`
+            ? `Estás registrado como ${businessType?.label}. Abre el formulario y te llevamos a WhatsApp con tu mensaje listo.`
             : isRetail
               ? `Te identificaste como ${businessType?.label}. Usa el catálogo o WhatsApp según lo que necesites.`
               : 'Primero dinos quién eres para mostrarte el catálogo correcto y la forma de contacto adecuada.'}

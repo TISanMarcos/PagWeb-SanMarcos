@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
-import { X } from 'lucide-react';
+import { ArrowLeft, X } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
+import { useContactFlow } from '../../hooks/useContactFlow';
 import BusinessLeadForm from './BusinessLeadForm';
 
 const BusinessLeadModal = ({ onClose }) => {
   const pendingContact = useAppStore((s) => s.pendingContact);
   const source = pendingContact?.source ?? 'cotizar-negocio';
+  const { backToAudience } = useContactFlow();
 
   return (
     <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-4">
@@ -31,11 +33,22 @@ const BusinessLeadModal = ({ onClose }) => {
           <X className="w-5 h-5" />
         </button>
 
+        {pendingContact && (
+          <button
+            type="button"
+            onClick={backToAudience}
+            className="flex items-center gap-1 text-sm font-amsi font-semibold text-brand-verde-oscuro/60 hover:text-brand-naranja mb-3"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Volver
+          </button>
+        )}
+
         <h2 className="text-xl font-collier font-bold text-brand-verde-oscuro mb-1 pr-8">
           Cuéntanos sobre tu negocio
         </h2>
         <p className="text-sm font-amsi text-brand-verde-oscuro/70 mb-6">
-          Enviaremos tu solicitud por correo y abriremos WhatsApp con tu información.
+          Elige tu tipo de negocio, responde 3 preguntas y te abriremos WhatsApp con tu mensaje listo.
         </p>
 
         <BusinessLeadForm source={source} onSuccess={onClose} />

@@ -59,6 +59,10 @@ export const getUserTypeById = (id) => USER_TYPES.find((t) => t.id === id) ?? nu
 
 export const isRetailUser = (typeId) => typeId === 'consumidor_final';
 
+export const RETAIL_USER_TYPE = USER_TYPES.find((t) => t.id === 'consumidor_final');
+
+export const BUSINESS_USER_TYPES = USER_TYPES.filter((t) => !isRetailUser(t.id));
+
 export const getCatalogSegmentForProfile = (profile) => {
   if (!profile?.typeId) return 'b2c';
   const type = getUserTypeById(profile.typeId);

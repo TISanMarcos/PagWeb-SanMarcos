@@ -3,8 +3,8 @@ import { CheckCircle, X } from 'lucide-react';
 
 const COPY = {
   business: {
-    title: '¡Gracias por registrarte!',
-    body: 'Recibimos tu solicitud por correo. Si se abrió WhatsApp, envía el mensaje para que nuestro equipo te atienda más rápido.',
+    title: '¡Gracias!',
+    body: 'Te abrimos WhatsApp con tu consulta. Envía el mensaje y nuestro equipo te atenderá en breve.',
   },
   retail: {
     title: '¡Gracias!',

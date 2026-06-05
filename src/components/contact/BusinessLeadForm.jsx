@@ -1,35 +1,34 @@
 import { useState, useEffect } from 'react';
-import { Loader2 } from 'lucide-react';
 import WhatsAppIcon from '../icons/WhatsAppIcon';
 import { useAppStore } from '../../store/useAppStore';
-import { getUserTypeById } from '../../constants/userTypes';
-import { submitLead } from '../../services/leadService';
-import { buildBusinessWhatsAppMessage, buildLeadEmailBody } from '../../utils/buildContactMessage';
+import { BUSINESS_USER_TYPES, getUserTypeById, isRetailUser } from '../../constants/userTypes';
+import { buildBusinessWhatsAppMessage } from '../../utils/buildContactMessage';
 import { whatsAppUrl } from '../../constants/whatsapp';
 import BrandMultiSelect from './BrandMultiSelect';
 import { partnerBrandNames } from '../../data/partnerBrands';
 
 const emptyForm = {
-  nombre: '',
-  whatsapp: '',
-  email: '',
   nombreNegocio: '',
   zona: '',
   marcas: [],
-  volumen: '',
-  notas: '',
-  privacidad: false,
 };
 
 const BusinessLeadForm = ({ source = 'formulario-negocio', onSuccess }) => {
   const userProfile = useAppStore((s) => s.userProfile);
-  const [form, setForm] = useState(emptyForm);
+  const setUserProfile = useAppStore((s) => s.setUserProfile);
   const showThankYouModal = useAppStore((s) => s.showThankYouModal);
-  const [loading, setLoading] = useState(false);
+  const [businessTypeId, setBusinessTypeId] = useState('');
+  const [form, setForm] = useState(emptyForm);
   const [error, setError] = useState('');
 
-  const businessType = userProfile ? getUserTypeById(userProfile.typeId) : null;
-  const showVolume = ['mayorista', 'revendedor_alimentos'].includes(userProfile?.typeId);
+  const businessType = businessTypeId ? getUserTypeById(businessTypeId) : null;
+  const showFields = Boolean(businessTypeId);
+
+  useEffect(() => {
+    if (userProfile && !isRetailUser(userProfile.typeId)) {
+      setBusinessTypeId(userProfile.typeId);
+    }
+  }, [userProfile?.typeId]);
 
   useEffect(() => {
     const intent = userProfile?.intent?.trim();
@@ -40,123 +39,155 @@ const BusinessLeadForm = ({ source = 'formulario-negocio', onSuccess }) => {
     }
   }, [userProfile?.intent]);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setForm((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
+  const handleTypeSelect = (typeId) => {
+    setBusinessTypeId(typeId);
+    setUserProfile(typeId, userProfile?.intent ?? '');
+    setError('');
   };
 
-  const handleSubmit = async (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.privacidad || !userProfile) return;
+
+    if (!businessTypeId) {
+      setError('Selecciona tu tipo de negocio.');
+      return;
+    }
+
+    if (!form.nombreNegocio.trim()) {
+      setError('Escribe el nombre de tu negocio.');
+      return;
+    }
+
     if (form.marcas.length === 0) {
       setError('Selecciona al menos una marca.');
       return;
     }
 
-    setLoading(true);
-    setError('');
+    if (!form.zona.trim()) {
+      setError('Indica la zona de tu negocio.');
+      return;
+    }
 
-    const payload = { ...form, interes: form.marcas.join(', ') };
+    const profile = useAppStore.getState().userProfile;
+    if (!profile || isRetailUser(profile.typeId)) return;
 
-    const emailBody = buildLeadEmailBody({
-      profile: userProfile,
+    const payload = {
+      ...form,
+      nombreNegocio: form.nombreNegocio.trim(),
+      zona: form.zona.trim(),
+      interes: form.marcas.join(', '),
+    };
+
+    const waMessage = buildBusinessWhatsAppMessage({
+      profile,
       form: payload,
-      intent: userProfile.intent,
+      intent: profile.intent,
       source,
     });
 
-    try {
-      await submitLead({
-        userTypeId: userProfile.typeId,
-        userTypeLabel: userProfile.label,
-        ...payload,
-        intent: payload.interes,
-        source,
-        emailBody,
-      });
-
-      const waMessage = buildBusinessWhatsAppMessage({
-        profile: userProfile,
-        form: payload,
-        intent: userProfile.intent,
-        source,
-      });
-      window.open(whatsAppUrl(waMessage), '_blank', 'noopener,noreferrer');
-      showThankYouModal('business');
-      onSuccess?.();
-    } catch (err) {
-      setError(err.message || 'Error al enviar. Intenta de nuevo.');
-    } finally {
-      setLoading(false);
-    }
+    window.open(whatsAppUrl(waMessage), '_blank', 'noopener,noreferrer');
+    showThankYouModal('business');
+    onSuccess?.();
   };
-
-  if (!userProfile || !businessType) return null;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <p className="text-xs font-amsi font-bold uppercase tracking-widest text-brand-naranja">
-        {businessType.emoji} {businessType.label}
-      </p>
-
-      {[
-        { name: 'nombre', label: 'Nombre completo', type: 'text', placeholder: 'Tu nombre' },
-        { name: 'whatsapp', label: 'WhatsApp', type: 'tel', placeholder: '55 1234 5678' },
-        { name: 'email', label: 'Correo electrónico', type: 'email', placeholder: 'tu@negocio.com' },
-        { name: 'nombreNegocio', label: 'Nombre del negocio', type: 'text', placeholder: 'Pet shop, clínica...' },
-        { name: 'zona', label: 'Zona / área', type: 'text', placeholder: 'Colonia, municipio' },
-        ...(showVolume
-          ? [{ name: 'volumen', label: 'Volumen estimado', type: 'text', placeholder: 'Ej. 2 tarimas / mes' }]
-          : []),
-        { name: 'notas', label: 'Notas (opcional)', type: 'text', placeholder: 'Horarios, RFC, etc.', required: false },
-      ].map((field) => (
-        <div key={field.name}>
-          <label htmlFor={`lead-${field.name}`} className="block text-sm font-semibold text-brand-verde-oscuro/80 font-amsi mb-1">
-            {field.label}
-          </label>
-          <input
-            id={`lead-${field.name}`}
-            name={field.name}
-            type={field.type}
-            required={field.required !== false}
-            value={form[field.name]}
-            onChange={handleChange}
-            placeholder={field.placeholder}
-            className="w-full px-4 py-2.5 rounded-xl border border-brand-beige focus:ring-2 focus:ring-brand-naranja outline-none font-amsi text-sm"
-          />
+      <div>
+        <p className="text-sm font-amsi font-semibold text-brand-verde-oscuro/80 mb-3">
+          ¿Qué tipo de negocio tienes?
+        </p>
+        <div className="grid grid-cols-2 gap-2">
+          {BUSINESS_USER_TYPES.map((type) => {
+            const selected = businessTypeId === type.id;
+            return (
+              <button
+                key={type.id}
+                type="button"
+                onClick={() => handleTypeSelect(type.id)}
+                className={`text-left p-3 rounded-xl border-2 transition-all ${
+                  selected
+                    ? 'border-brand-naranja bg-brand-naranja/5 shadow-sm'
+                    : 'border-brand-beige bg-white hover:border-brand-naranja/60'
+                }`}
+              >
+                <span className="text-lg block mb-0.5" aria-hidden>
+                  {type.emoji}
+                </span>
+                <span
+                  className={`font-collier font-bold text-xs leading-tight block ${
+                    selected ? 'text-brand-naranja' : 'text-brand-verde-oscuro'
+                  }`}
+                >
+                  {type.label}
+                </span>
+              </button>
+            );
+          })}
         </div>
-      ))}
+      </div>
 
-      <BrandMultiSelect
-        value={form.marcas}
-        onChange={(marcas) => setForm((prev) => ({ ...prev, marcas }))}
-        id="lead-marcas-modal"
-      />
+      {showFields && (
+        <>
+          <p className="text-xs font-amsi font-bold uppercase tracking-widest text-brand-naranja pt-1">
+            {businessType?.emoji} {businessType?.label}
+          </p>
 
-      <label className="flex items-start gap-3 cursor-pointer">
-        <input
-          type="checkbox"
-          name="privacidad"
-          checked={form.privacidad}
-          onChange={handleChange}
-          required
-          className="mt-1 rounded border-brand-beige text-brand-naranja focus:ring-brand-naranja"
-        />
-        <span className="text-xs text-brand-verde-oscuro/70 font-amsi leading-relaxed">
-          Acepto el aviso de privacidad de San Marcos.
-        </span>
-      </label>
+          <div>
+            <label htmlFor="lead-nombreNegocio" className="block text-sm font-semibold text-brand-verde-oscuro/80 font-amsi mb-1">
+              ¿Nombre del negocio?
+            </label>
+            <input
+              id="lead-nombreNegocio"
+              name="nombreNegocio"
+              type="text"
+              required
+              value={form.nombreNegocio}
+              onChange={handleChange}
+              placeholder="Pet shop, abarrotes, clínica..."
+              className="w-full px-4 py-2.5 rounded-xl border border-brand-beige focus:ring-2 focus:ring-brand-naranja outline-none font-amsi text-sm"
+            />
+          </div>
 
-      {error && <p className="text-sm text-red-600 font-amsi">{error}</p>}
+          <BrandMultiSelect
+            value={form.marcas}
+            onChange={(marcas) => setForm((prev) => ({ ...prev, marcas }))}
+            id="lead-marcas-modal"
+          />
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-brand-naranja text-white py-3.5 rounded-xl font-bold font-collier flex items-center justify-center gap-2 hover:bg-brand-naranja-hover disabled:opacity-60"
-      >
-        {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <WhatsAppIcon className="w-5 h-5" />}
-        Enviar y abrir WhatsApp
-      </button>
+          <div>
+            <label htmlFor="lead-zona" className="block text-sm font-semibold text-brand-verde-oscuro/80 font-amsi mb-1">
+              ¿En qué zona está el negocio?
+            </label>
+            <input
+              id="lead-zona"
+              name="zona"
+              type="text"
+              required
+              value={form.zona}
+              onChange={handleChange}
+              placeholder="Colonia, alcaldía o municipio"
+              className="w-full px-4 py-2.5 rounded-xl border border-brand-beige focus:ring-2 focus:ring-brand-naranja outline-none font-amsi text-sm"
+            />
+          </div>
+
+          {error && <p className="text-sm text-red-600 font-amsi">{error}</p>}
+
+          <button
+            type="submit"
+            className="w-full bg-brand-naranja text-white py-3.5 rounded-xl font-bold font-collier flex items-center justify-center gap-2 hover:bg-brand-naranja-hover"
+          >
+            <WhatsAppIcon className="w-5 h-5" />
+            Continuar a WhatsApp
+          </button>
+        </>
+      )}
+
+      {!showFields && error && <p className="text-sm text-red-600 font-amsi">{error}</p>}
     </form>
   );
 };

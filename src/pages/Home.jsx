@@ -12,6 +12,7 @@ import CategoriesSection from '../components/home/CategoriesSection';
 import FeaturedProductsSection from '../components/home/FeaturedProductsSection';
 import CatalogFormSection from '../components/home/CatalogFormSection';
 import CtaBanner from '../components/home/CtaBanner';
+import AboutSection from '../components/home/AboutSection';
 import BranchSection from '../components/home/BranchSection';
 import TestimonialsSection from '../components/home/TestimonialsSection';
 import Footer from '../components/Footer';
@@ -31,7 +32,7 @@ const Home = () => {
   }, [location.state]);
 
   return (
-    <div className="flex flex-col bg-brand-crema">
+    <div className="flex flex-col bg-brand-crema overflow-x-hidden w-full">
       <HeroSection />
       <QuickActionsSection />
       <BenefitsSection />
@@ -43,6 +44,7 @@ const Home = () => {
       <CategoriesSection />
       <CtaBanner />
       <TestimonialsSection />
+      <AboutSection />
       <BranchSection />
       <CtaBanner />
       <Footer />

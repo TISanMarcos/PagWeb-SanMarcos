@@ -1,6 +1,7 @@
 import { useAppStore } from '../../store/useAppStore';
 import { useContactFlow } from '../../hooks/useContactFlow';
-import UserTypeModal from './UserTypeModal';
+import AudienceModal from './AudienceModal';
+import BusinessTypeModal from './BusinessTypeModal';
 import RetailIntentModal from './RetailIntentModal';
 import ChangeProfileModal from './ChangeProfileModal';
 import BusinessLeadModal from './BusinessLeadModal';
@@ -10,11 +11,18 @@ const ContactFlowManager = () => {
   const contactModal = useAppStore((s) => s.contactModal);
   const thankYouModal = useAppStore((s) => s.thankYouModal);
   const closeThankYouModal = useAppStore((s) => s.closeThankYouModal);
+  const pendingContact = useAppStore((s) => s.pendingContact);
   const userProfile = useAppStore((s) => s.userProfile);
   const setContactModal = useAppStore((s) => s.setContactModal);
   const setPendingContact = useAppStore((s) => s.setPendingContact);
   const clearUserProfile = useAppStore((s) => s.clearUserProfile);
-  const { completeTypeSelection, completeRetailIntent, closeBusinessForm } = useContactFlow();
+  const {
+    completeAudienceSelection,
+    completeTypeSelection,
+    completeRetailIntent,
+    closeBusinessForm,
+    backToAudience,
+  } = useContactFlow();
 
   const handleCloseTypeModal = () => {
     setContactModal(null);
@@ -25,11 +33,24 @@ const ContactFlowManager = () => {
     <ThankYouModal variant={thankYouModal} onClose={closeThankYouModal} />
   ) : null;
 
-  if (contactModal === 'select-type') {
+  if (contactModal === 'select-audience') {
     return (
       <>
-        <UserTypeModal
+        <AudienceModal
           onClose={handleCloseTypeModal}
+          onSelect={completeAudienceSelection}
+        />
+        {thankYouOverlay}
+      </>
+    );
+  }
+
+  if (contactModal === 'select-business-type') {
+    return (
+      <>
+        <BusinessTypeModal
+          onClose={handleCloseTypeModal}
+          onBack={backToAudience}
           onSelect={(typeId) => completeTypeSelection(typeId)}
         />
         {thankYouOverlay}
@@ -41,7 +62,10 @@ const ContactFlowManager = () => {
     return (
       <>
         <RetailIntentModal
-          defaultIntent={userProfile?.intent ?? ''}
+          defaultIntent={userProfile?.intent ?? pendingContact?.intent ?? ''}
+          defaultPetName={userProfile?.petName ?? ''}
+          action={pendingContact?.action ?? 'cotizar'}
+          showIntent={!pendingContact?.intent?.trim()}
           onClose={handleCloseTypeModal}
           onContinue={completeRetailIntent}
         />
@@ -67,7 +91,7 @@ const ContactFlowManager = () => {
           onCancel={() => setContactModal(null)}
           onConfirm={() => {
             clearUserProfile();
-            setContactModal('select-type');
+            setContactModal('select-audience');
           }}
         />
         {thankYouOverlay}

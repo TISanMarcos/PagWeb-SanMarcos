@@ -31,8 +31,8 @@ const QuickActionsSection = () => {
   ];
 
   return (
-    <section className="relative z-20 -mt-5 sm:-mt-6 md:-mt-8 px-4 sm:px-6 lg:px-8 pb-3 sm:pb-5">
-      <div className="max-w-[50.5rem] mx-auto grid grid-cols-3 gap-2.5 md:gap-4">
+    <section className="relative z-20 -mt-4 sm:-mt-5 md:-mt-6 px-4 sm:px-6 lg:px-8 pb-3 sm:pb-5">
+      <div className="max-w-[50.5rem] mx-auto grid grid-cols-3 gap-2 sm:gap-2.5 md:gap-4">
         {actions.map(({ icon: Icon, label, sub, action, accent }, i) => (
           <motion.div
             key={label}
@@ -43,7 +43,7 @@ const QuickActionsSection = () => {
             <button
               type="button"
               onClick={() => startContactFlow(action, { source: 'hero-botones' })}
-              className={`group w-full flex flex-col items-center justify-center text-center rounded-xl md:rounded-2xl p-3.5 md:p-5 shadow-premium border border-brand-beige/60 transition-all hover:-translate-y-1 ${accent} ${accent.includes('verde-claro') ? '' : 'text-white'}`}
+              className={`group w-full flex flex-col items-center justify-center text-center rounded-xl md:rounded-2xl p-2.5 sm:p-3.5 md:p-5 shadow-premium border border-brand-beige/60 transition-all hover:-translate-y-1 min-h-[88px] sm:min-h-[100px] md:min-h-[112px] ${accent} ${accent.includes('verde-claro') ? '' : 'text-white'}`}
             >
               <Icon className="w-6 h-6 md:w-8 md:h-8 mb-1.5 md:mb-2.5 group-hover:scale-110 transition-transform" />
               <span className="font-collier font-bold text-xs md:text-base leading-none">{label}</span>

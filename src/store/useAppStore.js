@@ -18,7 +18,7 @@ export const useAppStore = create((set, get) => ({
 
   logout: () => set({ user: null, role: null, cart: [] }),
 
-  setUserProfile: (typeId, intent = '') => {
+  setUserProfile: (typeId, intent = '', petName = '') => {
     const type = getUserTypeById(typeId);
     if (!type) return;
     set({
@@ -28,6 +28,7 @@ export const useAppStore = create((set, get) => ({
         channel: type.channel,
         catalogSegment: type.catalogSegment,
         intent: intent.trim(),
+        petName: petName.trim(),
         setAt: new Date().toISOString(),
       },
     });
@@ -37,6 +38,13 @@ export const useAppStore = create((set, get) => ({
     set((state) =>
       state.userProfile
         ? { userProfile: { ...state.userProfile, intent: intent.trim() } }
+        : {},
+    ),
+
+  updatePetName: (petName) =>
+    set((state) =>
+      state.userProfile
+        ? { userProfile: { ...state.userProfile, petName: petName.trim() } }
         : {},
     ),
 
