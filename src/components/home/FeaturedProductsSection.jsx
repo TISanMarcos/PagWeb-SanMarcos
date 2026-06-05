@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { getCatalogSegmentForProfile } from '../../constants/userTypes';
 import { fetchProductsBySegment } from '../../services/authService';
 import { useAppStore } from '../../store/useAppStore';
+import { featureFlags } from '../../constants/featureFlags';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const FeaturedProductsSection = () => {
   const { role, userProfile } = useAppStore();
@@ -40,13 +41,15 @@ const FeaturedProductsSection = () => {
               Ejemplos de presentaciones y precios orientativos de mayoreo.
             </p>
           </div>
-          <Link
-            to="/catalog"
-            className="inline-flex items-center gap-2 bg-brand-naranja text-white px-6 py-3 rounded-full font-bold font-collier text-sm hover:scale-105 transition-transform shadow-md"
-          >
-            Ver catálogo completo
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+          {featureFlags.catalog && (
+            <Link
+              to="/catalog"
+              className="inline-flex items-center gap-2 bg-brand-naranja text-white px-6 py-3 rounded-full font-bold font-collier text-sm hover:scale-105 transition-transform shadow-md"
+            >
+              Ver catálogo completo
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          )}
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 pb-3 sm:pb-4">

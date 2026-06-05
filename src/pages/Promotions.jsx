@@ -1,36 +1,81 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { fetchPromotions } from '../services/authService';
 import PromoImage from '../components/PromoImage';
 import { isPromotionPhoto } from '../utils/promotionImage';
-import { Gift, Timer, Copy, CheckCircle, ShieldCheck, Truck, Star, Tag, Check, Award } from 'lucide-react';
+import { Gift, Timer, Copy, CheckCircle, ShieldCheck, Truck, Star, Tag, Award } from 'lucide-react';
+import { featureFlags } from '../constants/featureFlags';
+import { useAppStore } from '../store/useAppStore';
+import { isRetailUser } from '../constants/userTypes';
+import PromotionsAudienceGate from '../components/promotions/PromotionsAudienceGate';
+import {
+  audienceLabel,
+  audienceToSegment,
+  clearPromotionsAudience,
+  getPromotionsAudience,
+  setPromotionsAudience,
+} from '../utils/promotionsAudience';
+
+const resolveInitialAudience = (userProfile) => {
+  const stored = getPromotionsAudience();
+  if (stored) return stored;
+  if (userProfile) {
+    return isRetailUser(userProfile.typeId) ? 'retail' : 'business';
+  }
+  return null;
+};
 
 const Promotions = () => {
+  const navigate = useNavigate();
+  const userProfile = useAppStore((s) => s.userProfile);
+  const initialAudience = resolveInitialAudience(userProfile);
+
+  const [audience, setAudience] = useState(initialAudience);
+  const [showAudienceGate, setShowAudienceGate] = useState(!initialAudience);
   const [promotions, setPromotions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(Boolean(initialAudience));
   const [copiedCode, setCopiedCode] = useState(null);
   const [timeLeft, setTimeLeft] = useState({ hours: 14, minutes: 32, seconds: 59 });
-  const [segmentFilter, setSegmentFilter] = useState('all');
+  const [segmentFilter, setSegmentFilter] = useState(
+    initialAudience ? audienceToSegment(initialAudience) : 'b2c',
+  );
 
   useEffect(() => {
-    const loadPromos = async () => {
+    if (!audience) return undefined;
+
+    let cancelled = false;
+    setLoading(true);
+
+    (async () => {
       try {
         const data = await fetchPromotions();
-        const filtered = data.filter((p) => p.active !== false);
-        setPromotions(filtered);
+        if (!cancelled) {
+          setPromotions(data.filter((p) => p.active !== false));
+        }
       } catch (err) {
-        console.error("Error fetching promos", err);
+        console.error('Error fetching promos', err);
+        if (!cancelled) setPromotions([]);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
-    };
-    loadPromos();
-  }, []);
+    })();
 
-  // Countdown simulation
+    return () => {
+      cancelled = true;
+    };
+  }, [audience]);
+
+  useEffect(() => {
+    if (!audience) return;
+    if (!getPromotionsAudience()) {
+      setPromotionsAudience(audience);
+    }
+  }, [audience]);
+
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(prev => {
+      setTimeLeft((prev) => {
         if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
         if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
         if (prev.hours > 0) return { hours: prev.hours - 1, minutes: 59, seconds: 59 };
@@ -40,14 +85,44 @@ const Promotions = () => {
     return () => clearInterval(timer);
   }, []);
 
+  const handleAudienceSelect = useCallback((selected) => {
+    setPromotionsAudience(selected);
+    setAudience(selected);
+    setSegmentFilter(audienceToSegment(selected));
+    setShowAudienceGate(false);
+  }, []);
+
+  const handleChangeAudience = useCallback(() => {
+    clearPromotionsAudience();
+    setAudience(null);
+    setShowAudienceGate(true);
+  }, []);
+
   const handleCopyCode = (code) => {
-    if(!code) return;
+    if (!code) return;
     navigator.clipboard.writeText(code);
     setCopiedCode(code);
     setTimeout(() => setCopiedCode(null), 3000);
   };
 
-  if (loading) return <div className="p-32 text-center font-amsi font-semibold text-brand-verde-claro-oscuro max-w-[1440px] mx-auto min-h-screen flex items-center justify-center">Cargando ofertas exclusivas...</div>;
+  if (showAudienceGate || !audience) {
+    return (
+      <div className="min-h-screen bg-brand-neutral">
+        <PromotionsAudienceGate
+          onSelect={handleAudienceSelect}
+          onCancel={() => navigate('/')}
+        />
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="p-32 text-center font-amsi font-semibold text-brand-verde-claro-oscuro max-w-[1440px] mx-auto min-h-screen flex items-center justify-center">
+        Cargando ofertas exclusivas...
+      </div>
+    );
+  }
 
   if (promotions.length === 0) {
     return (
@@ -79,16 +154,45 @@ const Promotions = () => {
       <div className="max-w-[1440px] mx-auto px-4 py-20 min-h-[70vh] flex flex-col items-center justify-center">
         <Gift className="w-20 h-20 text-brand-beige mb-6" />
         <h2 className="text-2xl font-collier font-bold text-brand-verde-oscuro/60 mb-2">Sin promos en esta categoría</h2>
-        <button type="button" onClick={() => setSegmentFilter('all')} className="mt-4 text-brand-naranja font-amsi font-bold hover:underline">
-          Ver todas las promociones
-        </button>
+        <p className="text-brand-verde-oscuro/50 font-amsi text-center mb-6 max-w-md">
+          No hay ofertas activas para {audienceLabel(audience).toLowerCase()} en este momento.
+        </p>
+        <div className="flex flex-wrap gap-3 justify-center">
+          <button type="button" onClick={() => setSegmentFilter('all')} className="btn-primary text-sm py-2.5 px-5">
+            Ver todas las promociones
+          </button>
+          <button
+            type="button"
+            onClick={handleChangeAudience}
+            className="text-brand-naranja font-amsi font-bold hover:underline py-2.5 px-3"
+          >
+            Cambiar perfil
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="bg-brand-neutral pb-24 min-h-screen">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex flex-wrap gap-3">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5">
+          <p className="inline-flex flex-wrap items-center gap-2 bg-white border border-brand-beige rounded-full px-4 py-2.5 text-sm font-amsi text-brand-verde-oscuro/80 shadow-sm">
+            <span>
+              Promos para{' '}
+              <strong className="text-brand-verde-oscuro">{audienceLabel(audience)}</strong>
+            </span>
+            <button
+              type="button"
+              onClick={handleChangeAudience}
+              className="text-brand-naranja font-bold hover:underline"
+            >
+              Cambiar
+            </button>
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-3">
         {segmentTabs.map((tab) => (
           <button
             key={tab.id}
@@ -103,6 +207,7 @@ const Promotions = () => {
             {tab.label} ({tab.count})
           </button>
         ))}
+        </div>
       </div>
 
       {/* 
@@ -256,11 +361,11 @@ const Promotions = () => {
                         {copiedCode === promo.couponCode ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         {copiedCode === promo.couponCode ? 'Copiado' : promo.couponCode}
                       </button>
-                    ) : (
+                    ) : featureFlags.catalog ? (
                        <a href="/catalog" className="flex-1 text-center bg-brand-neutral hover:bg-brand-beige text-brand-verde-oscuro font-bold font-amsi py-3 rounded-xl transition-colors">
                          Ir al Catálogo
                        </a>
-                    )}
+                    ) : null}
                   </div>
                 </div>
               </motion.div>

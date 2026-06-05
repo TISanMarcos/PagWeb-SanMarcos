@@ -16,6 +16,7 @@ import AboutSection from '../components/home/AboutSection';
 import BranchSection from '../components/home/BranchSection';
 import TestimonialsSection from '../components/home/TestimonialsSection';
 import Footer from '../components/Footer';
+import { featureFlags } from '../constants/featureFlags';
 
 const Home = () => {
   const location = useLocation();
@@ -36,12 +37,12 @@ const Home = () => {
       <HeroSection />
       <QuickActionsSection />
       <BenefitsSection />
-      <CatalogFormSection />
+      {featureFlags.catalogFormSection && <CatalogFormSection />}
       <PromotionsSection />
       <BrandsMarqueeSection />
       <FeaturedProductsSection />
       <AdditionalServicesSection />
-      <CategoriesSection />
+      {featureFlags.categoriesSection && <CategoriesSection />}
       <CtaBanner />
       <TestimonialsSection />
       <AboutSection />

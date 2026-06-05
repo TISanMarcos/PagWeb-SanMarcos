@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { PawPrint, Users, Star, Target, ShieldCheck, ChevronDown } from 'lucide-react';
+import { featureFlags } from '../constants/featureFlags';
 
 const About = () => {
   return (
@@ -149,9 +150,11 @@ const About = () => {
           <p className="text-brand-verde-oscuro/60 font-amsi md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
             Pertenecer a la familia San Marcos significa hacer negocios con pioneros de la nutrición y distribución en México. Da el siguiente paso.
           </p>
-          <button className="bg-brand-verde-oscuro text-white px-10 py-5 rounded-full font-bold font-collier shadow-xl hover:shadow-brand-verde-oscuro/30 hover:bg-opacity-90 transition-all duration-300 hover:scale-105 hover:-translate-y-1">
-            Explorar el Catálogo
-          </button>
+          {featureFlags.catalog && (
+            <button className="bg-brand-verde-oscuro text-white px-10 py-5 rounded-full font-bold font-collier shadow-xl hover:shadow-brand-verde-oscuro/30 hover:bg-opacity-90 transition-all duration-300 hover:scale-105 hover:-translate-y-1">
+              Explorar el Catálogo
+            </button>
+          )}
         </motion.div>
       </section>
     </div>

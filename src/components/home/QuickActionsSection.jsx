@@ -2,37 +2,46 @@ import { motion } from 'framer-motion';
 import { LayoutGrid, UserPlus } from 'lucide-react';
 import WhatsAppIcon from '../icons/WhatsAppIcon';
 import { useContactFlow } from '../../hooks/useContactFlow';
+import { featureFlags } from '../../constants/featureFlags';
+
+const allActions = [
+  {
+    label: 'Cotizar',
+    icon: WhatsAppIcon,
+    action: 'cotizar',
+    sub: '1 clic · WhatsApp',
+    accent: 'bg-brand-naranja',
+    enabled: true,
+  },
+  {
+    label: 'Catálogo',
+    icon: LayoutGrid,
+    action: 'catalogo',
+    sub: 'Ver precios',
+    accent: 'bg-brand-verde-oscuro',
+    enabled: featureFlags.catalog,
+  },
+  {
+    label: 'Registro',
+    icon: UserPlus,
+    action: 'registro',
+    sub: 'Acceso negocio',
+    accent: 'bg-brand-verde-claro text-brand-verde-oscuro',
+    enabled: featureFlags.catalogFormSection,
+  },
+];
 
 const QuickActionsSection = () => {
   const { startContactFlow } = useContactFlow();
+  const actions = allActions.filter(({ enabled }) => enabled);
+  const gridCols =
+    actions.length >= 3 ? 'grid-cols-3' : actions.length === 2 ? 'grid-cols-2' : 'grid-cols-1';
 
-  const actions = [
-    {
-      label: 'Cotizar',
-      icon: WhatsAppIcon,
-      action: 'cotizar',
-      sub: '1 clic · WhatsApp',
-      accent: 'bg-brand-naranja',
-    },
-    {
-      label: 'Catálogo',
-      icon: LayoutGrid,
-      action: 'catalogo',
-      sub: 'Ver precios',
-      accent: 'bg-brand-verde-oscuro',
-    },
-    {
-      label: 'Registro',
-      icon: UserPlus,
-      action: 'registro',
-      sub: 'Acceso negocio',
-      accent: 'bg-brand-verde-claro text-brand-verde-oscuro',
-    },
-  ];
+  const containerWidth = actions.length === 1 ? 'max-w-sm' : 'max-w-[50.5rem]';
 
   return (
     <section className="relative z-20 -mt-4 sm:-mt-5 md:-mt-6 px-4 sm:px-6 lg:px-8 pb-3 sm:pb-5">
-      <div className="max-w-[50.5rem] mx-auto grid grid-cols-3 gap-2 sm:gap-2.5 md:gap-4">
+      <div className={`${containerWidth} mx-auto grid ${gridCols} gap-2 sm:gap-2.5 md:gap-4`}>
         {actions.map(({ icon: Icon, label, sub, action, accent }, i) => (
           <motion.div
             key={label}

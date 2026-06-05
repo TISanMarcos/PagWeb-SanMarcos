@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import ScrollNavLink from './ScrollNavLink';
+import { featureFlags } from '../constants/featureFlags';
 
 const Footer = () => (
   <footer className="bg-brand-verde-oscuro text-white">
@@ -15,9 +16,11 @@ const Footer = () => (
           <ScrollNavLink sectionId="nosotros" className="hover:text-white transition-colors">
             Nosotros
           </ScrollNavLink>
-          <Link to="/catalog" className="hover:text-white transition-colors">
-            Catálogo
-          </Link>
+          {featureFlags.catalog && (
+            <Link to="/catalog" className="hover:text-white transition-colors">
+              Catálogo
+            </Link>
+          )}
           <Link to="/promotions" className="hover:text-white transition-colors">
             Promociones
           </Link>

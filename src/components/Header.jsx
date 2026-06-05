@@ -5,13 +5,14 @@ import ScrollNavLink from './ScrollNavLink';
 import UserProfileBadge from './contact/UserProfileBadge';
 import { useContactFlow } from '../hooks/useContactFlow';
 import { ShoppingCart, User, LogOut, Menu, X } from 'lucide-react';
+import { featureFlags } from '../constants/featureFlags';
 
 const navItems = [
   { label: 'Inicio', sectionId: 'inicio', type: 'scroll' },
   { label: 'Marcas', sectionId: 'marcas', type: 'scroll' },
   { label: 'Productos', sectionId: 'productos', type: 'scroll' },
   { label: 'Nosotros', sectionId: 'nosotros', type: 'scroll' },
-  { label: 'Catálogo', to: '/catalog', type: 'route' },
+  ...(featureFlags.catalog ? [{ label: 'Catálogo', to: '/catalog', type: 'route' }] : []),
   { label: 'Promociones', to: '/promotions', type: 'route' },
 ];
 
@@ -78,43 +79,47 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-4">
-            <UserProfileBadge />
-            <button
-              type="button"
-              className="relative p-2 text-brand-verde-oscuro/80 hover:text-brand-naranja transition-colors"
-              onClick={() => startContactFlow('catalogo', { source: 'carrito-header' })}
-              aria-label="Ver carrito"
-            >
-              <ShoppingCart className="w-6 h-6" />
-              {cartItemsCount > 0 && (
-                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-brand-naranja rounded-full">
-                  {cartItemsCount}
-                </span>
-              )}
-            </button>
+            {featureFlags.catalog && <UserProfileBadge />}
+            {featureFlags.cart && (
+              <button
+                type="button"
+                className="relative p-2 text-brand-verde-oscuro/80 hover:text-brand-naranja transition-colors"
+                onClick={() => startContactFlow('catalogo', { source: 'carrito-header' })}
+                aria-label="Ver carrito"
+              >
+                <ShoppingCart className="w-6 h-6" />
+                {cartItemsCount > 0 && (
+                  <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-brand-naranja rounded-full">
+                    {cartItemsCount}
+                  </span>
+                )}
+              </button>
+            )}
 
-            {user ? (
-              <div className="hidden sm:flex items-center gap-3">
-                <Link
-                  to={role === 'admin' ? '/admin' : '/dashboard'}
-                  className="text-brand-verde-oscuro/80 hover:text-brand-verde-oscuro transition-colors flex items-center gap-2"
-                >
-                  <User className="w-5 h-5" />
-                  <span className="text-sm font-semibold max-w-[100px] truncate">{user.name}</span>
+            {featureFlags.auth && (
+              user ? (
+                <div className="hidden sm:flex items-center gap-3">
+                  <Link
+                    to={role === 'admin' ? '/admin' : '/dashboard'}
+                    className="text-brand-verde-oscuro/80 hover:text-brand-verde-oscuro transition-colors flex items-center gap-2"
+                  >
+                    <User className="w-5 h-5" />
+                    <span className="text-sm font-semibold max-w-[100px] truncate">{user.name}</span>
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="p-2 text-brand-verde-oscuro/50 hover:text-red-500 transition-colors"
+                    aria-label="Cerrar sesión"
+                  >
+                    <LogOut className="w-5 h-5" />
+                  </button>
+                </div>
+              ) : (
+                <Link to="/auth" className="hidden sm:inline-flex btn-primary py-1.5 px-4 text-sm">
+                  Iniciar Sesión
                 </Link>
-                <button
-                  type="button"
-                  onClick={handleLogout}
-                  className="p-2 text-brand-verde-oscuro/50 hover:text-red-500 transition-colors"
-                  aria-label="Cerrar sesión"
-                >
-                  <LogOut className="w-5 h-5" />
-                </button>
-              </div>
-            ) : (
-              <Link to="/auth" className="hidden sm:inline-flex btn-primary py-1.5 px-4 text-sm">
-                Iniciar Sesión
-              </Link>
+              )
             )}
 
             <button
@@ -164,7 +169,7 @@ const Header = () => {
               </Link>
             )
           )}
-          {!user && (
+          {featureFlags.auth && !user && (
             <Link to="/auth" className="btn-primary text-center py-2 mt-2" onClick={closeMobile}>
               Iniciar Sesión
             </Link>
