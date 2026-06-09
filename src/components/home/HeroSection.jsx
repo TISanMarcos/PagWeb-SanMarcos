@@ -143,7 +143,7 @@ const HeroSection = () => {
             </div>
 
             <div className="flex justify-center md:justify-end shrink-0">
-              <SealMark whiteBackdrop enlarged />
+              <SealMark enlarged />
             </div>
           </div>
         </div>

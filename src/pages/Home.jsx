@@ -8,6 +8,7 @@ import BenefitsSection from '../components/home/BenefitsSection';
 import PromotionsSection from '../components/home/PromotionsSection';
 import BrandsMarqueeSection from '../components/home/BrandsMarqueeSection';
 import AdditionalServicesSection from '../components/home/AdditionalServicesSection';
+import DeliveryServiceSection from '../components/home/DeliveryServiceSection';
 import CategoriesSection from '../components/home/CategoriesSection';
 import FeaturedProductsSection from '../components/home/FeaturedProductsSection';
 import CatalogFormSection from '../components/home/CatalogFormSection';
@@ -42,6 +43,7 @@ const Home = () => {
       <BrandsMarqueeSection />
       <FeaturedProductsSection />
       <AdditionalServicesSection />
+      <DeliveryServiceSection />
       {featureFlags.categoriesSection && <CategoriesSection />}
       <CtaBanner />
       <TestimonialsSection />

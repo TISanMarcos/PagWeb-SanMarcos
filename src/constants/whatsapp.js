@@ -5,4 +5,5 @@ export const whatsAppUrl = (message = '') => {
   return `https://wa.me/${WHATSAPP_NUMBER}${message ? `?text=${encoded}` : ''}`;
 };
 
-export const COTIZA_MESSAGE = '¡Hola San Marcos! Me interesa cotizar productos para mi negocio. ¿Me pueden apoyar?';
+export const COTIZA_MESSAGE =
+  '¡Hola! Me interesa cotizar para mi negocio. ¿Tienen un momento para apoyarme?';

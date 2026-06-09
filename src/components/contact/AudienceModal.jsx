@@ -3,16 +3,16 @@ import { X } from 'lucide-react';
 
 const OPTIONS = [
   {
-    id: 'retail',
-    emoji: '🐾',
-    label: 'Para mi mascota',
-    description: 'Compro alimento, accesorios o productos para mi perro o gato en casa.',
-  },
-  {
     id: 'business',
     emoji: '🏪',
     label: 'Para mi negocio',
     description: 'Tengo tienda, clínica, abarrotes o revendo productos para mascotas.',
+  },
+  {
+    id: 'retail',
+    emoji: '🐾',
+    label: 'Para mi mascota',
+    description: 'Compro alimento, accesorios o productos para mi perro o gato en casa.',
   },
 ];
 

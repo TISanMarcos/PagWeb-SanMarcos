@@ -1,13 +1,12 @@
 import { motion } from 'framer-motion';
 import { MapPin, Clock } from 'lucide-react';
-import WhatsAppIcon from '../icons/WhatsAppIcon';
 import { whatsAppUrl, COTIZA_MESSAGE } from '../../constants/whatsapp';
 import { BRANCH, BRANCH_HOURS, BRANCH_MAP_ICONS } from '../../constants/branch';
 
 const stats = [
-  { value: '+500', label: 'negocios atendidos' },
-  { value: '6', label: 'categorías disponibles' },
-  { value: '24h', label: 'respuesta por WhatsApp' },
+  { value: '+1,000', label: 'clientes atendidos' },
+  { value: '+2,500', label: 'Productos' },
+  { value: 'Atención Inmediata', label: 'vía WhatsApp' },
 ];
 
 const BranchSection = () => (
@@ -67,17 +66,6 @@ const BranchSection = () => (
               </div>
             </div>
           </div>
-
-
-          <a
-            href={whatsAppUrl(COTIZA_MESSAGE)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-6 bg-brand-naranja hover:bg-brand-naranja-hover text-white px-6 py-3 rounded-full font-bold font-collier transition-colors"
-          >
-            <WhatsAppIcon className="w-5 h-5" />
-            WhatsApp sucursal
-          </a>
         </motion.div>
 
         <motion.div
@@ -97,7 +85,20 @@ const BranchSection = () => (
             />
           </div>
 
-          <div className="flex items-center justify-center gap-5 sm:gap-6 mt-6 w-full">
+          <div className="flex items-center justify-center gap-4 sm:gap-5 mt-6 w-full flex-wrap">
+            <a
+              href={whatsAppUrl(COTIZA_MESSAGE)}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Contactar por WhatsApp"
+              className="inline-flex items-center justify-center px-5 py-3.5 min-h-[3.5rem] bg-[#25D366] rounded-2xl shadow-md hover:shadow-lg hover:brightness-110 hover:scale-[1.04] transition-all"
+            >
+              <img
+                src={BRANCH_MAP_ICONS.whatsapp}
+                alt=""
+                className="h-10 sm:h-11 w-10 sm:w-11 shrink-0 object-contain"
+              />
+            </a>
             <a
               href={BRANCH.googleMapsUrl}
               target="_blank"
@@ -136,7 +137,9 @@ const BranchSection = () => (
       >
         {stats.map(({ value, label }) => (
           <div key={label} className="text-center">
-            <p className="text-2xl md:text-3xl font-collier font-black text-brand-verde-claro">{value}</p>
+            <p className="text-xl sm:text-2xl md:text-3xl font-collier font-black text-brand-verde-claro leading-tight">
+              {value}
+            </p>
             <p className="text-sm font-amsi text-white/70 mt-1">{label}</p>
           </div>
         ))}

@@ -20,6 +20,7 @@ export const BRANCH_MAP_ICONS = {
   /** Logo oficial — Wikimedia Commons (Google Maps Logo 2020) */
   googleMaps: icon('google-maps-logo.svg'),
   waze: icon('waze.png'),
+  whatsapp: icon('whatsapp.svg'),
 };
 
 export const BRANCH_HOURS = [

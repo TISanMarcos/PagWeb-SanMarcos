@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
-import { Clock, Package, Headphones, Truck } from 'lucide-react';
+import { Clock, Package, Headphones, Motorbike } from 'lucide-react';
+import { useContactFlow } from '../../hooks/useContactFlow';
+import { scrollToSection } from '../../utils/scrollToSection';
 
 const pillars = [
   {
@@ -11,6 +13,8 @@ const pillars = [
     text: 'text-white',
     titleText: '!text-white',
     muted: 'text-white/85',
+    action: 'cotizar',
+    ariaLabel: 'Cotizar por WhatsApp en minutos',
   },
   {
     icon: Package,
@@ -20,6 +24,9 @@ const pillars = [
     text: 'text-white',
     titleText: '!text-white',
     muted: 'text-white/80',
+    action: 'section',
+    sectionId: 'marcas',
+    ariaLabel: 'Ver las marcas que manejamos',
   },
   {
     icon: Headphones,
@@ -29,9 +36,12 @@ const pillars = [
     text: 'text-brand-verde-oscuro',
     titleText: '!text-brand-verde-oscuro',
     muted: 'text-brand-verde-oscuro/75',
+    action: 'section',
+    sectionId: 'sucursal',
+    ariaLabel: 'Ver horarios y ubicación de la sucursal',
   },
   {
-    icon: Truck,
+    icon: Motorbike,
     title: 'Entregas Rápidas',
     highlight: true,
     description: 'Recibe tu mercancía en tu negocio, con entregas programadas.',
@@ -39,61 +49,86 @@ const pillars = [
     text: 'text-white',
     titleText: '!text-white',
     muted: 'text-white/80',
+    action: 'section',
+    sectionId: 'servicio-a-domicilio',
+    ariaLabel: 'Conocer el servicio a domicilio',
   },
 ];
 
-const BenefitsSection = () => (
-  <section id="beneficios" className="section-pad section-surface pt-10 md:pt-12">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center max-w-3xl mx-auto"
-      >
-        <h2 className="section-title">
-          Si comprar te cuesta tiempo,
-          <span className="text-brand-naranja block">te cuesta negocio.</span>
-        </h2>
-        <p className="section-lead text-brand-verde-oscuro/70 mt-4 md:mt-5">
-          Compra rápido, surtido completo, trato directo y entrega a domicilio.
-        </p>
-      </motion.div>
+const BenefitsSection = () => {
+  const { startContactFlow } = useContactFlow();
 
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mt-10 md:mt-12"
-      >
-        {pillars.map(({ icon: Icon, title, highlight, description, color, text, titleText, muted }, i) => (
-          <motion.article
-            key={title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.08 }}
-            whileHover={{ y: -6 }}
-            className={`${color} ${text} rounded-2xl md:rounded-3xl p-5 md:p-6 shadow-premium flex flex-col items-center text-center h-full transition-shadow hover:shadow-lg`}
-          >
-            <div className="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-white/15 flex items-center justify-center mb-4">
-              <Icon className="w-5 h-5 md:w-6 md:h-6 opacity-95" strokeWidth={1.75} />
-            </div>
-            <h3
-              className={`font-collier font-bold text-xl md:text-2xl leading-snug mb-2 w-full ${titleText} ${
-                highlight
-                  ? 'underline decoration-2 underline-offset-4 decoration-current font-black'
-                  : ''
-              }`}
-            >
-              {title}
-            </h3>
-            <p className={`font-amsi text-sm md:text-[0.9375rem] leading-relaxed ${muted}`}>{description}</p>
-          </motion.article>
-        ))}
-      </motion.div>
-    </div>
-  </section>
-);
+  const handlePillarClick = (pillar) => {
+    if (pillar.action === 'cotizar') {
+      startContactFlow('cotizar', { source: 'beneficios-compra-minutos' });
+      return;
+    }
+    if (pillar.action === 'section' && pillar.sectionId) {
+      scrollToSection(pillar.sectionId);
+    }
+  };
+
+  return (
+    <section id="beneficios" className="section-pad section-surface pt-10 md:pt-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center max-w-3xl mx-auto"
+        >
+          <h2 className="section-title">
+            Si comprar te cuesta tiempo,
+            <span className="text-brand-naranja block">te cuesta negocio.</span>
+          </h2>
+          <p className="section-lead text-brand-verde-oscuro/70 mt-4 md:mt-5">
+            Compra rápido, surtido completo, trato directo y entrega a domicilio.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mt-10 md:mt-12"
+        >
+          {pillars.map(
+            ({ icon: Icon, title, highlight, description, color, text, titleText, muted, action, ariaLabel, sectionId }, i) => (
+              <motion.button
+                key={title}
+                type="button"
+                aria-label={ariaLabel}
+                onClick={() => handlePillarClick({ action, sectionId })}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                whileHover={{ y: -6 }}
+                whileTap={{ scale: 0.98 }}
+                className={`${color} ${text} rounded-2xl md:rounded-3xl p-5 md:p-6 shadow-premium flex flex-col items-center text-center h-full transition-shadow hover:shadow-lg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-naranja focus-visible:ring-offset-2 ${
+                  action === 'pending' ? 'active:scale-[0.98]' : ''
+                }`}
+              >
+                <div className="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-white/15 flex items-center justify-center mb-4">
+                  <Icon className="w-5 h-5 md:w-6 md:h-6 opacity-95" strokeWidth={1.75} />
+                </div>
+                <h3
+                  className={`font-collier font-bold text-xl md:text-2xl leading-snug mb-2 w-full ${titleText} ${
+                    highlight
+                      ? 'underline decoration-2 underline-offset-4 decoration-current font-black'
+                      : ''
+                  }`}
+                >
+                  {title}
+                </h3>
+                <p className={`font-amsi text-sm md:text-[0.9375rem] leading-relaxed ${muted}`}>{description}</p>
+              </motion.button>
+            ),
+          )}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
 
 export default BenefitsSection;

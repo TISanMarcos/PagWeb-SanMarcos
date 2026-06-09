@@ -14,12 +14,12 @@ const WhatsAppCheckout = () => {
   const handleCheckout = () => {
     if (cart.length === 0) return;
 
-    let message = `¡Hola San Marcos! Quiero hacer el siguiente pedido:\n\n`;
-    cart.forEach(item => {
-      message += `- ${item.quantity}x ${item.name} ($${item.price.toLocaleString()} c/u)\n`;
+    let message = '¡Hola! Quisiera pedir lo siguiente:\n\n';
+    cart.forEach((item) => {
+      message += `• ${item.quantity}x ${item.name} — $${item.price.toLocaleString()} c/u\n`;
     });
-    message += `\n*Total estimado: $${total.toLocaleString()}*\n\n`;
-    message += `Por favor, confírmenme existencias y el método de pago.`;
+    message += `\nCreo que serían como $${total.toLocaleString()} en total.\n\n`;
+    message += '¿Me confirman si hay existencia y cómo puedo pagar? ¡Gracias!';
 
     const encodedMessage = encodeURIComponent(message);
     const waUrl = `https://wa.me/${waNumber}?text=${encodedMessage}`;

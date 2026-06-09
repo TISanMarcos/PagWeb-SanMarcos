@@ -3,18 +3,18 @@ import { ArrowLeft, Sparkles, X } from 'lucide-react';
 
 const OPTIONS = [
   {
-    id: 'retail',
-    emoji: '🐾',
-    label: 'Soy dueño de mascota',
-    description: 'Busco ofertas para alimentar y consentir a mi perro o gato en casa.',
-    hint: 'Promos retail y cupones para consumidor',
-  },
-  {
     id: 'business',
     emoji: '🏪',
     label: 'Tengo un negocio',
     description: 'Surto tienda, clínica, abarrotes o revendo productos para mascotas.',
     hint: 'Promos de mayoreo y beneficios B2B',
+  },
+  {
+    id: 'retail',
+    emoji: '🐾',
+    label: 'Soy dueño de mascota',
+    description: 'Busco ofertas para alimentar y consentir a mi perro o gato en casa.',
+    hint: 'Promos retail y cupones para consumidor',
   },
 ];
 
