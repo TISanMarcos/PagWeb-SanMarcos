@@ -17,7 +17,16 @@ const getTag = (block, tag) => {
 };
 
 if (!fs.existsSync(xmlPath)) {
-  console.error('No se encontró CP.xml en la raíz del proyecto.');
+  const hasGeneratedData =
+    fs.existsSync(outDir) &&
+    fs.readdirSync(outDir).some((file) => file.endsWith('.json'));
+
+  if (hasGeneratedData) {
+    console.log('CP.xml no disponible; usando public/data/postal-codes existente.');
+    process.exit(0);
+  }
+
+  console.error('No se encontró CP.xml ni datos generados en public/data/postal-codes.');
   process.exit(1);
 }
 
