@@ -1,98 +1,78 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { getCatalogSegmentForProfile } from '../../constants/userTypes';
-import { fetchProductsBySegment } from '../../services/authService';
-import { useAppStore } from '../../store/useAppStore';
-import { featureFlags } from '../../constants/featureFlags';
-import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { FEATURED_PRODUCTS } from '../../data/featuredProducts';
 
-const FeaturedProductsSection = () => {
-  const { role, userProfile } = useAppStore();
-  const [products, setProducts] = useState([]);
-  const segment = userProfile ? getCatalogSegmentForProfile(userProfile) : role || 'b2c';
+const midpoint = Math.ceil(FEATURED_PRODUCTS.length / 2);
+const productsRowOne = FEATURED_PRODUCTS.slice(0, midpoint);
+const productsRowTwo = FEATURED_PRODUCTS.slice(midpoint);
 
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const data = await fetchProductsBySegment(segment);
-        setProducts(data.slice(0, 4));
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    load();
-  }, [segment]);
+const ProductCard = ({ product }) => (
+  <article
+    className="flex-shrink-0 w-40 sm:w-44 md:w-48 mx-3 md:mx-4 bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm border border-brand-beige/80 flex flex-col transition-transform hover:scale-[1.02]"
+    title={product.name}
+  >
+    <div className="bg-brand-verde-oscuro px-2.5 py-1.5 sm:py-2">
+      <span className="text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-brand-verde-claro font-amsi line-clamp-1">
+        {product.brand}
+      </span>
+    </div>
+
+    <div className="relative h-32 sm:h-36 md:h-40 bg-gradient-to-b from-brand-neutral to-brand-crema p-3 flex items-center justify-center">
+      <img
+        src={product.image}
+        alt={product.name}
+        loading="lazy"
+        decoding="async"
+        className="max-w-full max-h-full w-auto h-auto object-contain drop-shadow-sm"
+      />
+    </div>
+
+    <div className="p-3 flex-1 min-h-[4.25rem] sm:min-h-[4.5rem]">
+      <h3 className="font-collier font-bold text-brand-verde-oscuro text-xs sm:text-sm leading-snug line-clamp-3">
+        {product.name}
+      </h3>
+    </div>
+  </article>
+);
+
+const ProductMarqueeRow = ({ products, reverse = false }) => {
+  const track = [...products, ...products];
 
   return (
-    <section id="productos" className="section-alt pt-14 md:pt-20 pb-0">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-      >
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
-          <div>
-            <h2 className="section-title mb-3">
-              Productos destacados
-            </h2>
-            <p className="font-amsi text-brand-verde-oscuro/70">
-              Ejemplos de presentaciones y precios orientativos de mayoreo.
-            </p>
-          </div>
-          {featureFlags.catalog && (
-            <Link
-              to="/catalog"
-              className="inline-flex items-center gap-2 bg-brand-naranja text-white px-6 py-3 rounded-full font-bold font-collier text-sm hover:scale-105 transition-transform shadow-md"
-            >
-              Ver catálogo completo
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          )}
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 pb-3 sm:pb-4">
-          {products.map((product, idx) => (
-            <motion.article
-              key={product.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.08 }}
-              whileHover={{ y: -6 }}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm border border-brand-beige/80 hover:shadow-lg transition-shadow"
-            >
-              <motion.div
-                className="bg-brand-verde-oscuro px-4 py-2.5"
-                whileHover={{ backgroundColor: '#004d32' }}
-              >
-                <span className="text-[10px] uppercase tracking-wider font-bold text-brand-verde-claro font-amsi">
-                  {product.subCategory || product.category}
-                </span>
-              </motion.div>
-              <div className="h-36 bg-brand-neutral overflow-hidden">
-                <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
-              </div>
-              <div className="p-4">
-                <h3 className="font-collier font-bold text-brand-verde-oscuro text-sm leading-snug mb-2 line-clamp-2">
-                  {product.name}
-                </h3>
-                <p className="text-2xl font-black text-brand-naranja font-collier">
-                  ${product.price.toLocaleString()}
-                </p>
-                <p className="text-xs text-brand-verde-oscuro/50 font-amsi mt-1">Precio orientativo mayoreo</p>
-              </div>
-            </motion.article>
-          ))}
-        </div>
-
-        {products.length === 0 && (
-          <p className="text-center text-brand-verde-oscuro/60 font-amsi py-12">Cargando productos destacados...</p>
-        )}
-      </motion.div>
-    </section>
+    <div
+      className={`flex w-max will-change-transform ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}
+      aria-hidden
+    >
+      {track.map((product, i) => (
+        <ProductCard key={`${product.id}-${i}`} product={product} />
+      ))}
+    </div>
   );
 };
+
+const FeaturedProductsSection = () => (
+  <section id="productos" className="section-alt pt-14 md:pt-20 pb-8 md:pb-10 overflow-hidden">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 md:mb-10"
+    >
+      <div className="max-w-3xl">
+        <h2 className="section-title mb-3">Productos destacados</h2>
+        <p className="font-amsi text-brand-verde-oscuro/70 text-base md:text-lg leading-relaxed">
+          Algunas de las presentaciones que manejamos para surtir tu negocio. Cotiza por WhatsApp
+          y te confirmamos disponibilidad.
+        </p>
+      </div>
+    </motion.div>
+
+    <div className="relative space-y-6 md:space-y-8" aria-label="Productos destacados en movimiento">
+      <ProductMarqueeRow products={productsRowOne} />
+      <ProductMarqueeRow products={productsRowTwo} reverse />
+    </div>
+
+    <p className="sr-only">{FEATURED_PRODUCTS.map((p) => p.name).join('. ')}</p>
+  </section>
+);
 
 export default FeaturedProductsSection;

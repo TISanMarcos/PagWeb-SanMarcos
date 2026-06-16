@@ -16,6 +16,9 @@ dist-ssr
 !.env.example
 backend/.env
 
+# Catálogo SEPOMEX (~64 MB). Copiar CP.xml a la raíz y ejecutar npm run build:cp
+CP.xml
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

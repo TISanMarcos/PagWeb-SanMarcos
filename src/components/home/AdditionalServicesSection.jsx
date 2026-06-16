@@ -21,14 +21,14 @@ const services = [
 ];
 
 const AdditionalServicesSection = () => (
-  <section id="el-sello-san-marcos" className="section-alt pb-10 md:pb-12 pt-0">
+  <section id="el-sello-san-marcos" className="section-alt pb-0 pt-0">
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
     >
-      <div className="rounded-b-2xl border border-t-0 border-brand-beige/90 bg-white shadow-sm overflow-hidden">
+      <div className="border border-t-0 border-brand-beige/90 bg-white shadow-sm overflow-hidden">
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 px-5 sm:px-7 pt-5 pb-4 border-b border-brand-beige/80">
           <SealMark />
           <div className="text-center sm:text-left min-w-0">

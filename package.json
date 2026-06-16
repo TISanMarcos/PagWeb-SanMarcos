@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build:cp": "node scripts/build-postal-codes.mjs",
+    "build": "npm run build:cp && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",

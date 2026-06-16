@@ -5,11 +5,14 @@ import { BUSINESS_USER_TYPES, getUserTypeById, isRetailUser } from '../../consta
 import { buildBusinessWhatsAppMessage } from '../../utils/buildContactMessage';
 import { whatsAppUrl } from '../../constants/whatsapp';
 import BrandMultiSelect from './BrandMultiSelect';
+import PostalCodeField from './PostalCodeField';
 import { partnerBrandNames } from '../../data/partnerBrands';
+import { formatPostalCode } from '../../utils/postalCodes';
 
 const emptyForm = {
   nombreNegocio: '',
-  zona: '',
+  codigoPostal: '',
+  ubicacion: '',
   marcas: [],
 };
 
@@ -50,26 +53,32 @@ const BusinessLeadForm = ({ source = 'formulario-negocio', onSuccess }) => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const submitLead = (overrides = {}) => {
+    const merged = { ...form, ...overrides };
 
     if (!businessTypeId) {
       setError('Selecciona tu tipo de negocio.');
       return;
     }
 
-    if (!form.nombreNegocio.trim()) {
+    if (!merged.nombreNegocio.trim()) {
       setError('Escribe el nombre de tu negocio.');
       return;
     }
 
-    if (form.marcas.length === 0) {
+    if (merged.marcas.length === 0) {
       setError('Selecciona al menos una marca.');
       return;
     }
 
-    if (!form.zona.trim()) {
-      setError('Indica la zona de tu negocio.');
+    const codigoPostal = formatPostalCode(merged.codigoPostal);
+    if (codigoPostal.length !== 5) {
+      setError('Ingresa un código postal de 5 dígitos.');
+      return;
+    }
+
+    if (!merged.ubicacion.trim()) {
+      setError('Ingresa un código postal válido de México.');
       return;
     }
 
@@ -77,11 +86,14 @@ const BusinessLeadForm = ({ source = 'formulario-negocio', onSuccess }) => {
     if (!profile || isRetailUser(profile.typeId)) return;
 
     const payload = {
-      ...form,
-      nombreNegocio: form.nombreNegocio.trim(),
-      zona: form.zona.trim(),
-      interes: form.marcas.join(', '),
+      ...merged,
+      nombreNegocio: merged.nombreNegocio.trim(),
+      codigoPostal,
+      ubicacion: merged.ubicacion.trim(),
+      interes: merged.marcas.join(', '),
     };
+
+    setForm(payload);
 
     const waMessage = buildBusinessWhatsAppMessage({
       profile,
@@ -93,6 +105,11 @@ const BusinessLeadForm = ({ source = 'formulario-negocio', onSuccess }) => {
     window.open(whatsAppUrl(waMessage), '_blank', 'noopener,noreferrer');
     showThankYouModal('business');
     onSuccess?.();
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submitLead();
   };
 
   return (
@@ -159,21 +176,15 @@ const BusinessLeadForm = ({ source = 'formulario-negocio', onSuccess }) => {
             id="lead-marcas-modal"
           />
 
-          <div>
-            <label htmlFor="lead-zona" className="block text-sm font-semibold text-brand-verde-oscuro/80 font-amsi mb-1">
-              ¿En qué zona está el negocio?
-            </label>
-            <input
-              id="lead-zona"
-              name="zona"
-              type="text"
-              required
-              value={form.zona}
-              onChange={handleChange}
-              placeholder="Colonia, alcaldía o municipio"
-              className="w-full px-4 py-2.5 rounded-xl border border-brand-beige focus:ring-2 focus:ring-brand-naranja outline-none font-amsi text-sm"
-            />
-          </div>
+          <PostalCodeField
+            id="lead-codigoPostal"
+            value={{ codigoPostal: form.codigoPostal, ubicacion: form.ubicacion }}
+            onChange={({ codigoPostal, ubicacion }) => {
+              setForm((prev) => ({ ...prev, codigoPostal, ubicacion }));
+              setError('');
+            }}
+            onEnterSubmit={(postal) => submitLead(postal)}
+          />
 
           {error && <p className="text-sm text-red-600 font-amsi">{error}</p>}
 

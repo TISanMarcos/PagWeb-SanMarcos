@@ -1,5 +1,73 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HeartHandshake, Users, Stethoscope } from 'lucide-react';
+
+const base = import.meta.env.BASE_URL;
+
+const galleryImages = [
+  {
+    src: `${base}local.webp`,
+    alt: 'Local San Marcos Mascotas en Central de Abasto',
+  },
+  {
+    src: `${base}central_abastos.jpeg`,
+    alt: 'Vista de Central de Abasto, Ciudad de México',
+  },
+];
+
+const GALLERY_ROTATE_MS = 5500;
+
+const AboutGalleryCarousel = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % galleryImages.length);
+    }, GALLERY_ROTATE_MS);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div
+      className="relative rounded-3xl overflow-hidden border border-brand-beige shadow-sm aspect-video bg-brand-neutral"
+      aria-roledescription="carrusel"
+      aria-label="Galería Central de Abasto"
+    >
+      {galleryImages.map(({ src, alt }, i) => (
+        <motion.img
+          key={src}
+          src={src}
+          alt={alt}
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          initial={false}
+          animate={{ opacity: i === activeIndex ? 1 : 0 }}
+          transition={{ duration: 0.85, ease: 'easeInOut' }}
+        />
+      ))}
+
+      <div
+        className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2"
+        role="tablist"
+        aria-label="Seleccionar imagen"
+      >
+        {galleryImages.map(({ src, alt }, i) => (
+          <button
+            key={src}
+            type="button"
+            role="tab"
+            aria-selected={i === activeIndex}
+            aria-label={alt}
+            onClick={() => setActiveIndex(i)}
+            className={`h-2 rounded-full transition-all ${
+              i === activeIndex ? 'w-8 bg-brand-naranja' : 'w-2 bg-brand-verde-oscuro/35 hover:bg-brand-verde-oscuro/55'
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const highlights = [
   {
@@ -68,17 +136,8 @@ const AboutSection = () => (
           viewport={{ once: true }}
           className="relative"
         >
-          <div className="rounded-3xl overflow-hidden border border-brand-beige shadow-sm aspect-video bg-brand-neutral">
-            <img
-              src={`${import.meta.env.BASE_URL}local.webp`}
-              alt="Local San Marcos Mascotas — Central de Abasto, Ciudad de México"
-              className="w-full h-full object-cover object-center"
-              width={1024}
-              height={576}
-              loading="lazy"
-            />
-          </div>
-          <p className="mt-3 text-center text-sm font-amsi text-brand-verde-oscuro/50">
+          <AboutGalleryCarousel />
+          <p className="mt-3 sm:mt-4 text-center text-sm font-amsi text-brand-verde-oscuro/50">
             Central de Abasto, Ciudad de México
           </p>
         </motion.div>

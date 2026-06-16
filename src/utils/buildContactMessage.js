@@ -39,19 +39,19 @@ export const buildRetailWhatsAppMessage = ({ profile, intent, productName }) => 
 
 export const buildBusinessWhatsAppMessage = ({ profile, form, intent }) => {
   const negocio = form.nombreNegocio?.trim();
-  const zona = form.zona?.trim();
+  const ubicacion = form.ubicacion?.trim() || form.zona?.trim();
   const marcas = joinMarcas(formatMarcas(form, intent));
 
-  if (negocio && zona && marcas) {
-    return `¡Hola! Les escribo de ${negocio}, en ${zona}. Me interesa surtir ${marcas} — ¿me apoyan con una cotización?`;
+  if (negocio && ubicacion && marcas) {
+    return `¡Hola! Les escribo de ${negocio}, en ${ubicacion}. Me interesa surtir ${marcas} — ¿me apoyan con una cotización?`;
   }
 
   if (negocio && marcas) {
     return `¡Hola! Les escribo de ${negocio}. Ando buscando surtir ${marcas}. ¿Me pueden cotizar?`;
   }
 
-  if (negocio && zona) {
-    return `¡Hola! Tengo ${negocio} en ${zona} y me gustaría surtir con ustedes. ¿Me dan información?`;
+  if (negocio && ubicacion) {
+    return `¡Hola! Tengo ${negocio} en ${ubicacion} y me gustaría surtir con ustedes. ¿Me dan información?`;
   }
 
   const type = getUserTypeById(profile?.typeId);
@@ -73,7 +73,7 @@ export const buildLeadEmailBody = ({ profile, form, intent, source }) => {
     `WhatsApp: ${form.whatsapp}`,
     `Correo: ${form.email}`,
     `Negocio: ${form.nombreNegocio || '—'}`,
-    `Zona: ${form.zona}`,
+    `Código postal: ${form.ubicacion || form.zona || '—'}`,
     `Marcas que busca: ${marcasText}`,
     form.volumen ? `Volumen: ${form.volumen}` : null,
     form.notas ? `Notas: ${form.notas}` : null,
