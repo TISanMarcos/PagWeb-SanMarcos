@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { MapPin, Clock } from 'lucide-react';
 import { whatsAppUrl, COTIZA_MESSAGE } from '../../constants/whatsapp';
 import { BRANCH, BRANCH_HOURS, BRANCH_MAP_ICONS } from '../../constants/branch';
+import SocialLinks from '../SocialLinks';
 
 const stats = [
   { value: '+1,000', label: 'clientes atendidos' },
@@ -10,12 +11,13 @@ const stats = [
 ];
 
 const BranchSection = () => (
-  <section id="sucursal" className="section-pad bg-brand-verde-oscuro text-white">
+  <section id="sucursal" className="section-pad aurora-surface grain-overlay grain-overlay--fine relative overflow-hidden bg-brand-verde-oscuro text-white">
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      className="relative z-[1] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
     >
       <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         <motion.div
@@ -23,7 +25,7 @@ const BranchSection = () => (
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-collier font-bold mb-5">Nuestra sucursal</h2>
+          <h2 className="section-title section-title--light mb-5">Nuestra sucursal</h2>
 
           <div className="space-y-6 font-amsi text-white/85">
             <div className="flex items-start gap-3">
@@ -95,7 +97,7 @@ const BranchSection = () => (
             >
               <img
                 src={BRANCH_MAP_ICONS.whatsapp}
-                alt=""
+                alt="Icono de WhatsApp"
                 className="h-10 sm:h-11 w-10 sm:w-11 shrink-0 object-contain"
               />
             </a>
@@ -108,7 +110,7 @@ const BranchSection = () => (
             >
               <img
                 src={BRANCH_MAP_ICONS.googleMaps}
-                alt=""
+                alt="Logo de Google Maps"
                 className="h-10 sm:h-11 w-auto max-w-[8.5rem] shrink-0 object-contain"
               />
             </a>
@@ -121,10 +123,11 @@ const BranchSection = () => (
             >
               <img
                 src={BRANCH_MAP_ICONS.waze}
-                alt=""
+                alt="Logo de Waze"
                 className="h-10 sm:h-11 w-auto max-w-[5rem] shrink-0 object-contain"
               />
             </a>
+            <SocialLinks />
           </div>
         </motion.div>
       </div>
@@ -137,7 +140,7 @@ const BranchSection = () => (
       >
         {stats.map(({ value, label }) => (
           <div key={label} className="text-center">
-            <p className="text-xl sm:text-2xl md:text-3xl font-collier font-black text-brand-verde-claro leading-tight">
+            <p className="text-xl sm:text-2xl md:text-3xl font-collier font-bold text-brand-verde-claro leading-tight">
               {value}
             </p>
             <p className="text-sm font-amsi text-white/70 mt-1">{label}</p>

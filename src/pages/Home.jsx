@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { scrollToSection } from '../utils/scrollToSection';
+import { getSectionFromPath } from '../constants/seo';
 
 import HeroSection from '../components/home/HeroSection';
 import QuickActionsSection from '../components/home/QuickActionsSection';
@@ -23,15 +24,18 @@ const Home = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const section = location.state?.scrollTo;
-    if (section) {
-      const timer = setTimeout(() => {
-        scrollToSection(section);
+    const section = location.state?.scrollTo ?? getSectionFromPath(location.pathname);
+    if (!section) return;
+
+    const timer = setTimeout(() => {
+      scrollToSection(section);
+      if (location.state?.scrollTo) {
         window.history.replaceState({}, document.title);
-      }, 150);
-      return () => clearTimeout(timer);
-    }
-  }, [location.state]);
+      }
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, [location.pathname, location.state]);
 
   return (
     <div className="flex flex-col bg-brand-crema overflow-x-hidden w-full">

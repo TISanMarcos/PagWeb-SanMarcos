@@ -27,7 +27,7 @@ const MarqueeRow = ({ reverse = false }) => {
 
   return (
     <motion.div
-      className={`flex w-max ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}
+      className={`flex w-max pl-6 sm:pl-10 ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}
       aria-hidden
     >
       {track.map((brand, i) => (
@@ -53,9 +53,9 @@ const BrandsMarqueeSection = () => {
       </motion.h2>
     </div>
 
-    <div className="relative space-y-6 md:space-y-8">
-      <motion.div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-brand-neutral to-transparent z-10 pointer-events-none" />
-      <motion.div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-brand-neutral to-transparent z-10 pointer-events-none" />
+    <div className="relative space-y-6 md:space-y-8 px-6 sm:px-10 md:px-16 overflow-hidden">
+      <motion.div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-brand-neutral to-transparent z-10 pointer-events-none" />
+      <motion.div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-brand-neutral to-transparent z-10 pointer-events-none" />
 
       <MarqueeRow />
       <MarqueeRow reverse />

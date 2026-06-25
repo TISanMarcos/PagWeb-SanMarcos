@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { fetchPromotions } from '../services/authService';
+import { usePromotions } from '../hooks/usePromotions';
 import PromoImage from '../components/PromoImage';
+import PromotionsSyncHint from '../components/promotions/PromotionsSyncHint';
 import { isPromotionPhoto } from '../utils/promotionImage';
 import { Gift, Timer, Copy, CheckCircle, ShieldCheck, Truck, Star, Tag, Award } from 'lucide-react';
 import { featureFlags } from '../constants/featureFlags';
@@ -33,38 +34,12 @@ const Promotions = () => {
 
   const [audience, setAudience] = useState(initialAudience);
   const [showAudienceGate, setShowAudienceGate] = useState(!initialAudience);
-  const [promotions, setPromotions] = useState([]);
-  const [loading, setLoading] = useState(Boolean(initialAudience));
+  const { promotions, loading, pollIntervalMs } = usePromotions({ enabled: Boolean(audience) });
   const [copiedCode, setCopiedCode] = useState(null);
   const [timeLeft, setTimeLeft] = useState({ hours: 14, minutes: 32, seconds: 59 });
   const [segmentFilter, setSegmentFilter] = useState(
     initialAudience ? audienceToSegment(initialAudience) : 'b2c',
   );
-
-  useEffect(() => {
-    if (!audience) return undefined;
-
-    let cancelled = false;
-    setLoading(true);
-
-    (async () => {
-      try {
-        const data = await fetchPromotions();
-        if (!cancelled) {
-          setPromotions(data.filter((p) => p.active !== false));
-        }
-      } catch (err) {
-        console.error('Error fetching promos', err);
-        if (!cancelled) setPromotions([]);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [audience]);
 
   useEffect(() => {
     if (!audience) return;
@@ -237,7 +212,7 @@ const Promotions = () => {
             <span className="font-bold text-xs uppercase tracking-[0.2em]">Oferta Estrella del Mes</span>
           </motion.div>
 
-          <motion.h1 initial={{ x: -30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }} className="text-6xl sm:text-7xl lg:text-8xl font-collier font-black text-white mb-6 tracking-tighter leading-none max-w-4xl drop-shadow-md">
+          <motion.h1 initial={{ x: -30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }} className="text-6xl sm:text-7xl lg:text-8xl font-collier font-bold text-white mb-6 tracking-tighter leading-none max-w-4xl drop-shadow-md">
             {heroPromo.title}
           </motion.h1>
 
@@ -251,7 +226,7 @@ const Promotions = () => {
               <div className="flex items-center justify-center gap-2 text-white/70 text-xs font-bold uppercase tracking-widest mb-2">
                 <Timer className="w-4 h-4" /> Termina En
               </div>
-              <div className="flex items-center justify-center gap-3 text-white font-mono text-3xl sm:text-4xl font-black">
+              <div className="flex items-center justify-center gap-3 text-white font-collier tabular-nums text-3xl sm:text-4xl font-bold">
                 <div>{String(timeLeft.hours).padStart(2, '0')}<span className="text-sm block mt-1 font-amsi uppercase tracking-widest text-white/50">HRS</span></div>
                 <div className="text-white/30 -mt-6">:</div>
                 <div>{String(timeLeft.minutes).padStart(2, '0')}<span className="text-sm block mt-1 font-amsi uppercase tracking-widest text-white/50">MIN</span></div>
@@ -270,8 +245,8 @@ const Promotions = () => {
                 <div className="absolute -left-4 w-8 h-8 rounded-full bg-black/20" />
                 <div className="absolute -right-4 w-8 h-8 rounded-full bg-black/20" />
                 <div className="border-t-2 border-b-2 border-dashed border-brand-naranja/30 px-6 py-2 flex flex-col items-center">
-                  <span className="text-brand-verde-oscuro text-[10px] font-black uppercase tracking-[0.2em] mb-1">CÓDIGO DE CUPÓN</span>
-                  <span className="text-2xl sm:text-3xl font-black text-brand-naranja font-collier tracking-wider">
+                  <span className="text-brand-verde-oscuro text-[10px] font-bold uppercase tracking-[0.2em] mb-1">CÓDIGO DE CUPÓN</span>
+                  <span className="text-2xl sm:text-3xl font-bold text-brand-naranja font-collier tracking-wider">
                     {copiedCode === heroPromo.couponCode ? '¡COPIADO!' : heroPromo.couponCode}
                   </span>
                 </div>
@@ -309,7 +284,7 @@ const Promotions = () => {
       {secondaryPromos.length > 0 && (
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 mt-24">
           <div className="flex items-center gap-4 mb-10">
-            <h2 className="text-3xl font-collier font-black text-brand-verde-oscuro">Más Ofertas Especiales</h2>
+            <h2 className="text-3xl font-collier font-bold text-brand-verde-oscuro">Más Ofertas Especiales</h2>
             <div className="flex-1 h-px bg-brand-beige" />
             <span className="text-sm font-bold text-brand-verde-oscuro/50 uppercase tracking-widest font-amsi">
               {visiblePromos.length} activas
@@ -333,7 +308,7 @@ const Promotions = () => {
                   {/* Floating Tag */}
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur shadow-sm rounded-full px-3 py-1 flex items-center gap-1.5">
                     <Tag className={`w-3.5 h-3.5 ${promo.segment === 'b2b' ? 'text-brand-verde-claro-oscuro' : 'text-brand-naranja'}`} />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-brand-verde-oscuro">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-brand-verde-oscuro">
                       {promo.segment === 'b2b' ? 'MAYOREO' : 'REGULAR'}
                     </span>
                   </div>
@@ -373,6 +348,8 @@ const Promotions = () => {
           </div>
         </div>
       )}
+
+      <PromotionsSyncHint pollIntervalMs={pollIntervalMs} />
     </div>
   );
 };

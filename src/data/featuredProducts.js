@@ -1,8 +1,17 @@
 const base = import.meta.env.BASE_URL;
 
 const img = (n) => `${base}products/${n}.jpeg`;
+const imgDestacado = (file) => `${base}products/destacados/${file}`;
 
 export const FEATURED_PRODUCTS = [
+  { id: 101, name: 'Alpiste Simple', image: imgDestacado('1-alpiste-simple.png'), brand: 'Granos y semillas' },
+  { id: 102, name: 'Alpiste Compuesto', image: imgDestacado('2-alpiste-compuesto.png'), brand: 'Granos y semillas' },
+  { id: 103, name: 'Maíz Quebrado', image: imgDestacado('3-maiz-quebrado.png'), brand: 'Granos y semillas' },
+  { id: 104, name: 'Carnaza', image: imgDestacado('4-carnaza.png'), brand: 'Snacks' },
+  { id: 105, name: 'Cat Chow Adultos', image: imgDestacado('5-cat-chow-adultos.png'), brand: 'Purina Cat Chow' },
+  { id: 106, name: 'Minino Plus Adultos', image: imgDestacado('6-minino-plus-adultos.png'), brand: 'Minino Plus' },
+  { id: 107, name: 'Jabón Asuntol', image: imgDestacado('7-jabon-asuntol.png'), brand: 'Asuntol' },
+  { id: 108, name: 'Jabón Vetriderm', image: imgDestacado('8-jabon-vetriderm.png'), brand: 'Vetriderm' },
   { id: 1, name: 'Atado Arena Alfa Cat 4/6kg', image: img(1), brand: 'Alfa Cat' },
   { id: 2, name: 'Royal Canin Lata Dog Gastro Low Fat 385gr', image: img(2), brand: 'Royal Canin' },
   { id: 3, name: 'Royal Canin Lata Dog Gastro High Energy 385gr', image: img(3), brand: 'Royal Canin' },

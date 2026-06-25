@@ -10,14 +10,10 @@ const SealMark = ({ className = '', enlarged = false }) => {
     : 'w-28 h-28 sm:w-32 sm:h-32';
 
   return (
-    <div
-      className={`relative shrink-0 ${box} ${className}`}
-      role="img"
-      aria-label="Sello San Marcos — Calidad, confianza, desde 1984"
-    >
+    <div className={`relative shrink-0 ${box} ${className}`}>
       <img
         src={STAMP}
-        alt=""
+        alt="Sello San Marcos — Calidad, confianza, desde 1984"
         draggable={false}
         className="relative w-full h-full object-contain"
       />

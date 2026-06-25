@@ -1,15 +1,27 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { scrollToSection } from '../utils/scrollToSection';
+import { getSectionPath } from '../constants/seo';
 
 const ScrollNavLink = ({ sectionId, children, className = '', onClick }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const sectionPath = getSectionPath(sectionId);
+  const href = sectionPath ?? `/#${sectionId}`;
 
   const handleClick = (e) => {
     e.preventDefault();
     onClick?.();
 
-    const onHome = location.pathname === '/' || location.pathname === '';
+    if (sectionPath) {
+      if (location.pathname === sectionPath) {
+        scrollToSection(sectionId);
+      } else {
+        navigate(sectionPath);
+      }
+      return;
+    }
+
+    const onHome = location.pathname === '/';
 
     if (onHome) {
       scrollToSection(sectionId);
@@ -19,7 +31,7 @@ const ScrollNavLink = ({ sectionId, children, className = '', onClick }) => {
   };
 
   return (
-    <a href={`#${sectionId}`} onClick={handleClick} className={className}>
+    <a href={href} onClick={handleClick} className={className}>
       {children}
     </a>
   );

@@ -15,7 +15,7 @@ export const loadBrandFonts = () => {
     }
     @font-face {
       font-family: 'Amsi Pro';
-      src: url('${base}${enc('fonts/Amsi Pro/Amsi Pro.woff2')}') format('woff2');
+      src: url('${base}${enc('fonts/AmsiPro/AmsiPro.woff2')}') format('woff2');
       font-weight: 100 900;
       font-style: normal;
       font-display: swap;

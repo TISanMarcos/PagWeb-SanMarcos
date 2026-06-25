@@ -84,7 +84,7 @@ const WhatsAppCheckout = () => {
                         </span>
                         <div className="flex items-center justify-between mt-1">
                           <span className="text-[10px] text-brand-verde-oscuro/60 font-amsi">{item.quantity} pz</span>
-                          <span className="font-black text-brand-verde-claro-oscuro font-collier text-[11px]">
+                          <span className="font-bold text-brand-verde-claro-oscuro font-collier text-[11px]">
                             ${(item.price * item.quantity).toLocaleString()}
                           </span>
                         </div>
@@ -97,7 +97,7 @@ const WhatsAppCheckout = () => {
               <div className="border-t border-brand-beige/80 pt-4">
                 <div className="flex justify-between items-end mb-4">
                   <span className="font-collier font-bold text-brand-verde-oscuro/50 text-xs">Total</span>
-                  <span className="text-2xl font-black text-brand-naranja font-collier tracking-tighter">
+                  <span className="text-2xl font-bold text-brand-naranja font-collier tracking-tighter">
                     ${total.toLocaleString()}
                   </span>
                 </div>

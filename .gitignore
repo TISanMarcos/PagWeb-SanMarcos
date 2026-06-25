@@ -1,6 +1,8 @@
 # Logs
 logs
 *.log
+.npm-install.log
+.vite-dev.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -10,13 +12,14 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+deploy-ionos.zip
 *.local
 .env
 .env.*
 !.env.example
-backend/.env
-
-# Catálogo SEPOMEX (~64 MB). Copiar CP.xml a la raíz y ejecutar npm run build:cp
+!.env.local.example
+!.env.production.example
+!.env.production.example (~64 MB). Copiar CP.xml a la raíz y ejecutar npm run build:cp
 CP.xml
 
 # Editor directories and files

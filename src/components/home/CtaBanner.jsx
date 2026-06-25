@@ -6,12 +6,13 @@ const CtaBanner = () => {
   const { startContactFlow } = useContactFlow();
 
   return (
-    <section className="py-12 md:py-14 bg-brand-naranja">
+    <section className="grain-overlay grain-overlay--fine relative overflow-hidden py-12 md:py-14 bg-brand-naranja">
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="max-w-4xl mx-auto px-4 text-center"
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-[1] max-w-4xl mx-auto px-4 text-center"
       >
         <h2 className="text-2xl md:text-3xl font-collier font-bold text-white mb-4">
           ¿Listo para vender y comprar mejor?

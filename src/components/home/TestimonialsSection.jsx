@@ -49,7 +49,7 @@ const TestimonialsSection = () => (
             <footer className="flex items-center gap-4 pt-4 border-t border-brand-beige/60">
               <img
                 src={image}
-                alt=""
+                alt={`Foto de perfil de ${author}`}
                 className="w-14 h-14 rounded-full object-cover ring-2 ring-brand-beige shadow-sm"
                 loading="lazy"
                 referrerPolicy="no-referrer"

@@ -32,6 +32,7 @@ jobs:
         run: npm run build
         env:
           VITE_WHATSAPP_NUMBER: ${{ secrets.VITE_WHATSAPP_NUMBER || '525556943312' }}
+          VITE_GOOGLE_SHEETS_PROMOTIONS_URL: ${{ secrets.VITE_GOOGLE_SHEETS_PROMOTIONS_URL }}
 
       - name: Deploy to gh-pages
         uses: JamesIves/github-pages-deploy-action@v4

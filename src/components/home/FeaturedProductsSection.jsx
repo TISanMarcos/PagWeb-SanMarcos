@@ -7,7 +7,7 @@ const productsRowTwo = FEATURED_PRODUCTS.slice(midpoint);
 
 const ProductCard = ({ product }) => (
   <article
-    className="flex-shrink-0 w-40 sm:w-44 md:w-48 mx-3 md:mx-4 bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm border border-brand-beige/80 flex flex-col transition-transform hover:scale-[1.02]"
+    className="flex-shrink-0 w-40 sm:w-44 md:w-48 mx-3 md:mx-4 bg-white rounded-2xl overflow-hidden border border-[rgba(0,48,32,0.06)] shadow-[0_1px_2px_rgba(0,48,32,0.05),0_8px_22px_-14px_rgba(0,48,32,0.16)] flex flex-col transition-all hover:-translate-y-1 hover:shadow-[0_2px_4px_rgba(0,48,32,0.06),0_18px_38px_-18px_rgba(240,96,32,0.28)]"
     title={product.name}
   >
     <div className="bg-brand-verde-oscuro px-2.5 py-1.5 sm:py-2">
@@ -50,12 +50,13 @@ const ProductMarqueeRow = ({ products, reverse = false }) => {
 };
 
 const FeaturedProductsSection = () => (
-  <section id="productos" className="section-alt pt-14 md:pt-20 pb-8 md:pb-10 overflow-hidden">
+  <section id="productos" className="section-alt aurora-surface aurora-surface--light grain-overlay grain-overlay--sand relative pt-14 md:pt-20 pb-8 md:pb-10 overflow-hidden">
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 md:mb-10"
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="relative z-[1] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 md:mb-10"
     >
       <div className="max-w-3xl">
         <h2 className="section-title mb-3">Productos destacados</h2>
@@ -66,7 +67,7 @@ const FeaturedProductsSection = () => (
       </div>
     </motion.div>
 
-    <div className="relative space-y-6 md:space-y-8" aria-label="Productos destacados en movimiento">
+    <div className="relative z-[1] space-y-6 md:space-y-8" aria-label="Productos destacados en movimiento">
       <ProductMarqueeRow products={productsRowOne} />
       <ProductMarqueeRow products={productsRowTwo} reverse />
     </div>

@@ -69,12 +69,13 @@ const BenefitsSection = () => {
   };
 
   return (
-    <section id="beneficios" className="section-pad section-surface pt-10 md:pt-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="beneficios" className="section-pad section-surface aurora-surface aurora-surface--light grain-overlay grain-overlay--sand relative overflow-hidden pt-10 md:pt-12">
+      <div className="relative z-[1] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="text-center max-w-3xl mx-auto"
         >
           <h2 className="section-title">
@@ -99,10 +100,10 @@ const BenefitsSection = () => {
                 type="button"
                 aria-label={ariaLabel}
                 onClick={() => handlePillarClick({ action, sectionId })}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
+                initial={{ opacity: 0, y: 28, scale: 0.94 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: i * 0.09, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -6 }}
                 whileTap={{ scale: 0.98 }}
                 className={`${color} ${text} rounded-2xl md:rounded-3xl p-5 md:p-6 shadow-premium flex flex-col items-center text-center h-full transition-shadow hover:shadow-lg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-naranja focus-visible:ring-offset-2 ${
@@ -115,7 +116,7 @@ const BenefitsSection = () => {
                 <h3
                   className={`font-collier font-bold text-xl md:text-2xl leading-snug mb-2 w-full ${titleText} ${
                     highlight
-                      ? 'underline decoration-2 underline-offset-4 decoration-current font-black'
+                      ? 'underline decoration-2 underline-offset-4 decoration-current font-bold'
                       : ''
                   }`}
                 >

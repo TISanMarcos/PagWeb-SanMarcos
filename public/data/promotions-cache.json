@@ -1,0 +1,13 @@
+[
+  {
+    "id": "promo1",
+    "title": "¡ENVÍO GRATIS!",
+    "description": "En todas tus compras mayores a $999.",
+    "segment": "b2c",
+    "active": true,
+    "couponCode": "ENVIO-ZERO",
+    "imageUrl": "https://images.unsplash.com/photo-1695222833131-54ee679ae8e5?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "startDate": null,
+    "endDate": null
+  }
+]

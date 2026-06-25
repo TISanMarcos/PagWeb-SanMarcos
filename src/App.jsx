@@ -1,53 +1,39 @@
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useAppStore } from './store/useAppStore';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Header from './components/Header';
 import WhatsAppFab from './components/WhatsAppFab';
 import ContactFlowManager from './components/contact/ContactFlowManager';
+import PageMeta from './components/seo/PageMeta';
+import JsonLd from './components/seo/JsonLd';
 import Home from './pages/Home';
 import Promotions from './pages/Promotions';
-import Catalog from './pages/Catalog';
-import Auth from './pages/Auth';
-import Dashboard from './pages/Dashboard';
-import Admin from './pages/Admin';
-
-const ProtectedRoute = ({ children, roles }) => {
-  const { user, role } = useAppStore();
-  if (!user) return <Navigate to="/auth" />;
-  if (roles && !roles.includes(role)) return <Navigate to="/" />;
-  return children;
-};
+import Privacy from './pages/Privacy';
+import { SECTION_ROUTES } from './constants/seo';
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
+      <PageMeta />
+      <JsonLd />
       <div className="min-h-screen flex flex-col bg-brand-crema overflow-x-hidden">
         <Header />
         <main className="flex-grow pt-16">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<Navigate to="/" replace state={{ scrollTo: 'nosotros' }} />} />
-            <Route path="/promotions" element={<Promotions />} />
-            <Route path="/auth/:type?" element={<Auth />} />
-            <Route path="/catalog" element={<Catalog />} />
-            
-            <Route path="/dashboard" element={
-              <ProtectedRoute roles={['b2c', 'b2b']}>
-                <Dashboard />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/admin" element={
-              <ProtectedRoute roles={['admin']}>
-                <Admin />
-              </ProtectedRoute>
-            } />
+            {SECTION_ROUTES.map(({ path }) => (
+              <Route key={path} path={path} element={<Home />} />
+            ))}
+            <Route path="/promociones" element={<Promotions />} />
+            <Route path="/promotions" element={<Navigate to="/promociones" replace />} />
+            <Route path="/aviso-de-privacidad" element={<Privacy />} />
+            <Route path="/about" element={<Navigate to="/nosotros" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
         <WhatsAppFab />
         <ContactFlowManager />
       </div>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

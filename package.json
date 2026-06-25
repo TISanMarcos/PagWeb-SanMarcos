@@ -1,16 +1,18 @@
 {
-  "name": "zonapet",
+  "name": "san-marcos-web",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "setup:env": "node scripts/setup-env-local.mjs",
+    "dev:sheets": "node scripts/setup-env-local.mjs && node scripts/check-sheets-env.mjs && node scripts/sync-promotions.mjs && vite",
     "build:cp": "node scripts/build-postal-codes.mjs",
-    "build": "npm run build:cp && vite build",
-    "lint": "eslint .",
+    "sync:promotions": "node scripts/sync-promotions.mjs",
+    "build": "npm run build:cp && npm run sync:promotions && vite build",
+    "build:ionos": "npm run build",
     "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "lint": "eslint ."
   },
   "dependencies": {
     "framer-motion": "^12.38.0",
@@ -30,7 +32,6 @@
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
-    "gh-pages": "^6.3.0",
     "globals": "^17.4.0",
     "postcss": "^8.5.9",
     "tailwindcss": "^3.4.19",

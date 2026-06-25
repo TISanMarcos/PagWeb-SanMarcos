@@ -1,15 +1,9 @@
 import { motion } from 'framer-motion';
-import { useLocation } from 'react-router-dom';
 import WhatsAppIcon from './icons/WhatsAppIcon';
 import { useContactFlow } from '../hooks/useContactFlow';
 
 const WhatsAppFab = () => {
-  const { pathname } = useLocation();
   const { startContactFlow } = useContactFlow();
-  const isHome = pathname === '/' || pathname === '';
-
-  if (isHome) return null;
-
   return (
     <motion.button
       type="button"

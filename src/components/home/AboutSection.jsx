@@ -13,6 +13,14 @@ const galleryImages = [
     src: `${base}central_abastos.jpeg`,
     alt: 'Vista de Central de Abasto, Ciudad de México',
   },
+  {
+    src: `${base}historia-mercado-la-merced.png`,
+    alt: 'Mercado de la Merced, Ciudad de México — fotografía histórica',
+  },
+  {
+    src: `${base}historia-central-abasto-dc.png`,
+    alt: 'Central de Abasto sección D-C, Ciudad de México al atardecer',
+  },
 ];
 
 const GALLERY_ROTATE_MS = 5500;
@@ -88,20 +96,22 @@ const highlights = [
 ];
 
 const AboutSection = () => (
-  <section id="nosotros" className="section-pad section-surface">
+  <section id="nosotros" className="section-pad section-surface aurora-surface aurora-surface--light grain-overlay grain-overlay--sand relative overflow-hidden">
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      className="relative z-[1] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
     >
       <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-12 md:mb-16 px-1">
         <h2 className="section-title mb-4">Nuestra Historia y Compromiso</h2>
         <p className="font-amsi text-brand-verde-oscuro/75 text-lg leading-relaxed">
-          San Marcos Mascotas nació, desde 1984, como un negocio familiar especializado en la distribución de
-          alimento para mascotas y productos pecuarios. A lo largo de los años, ha consolidado su reputación gracias
-          a la variedad de productos, la rapidez en las entregas y la atención personalizada. Actualmente, atiende a
-          más de 2,000 clientes, incluyendo mayoristas, tiendas de mascotas y veterinarios.
+          San Marcos Mascotas nació en 1984 en el Mercado de la Merced como un negocio familiar
+          especializado en la distribución de alimento para mascotas y productos pecuarios. Hoy
+          operamos desde la Central de Abasto en Iztapalapa, CDMX, con más de 40 años de experiencia,
+          variedad de productos, rapidez en entregas y atención personalizada para más de 2,000 clientes
+          mayoristas, tiendas de mascotas y veterinarios.
         </p>
       </div>
 
@@ -114,7 +124,8 @@ const AboutSection = () => (
         >
           <h3 className="font-collier font-bold text-2xl text-brand-verde-oscuro">Nuestra Historia</h3>
           <p>
-            Establecidos desde 1984 en el mercado de la Merced y con más de 30 años de experiencia ininterrumpida
+            Nacimos en 1984 en el Mercado de la Merced y, con el crecimiento del negocio, hoy operamos
+            desde la Central de Abasto en Iztapalapa. Con más de 40 años de experiencia ininterrumpida
             dentro del giro, hemos generado sinergia con nuestros clientes, proveedores y socios comerciales,
             ayudando a crecer y fortalecer cada uno de los negocios a los cuales nos hemos hecho partícipes.
           </p>
@@ -152,10 +163,10 @@ const AboutSection = () => (
         {highlights.map(({ icon: Icon, value, label }) => (
           <div
             key={label}
-            className="text-center p-6 rounded-2xl bg-white border border-brand-beige/80 shadow-sm"
+            className="text-center p-6 rounded-2xl bg-white/85 backdrop-blur-sm border border-[rgba(0,48,32,0.06)] shadow-[0_1px_2px_rgba(0,48,32,0.05),0_10px_28px_-14px_rgba(0,48,32,0.16)] transition-all hover:-translate-y-1 hover:shadow-[0_2px_4px_rgba(0,48,32,0.06),0_22px_44px_-18px_rgba(240,96,32,0.26)]"
           >
             <Icon className="w-8 h-8 text-brand-naranja mx-auto mb-3" aria-hidden />
-            <p className="text-2xl md:text-3xl font-collier font-black text-brand-verde-oscuro">{value}</p>
+            <p className="text-2xl md:text-3xl font-collier font-bold text-brand-verde-oscuro">{value}</p>
             <p className="text-sm font-amsi text-brand-verde-oscuro/65 mt-1">{label}</p>
           </div>
         ))}

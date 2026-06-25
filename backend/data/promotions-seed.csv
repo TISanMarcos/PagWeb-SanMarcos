@@ -1,7 +1,0 @@
-id,title,description,segment,active,couponCode,imageUrl,imageEmoji,colorStart,colorEnd,startDate,endDate
-promo1,¡ENVÍO GRATIS!,En todas tus compras mayores a $999.,b2c,TRUE,ENVIO-ZERO,https://images.unsplash.com/photo-1612817288484-6f916f6dcb1f?w=800&q=80,,,,
-promo2,BONO EL PARIÁN,Cuentas B2B reciben 5% extra en su línea de crédito.,b2b,TRUE,B2B-BONUS,,🤝,#003020,#004d32,,
-promo3,2x1 EN PREMIOS,Bolsas de Masticables naturales al precio de una.,b2c,TRUE,DOBLE-PREMIO,,🎁,#e5243a,#c41e32,,
-promo4,DESCUENTO POR TARIMA,Obtén 10% de descuento directo en pallets completos.,b2b,TRUE,TARIMA-10,,📦,#80c060,#4a8f38,,
-promo5,KITS DE ADOPCIÓN,"Correa, tazón y alimento inicial con 20% off.",b2c,TRUE,ADOPTA-MASCOTA,,🐕,#f06020,#d9541a,,
-promo6,LIQUIDACIÓN JUGUETES,50 piezas por caja a mitad de costo de lista.,b2b,TRUE,LIQUIDA-50,🎯,#e5243a,#c41e32,,

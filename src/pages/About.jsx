@@ -50,7 +50,7 @@ const About = () => {
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }} 
             transition={{ duration: 1, delay: 0.5 }}
-            className="text-base md:text-xl font-amsi leading-relaxed text-white/80 drop-shadow-md max-w-2xl font-light mb-12"
+            className="text-base md:text-xl font-amsi leading-relaxed text-white/80 drop-shadow-md max-w-2xl font-normal mb-12"
           >
             No hacemos "solo alimento". En San Marcos alimentamos el vínculo más puro de las familias, y con El Parián impulsamos el motor del comercio de mascotas en México.
           </motion.p>
@@ -83,7 +83,7 @@ const About = () => {
             <h2 className="text-3xl md:text-5xl font-collier font-bold mb-6 tracking-tight">
               Un Ecosistema <br/> de <span className="text-brand-verde-claro border-b-2 border-brand-verde-claro/30 pb-1">Calidad Integral</span>
             </h2>
-            <p className="text-white/70 font-amsi md:text-lg leading-relaxed font-light">
+            <p className="text-white/70 font-amsi md:text-lg leading-relaxed font-normal">
               Respaldamos la nutrición y logística con décadas de experiencia. Diseñamos modelos operativos exactos para dueños de mascotas y para líderes comerciales.
             </p>
           </div>

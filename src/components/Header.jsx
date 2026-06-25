@@ -13,7 +13,7 @@ const navItems = [
   { label: 'Productos', sectionId: 'productos', type: 'scroll' },
   { label: 'Nosotros', sectionId: 'nosotros', type: 'scroll' },
   ...(featureFlags.catalog ? [{ label: 'Catálogo', to: '/catalog', type: 'route' }] : []),
-  { label: 'Promociones', to: '/promotions', type: 'route' },
+  { label: 'Promociones', to: '/promociones', type: 'route' },
 ];
 
 const Header = () => {
@@ -39,9 +39,9 @@ const Header = () => {
     }`;
 
   return (
-    <header className="fixed w-full z-50 bg-brand-crema/95 backdrop-blur-md shadow-sm border-b border-brand-beige/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <header className="fixed w-full z-50 h-16 bg-brand-crema/95 backdrop-blur-md shadow-sm border-b border-brand-beige/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div className="flex justify-between items-center h-full">
           <Link to="/" className="flex items-center gap-2 group shrink-0" onClick={closeMobile}>
             <img
               src={`${import.meta.env.BASE_URL}logo_sm_horizontal_bicolor.png`}
