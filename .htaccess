@@ -1,0 +1,42 @@
+# MIME types para formatos modernos de imagen
+AddType image/avif .avif
+AddType image/webp .webp
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # --- Redirecciones 301: URLs antiguas (WordPress/WooCommerce) → sitio actual ---
+
+  # Cuenta / login (ya no existen)
+  RewriteRule ^(my-account|mi-cuenta|crear-cuenta|registro|register|login|iniciar-sesion|auth|wp-login\.php)/?$ / [R=301,L,NC]
+
+  # Acerca de / FAQ / empleo
+  RewriteRule ^(about|about-us|acerca-de-nosotros|quienes-somos|trabaja-con-nosotros|careers|empleo|preguntas-frecuentes|faq)/?$ /nosotros [R=301,L,NC]
+
+  # Contacto
+  RewriteRule ^(contacto|contact|contactanos)/?$ /sucursal [R=301,L,NC]
+
+  # Aviso de privacidad
+  RewriteRule ^(politica-de-privacidad|privacidad|aviso-de-privacidad-integro)/?$ /aviso-de-privacidad [R=301,L,NC]
+
+  # Tienda / catálogo / categorías de productos
+  RewriteRule ^(shop|tienda|catalog|catalogo)/?$ /productos [R=301,L,NC]
+  RewriteRule ^product-category/.* /productos [R=301,L,NC]
+  RewriteRule ^categoria-producto/.* /productos [R=301,L,NC]
+  RewriteRule ^producto/.* /productos [R=301,L,NC]
+  RewriteRule ^product/.* /productos [R=301,L,NC]
+
+  # Promociones (inglés → español)
+  RewriteRule ^promotions/?$ /promociones [R=301,L,NC]
+
+  # Rutas WordPress residuales
+  RewriteRule ^wp-admin/.* / [R=301,L,NC]
+  RewriteRule ^wp-content/.* / [R=301,L,NC]
+  RewriteRule ^feed/?$ / [R=301,L,NC]
+
+  # --- SPA: servir index.html para rutas del frontend ---
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.html [L]
+</IfModule>
